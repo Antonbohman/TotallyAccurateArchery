@@ -5,9 +5,9 @@
 
 #include "Global.h"
 #include "Graphic.h"
-/*#include "Input.h"
+#include "Input.h"
 #include "Menu.h"
-#include "Game.h"*/
+#include "Game.h"
 
 using namespace std::chrono;
 
@@ -20,17 +20,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	time_point<high_resolution_clock>start = high_resolution_clock::now();
 	time_point<high_resolution_clock>end = high_resolution_clock::now();
 	time_point<high_resolution_clock>endDraw = high_resolution_clock::now();
-	duration<double, std::ratio<1, 30>> delta_run;
-	duration<double, std::ratio<1, 30>> delta_draw;
+	duration<double, std::ratio<1, CPS>> delta_run;
+	duration<double, std::ratio<1, FPS>> delta_draw;
 
 	MSG msg = { 0 };
 	HWND wndHandle = InitWindow(hInstance);
 
 	if (wndHandle)
 	{
-		Graphic G(wndHandle);
-		//Input Input();
+		//create graphical and input interface
+		Graphic graphic(wndHandle);
+		Input input(wndHandle);
 
+		//create game and meny object
+		Menu menu(&graphic,&input);
+		Game game(&graphic,&input);
+		
 		ShowWindow(wndHandle, nCmdShow);
 
 		while (WM_QUIT != msg.message) {
@@ -46,22 +51,24 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				start = high_resolution_clock::now();
 				
 				//Upate graphical flags
-				G.Update();
-				
-				//updateKeyAndMouseInput(&freeFlight, &culling, &showCullingObjects, &wireFrame, &forceSingle, &onlyQuadCulling, &camFrustum, &renderOnce, delta);
+				graphic.Update();
 
-				/*if (renderOpt & RENDER_MENY) {
-					meny.run(delta_run);
-					if (delta_draw)
-						meny.draw();
+				//update inputs
+				input.Update();
+
+				if (renderOpt & RENDER_GAME) {
+					game.Run(0 /*delta_run.count*/);
+					if (false /*delta_draws*/) {
+						game.Draw();
+						graphic.Process();
+					}
 				} else {
-					game.run(delta_run);
-					if (delta_draw)
-						game.draw();
-				}*/
-
-				//Process one cycle of rendering
-				G.Process();
+					menu.Run(0 /*delta_run.count*/);
+					if (false /*delta_draws*/) {
+						menu.Draw();
+						graphic.Process();
+					}
+				}
 			}
 		}
 
@@ -94,7 +101,7 @@ HWND InitWindow(HINSTANCE hInstance) {
 
 	HWND handle = CreateWindow(
 		L"BTH_D3D_DEMO",
-		windowName,
+		L"Totally Accurate Archery",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,

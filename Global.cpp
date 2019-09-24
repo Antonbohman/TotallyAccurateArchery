@@ -1,9 +1,9 @@
 #include "Global.h"
-/*
 // rendering options
-ULONG renderOpt = RENDER_FREE_FLIGHT;
-UINT renderMode = R_DEFAULT;
+ULONG renderOpt = RENDER_NULL;
+UINT renderMode = 0;
 
+/*
 // viewport
 D3D11_VIEWPORT* vp = nullptr;
 D3D11_VIEWPORT svp[4];

@@ -19,6 +19,10 @@ using namespace DirectX;
 #define VERSION_MINOR 1
 #define VERSION_PATCH 0
 
+// refresh rates
+#define CPS 30
+#define FPS 30
+
 // window size
 #define W_WIDTH 1280.0f
 #define W_HEIGHT 720.0f
@@ -40,22 +44,9 @@ using namespace DirectX;
 
 // render types
 enum RenderFlags {
-	RENDER_DEFAULT = 0x00000000UL,
-	RENDER_MULTI_VIEWPORT = 0x00000001UL,
+	RENDER_NULL = 0x00000000UL,
+	RENDER_GAME = 0x00000001UL,
 	RENDER_WIREFRAME = 0x00000010UL,
-	RENDER_FREE_FLIGHT = 0x00000100UL,
-	RENDER_CULLING = 0x00001000UL,
-	RENDER_BLOOM = 0x00010000UL,
-};
-
-// render types
-enum KeyValues {
-	RENDER_DEFAULT = 0x00000000UL,
-	RENDER_MULTI_VIEWPORT = 0x00000001UL,
-	RENDER_WIREFRAME = 0x00000010UL,
-	RENDER_FREE_FLIGHT = 0x00000100UL,
-	RENDER_CULLING = 0x00001000UL,
-	RENDER_BLOOM = 0x00010000UL,
 };
 
 
@@ -159,11 +150,12 @@ struct ReflectionAmount
 /////////////////////
 // Variables       //
 /////////////////////
-/*
+
 // rendering options
 extern ULONG renderOpt;
 extern UINT renderMode;
 
+/*
 // viewport
 extern D3D11_VIEWPORT* vp;
 extern D3D11_VIEWPORT svp[4];

@@ -9,7 +9,7 @@
 
 using namespace DirectX;
 
-bool keyReleased = true;
+//bool keyReleased = true;
 
 class Graphic {
 private:
@@ -29,7 +29,7 @@ public:
 	ID3D11DeviceContext* gDeviceContext = nullptr;
 
 	Graphic(HWND wndHandle);
-	virtual ~Graphic();
+	~Graphic();
 
 	void Update();
 	void Process();

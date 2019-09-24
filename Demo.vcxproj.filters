@@ -13,8 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\shaders">
-      <UniqueIdentifier>{ac5c55ad-b05b-48c8-b5e9-88414e184044}</UniqueIdentifier>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{4074ea4c-9edc-4c76-b455-5ec20fa9c2e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{7947ed84-c6aa-43c7-a334-40d448c8fd04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{152a70fc-51da-412a-ac07-21241466b68e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,19 +45,25 @@
     <ClCompile Include="Graphic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="shaders\WireframeFragment.hlsl">
+      <Filter>Shader Files</Filter>
+    </FxCompile>
     <FxCompile Include="shaders\Fragment.hlsl">
-      <Filter>Source Files\shaders</Filter>
+      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="shaders\Geometry.hlsl">
-      <Filter>Source Files\shaders</Filter>
+      <Filter>Shader Files</Filter>
     </FxCompile>
     <FxCompile Include="shaders\Vertex.hlsl">
-      <Filter>Source Files\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="shaders\WireframeFragment.hlsl">
-      <Filter>Source Files\shaders</Filter>
+      <Filter>Shader Files</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,10 +88,14 @@
     <ClInclude Include="Graphic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="dump.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="dump.txt" />
   </ItemGroup>
 </Project>
