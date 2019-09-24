@@ -17,9 +17,9 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	//create two timestamps variables and a delta between them to adjust update frequency
-	time_point<high_resolution_clock>start = high_resolution_clock::now();
+	time_point<high_resolution_clock>startRun = high_resolution_clock::now();
+	time_point<high_resolution_clock>startDraw = high_resolution_clock::now();
 	time_point<high_resolution_clock>end = high_resolution_clock::now();
-	time_point<high_resolution_clock>endDraw = high_resolution_clock::now();
 	duration<double, std::ratio<1, CPS>> delta_run;
 	duration<double, std::ratio<1, FPS>> delta_draw;
 
@@ -33,8 +33,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		Input input(wndHandle);
 
 		//create game and meny object
-		Menu menu(&graphic,&input);
-		Game game(&graphic,&input);
+		Game game(&graphic, &input);
+		Menu menu(&graphic, &input, &game);
 		
 		ShowWindow(wndHandle, nCmdShow);
 
@@ -44,27 +44,30 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				DispatchMessage(&msg);
 			}
 			else {
-				//set timestamps and calculate delta between start end end time
-				end = high_resolution_clock::now();
-				delta_run = end - start;
-				delta_draw = end - start;
-				start = high_resolution_clock::now();
-				
 				//Upate graphical flags
 				graphic.Update();
 
 				//update inputs
 				input.Update();
 
+				//set timestamps and calculate delta between start end end time
+				end = high_resolution_clock::now();
+				delta_run = end - startRun;
+				delta_draw = end - startDraw;
+				
 				if (renderOpt & RENDER_GAME) {
-					game.Run(0 /*delta_run.count*/);
-					if (false /*delta_draws*/) {
+					startRun = high_resolution_clock::now();
+					game.Run(delta_run.count());
+					if (delta_draw.count() > 1.0f) {
+						startDraw = high_resolution_clock::now();
 						game.Draw();
 						graphic.Process();
 					}
 				} else {
-					menu.Run(0 /*delta_run.count*/);
-					if (false /*delta_draws*/) {
+					startRun = high_resolution_clock::now();
+					menu.Run(delta_run.count());
+					if (delta_draw.count() > 1.0f) {
+						startDraw = high_resolution_clock::now();
 						menu.Draw();
 						graphic.Process();
 					}
@@ -93,15 +96,12 @@ HWND InitWindow(HINSTANCE hInstance) {
 	RECT rc = { 0, 0, W_WIDTH, W_HEIGHT };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-	std::string version = "Totally Accurate Archery - " + VERSION_MAJOR;
-	version.append("." + VERSION_MINOR);
-	version.append("." + VERSION_PATCH);
-
-	LPCWSTR windowName = std::wstring(version.begin(), version.end()).c_str();
+	std::wstring version = L"Totally Accurate Archery - " + std::to_wstring(VERSION_MAJOR) + L"." + std::to_wstring(VERSION_MINOR) + L"." + std::to_wstring(VERSION_PATCH);
 
 	HWND handle = CreateWindow(
 		L"BTH_D3D_DEMO",
-		L"Totally Accurate Archery",
+		(LPCWSTR)version.c_str(),
+		//L"Totally Accurate Archery",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,

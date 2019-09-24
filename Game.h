@@ -12,6 +12,8 @@ public:
 	Game(Graphic* _graphic, Input* _input);
 	~Game();
 
+	void NewGame();
+
 	void Run(double delta);
 	void Draw();
 };

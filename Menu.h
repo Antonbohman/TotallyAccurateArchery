@@ -7,9 +7,10 @@ class Menu {
 private:
 	Graphic* graphic;
 	Input* input;
+	Game* game;
 
 public:
-	Menu(Graphic* _graphic, Input* _input);
+	Menu(Graphic* _graphic, Input* _input, Game* _game);
 	~Menu();
 
 	void Run(double delta);
