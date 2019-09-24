@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Graphic.h"
 #include "Input.h"
+#include "Game.h"
 
 class Menu {
 private:

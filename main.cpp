@@ -101,7 +101,6 @@ HWND InitWindow(HINSTANCE hInstance) {
 	HWND handle = CreateWindow(
 		L"BTH_D3D_DEMO",
 		(LPCWSTR)version.c_str(),
-		//L"Totally Accurate Archery",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
@@ -120,8 +119,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+		
 	case WM_ACTIVATEAPP:
-
 		//Keyboard::ProcessMessage(message, wParam, lParam);
 		//Mouse::ProcessMessage(message, wParam, lParam);
 		break;
