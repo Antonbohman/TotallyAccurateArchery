@@ -5,8 +5,8 @@ Input::Input(HWND _wndHandle) {
 	mouseInput = std::make_unique<DirectX::Mouse>();
 	mouseInput->SetWindow(_wndHandle);
 
-	UINT nrOfKeys = 0;
-	KeyInfo* keyList = new KeyInfo[nrOfKeys];
+	nrOfKeys = 0;
+	keyList = new KeyInfo[nrOfKeys];
 
 	//initKey(0, Key::W, false);
 
