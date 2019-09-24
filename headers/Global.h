@@ -49,6 +49,14 @@ enum RenderFlags {
 	RENDER_WIREFRAME = 0x00000010UL,
 };
 
+// anchor points for screen elements
+enum Anchor {
+	Middle = 0x02,
+	TopLeft = 0x04,
+	TopRight = 0x08,
+	BottomLeft = 0x16,
+	BottomRight = 0x32,
+};
 
 ///////////////////
 // Structs       //

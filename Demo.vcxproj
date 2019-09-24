@@ -59,6 +59,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\headers</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -94,6 +95,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractElement.cpp" />
+    <ClCompile Include="BaseElement.cpp" />
     <ClCompile Include="ConstantBuffers.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -105,6 +108,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="PhysicalElement.cpp" />
     <ClCompile Include="Shaders.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -136,18 +140,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConstantBuffers.h">
+    <ClInclude Include="headers\ConstantBuffers.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Global.h" />
-    <ClInclude Include="Graphic.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Loader.h">
+    <ClInclude Include="headers\elements\AbstractElement.h" />
+    <ClInclude Include="headers\elements\BaseElement.h" />
+    <ClInclude Include="headers\elements\PhysicalElement.h" />
+    <ClInclude Include="headers\Game.h" />
+    <ClInclude Include="headers\Global.h" />
+    <ClInclude Include="headers\Graphic.h" />
+    <ClInclude Include="headers\Input.h" />
+    <ClInclude Include="headers\Loader.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Shaders.h">
+    <ClInclude Include="headers\Menu.h" />
+    <ClInclude Include="headers\Shaders.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>

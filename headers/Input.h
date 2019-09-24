@@ -1,5 +1,5 @@
 #pragma once
-#include "KeyInput.h"
+#include <windows.h>
 #include <Mouse.h>
 #include <Keyboard.h>
 

@@ -22,6 +22,18 @@
     <Filter Include="Shader Files">
       <UniqueIdentifier>{152a70fc-51da-412a-ac07-21241466b68e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\AbstractObjects">
+      <UniqueIdentifier>{980b8442-d75f-4fcf-9844-559835a491b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\PhysicalObjects">
+      <UniqueIdentifier>{5603fdcd-38d7-4d83-8ee7-5f4483cc90a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\AbstractObjects">
+      <UniqueIdentifier>{d5fca8ef-08ad-4918-97f5-b049033b0544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\PhysicalObjects">
+      <UniqueIdentifier>{c546f720-58fe-4bfa-a8b3-78921217b8f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +63,15 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BaseElement.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractElement.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicalElement.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\WireframeFragment.hlsl">
@@ -70,29 +91,38 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shaders.h">
+    <ClInclude Include="headers\ConstantBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
+    <ClInclude Include="headers\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConstantBuffers.h">
+    <ClInclude Include="headers\Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Loader.h">
+    <ClInclude Include="headers\Graphic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="headers\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic.h">
+    <ClInclude Include="headers\Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="headers\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="headers\Shaders.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\BaseElement.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\PhysicalElement.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\AbstractElement.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

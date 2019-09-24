@@ -35,6 +35,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//create game and meny object
 		Game game(&graphic, &input);
 		Menu menu(&graphic, &input, &game);
+
+		if (renderOpt & RENDER_GAME)
+			game.NewGame();
 		
 		ShowWindow(wndHandle, nCmdShow);
 
