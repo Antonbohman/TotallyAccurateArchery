@@ -39,9 +39,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shaders.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\Shaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\elements\BaseElement.h">

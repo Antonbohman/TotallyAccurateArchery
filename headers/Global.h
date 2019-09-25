@@ -44,7 +44,7 @@ using namespace DirectX;
 
 // render types
 enum RenderFlags {
-	RENDER_NULL = 0x00000000UL,
+	RENDER_DEFAULT = 0x00000000UL,
 	RENDER_GAME = 0x00000001UL,
 	RENDER_WIREFRAME = 0x00000010UL,
 };

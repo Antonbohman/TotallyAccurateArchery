@@ -26,58 +26,58 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	MSG msg = { 0 };
 	HWND wndHandle = InitWindow(hInstance);
 
-	if (wndHandle)
-	{
+	if (wndHandle) {
 		//create graphical and input interface
 		Graphic graphic(wndHandle);
 		Input input(wndHandle);
 
-		//create game and meny object
-		Game game(&graphic, &input);
-		Menu menu(&graphic, &input, &game);
+		if (graphic.Ready()) {
+			//create game and meny object
+			Game game(&graphic, &input);
+			Menu menu(&graphic, &input, &game);
 
-		if (renderOpt & RENDER_GAME)
-			game.NewGame();
-		
-		ShowWindow(wndHandle, nCmdShow);
+			if (renderOpt & RENDER_GAME)
+				game.NewGame();
 
-		while (WM_QUIT != msg.message) {
-			if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-			else {
-				//Upate graphical flags
-				graphic.Update();
+			ShowWindow(wndHandle, nCmdShow);
 
-				//update inputs
-				input.Update();
-
-				//set timestamps and calculate delta between start end end time
-				end = high_resolution_clock::now();
-				delta_run = end - startRun;
-				delta_draw = end - startDraw;
-				
-				if (renderOpt & RENDER_GAME) {
-					startRun = high_resolution_clock::now();
-					game.Run(delta_run.count());
-					if (delta_draw.count() > 1.0f) {
-						startDraw = high_resolution_clock::now();
-						game.Draw();
-						graphic.Process();
-					}
+			while (WM_QUIT != msg.message) {
+				if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+					TranslateMessage(&msg);
+					DispatchMessage(&msg);
 				} else {
-					startRun = high_resolution_clock::now();
-					menu.Run(delta_run.count());
-					if (delta_draw.count() > 1.0f) {
-						startDraw = high_resolution_clock::now();
-						menu.Draw();
-						graphic.Process();
+					//Upate graphical flags
+					graphic.Update();
+
+					//update inputs
+					input.Update();
+
+					//set timestamps and calculate delta between start end end time
+					end = high_resolution_clock::now();
+					delta_run = end - startRun;
+					delta_draw = end - startDraw;
+
+					if (renderOpt & RENDER_GAME) {
+						startRun = high_resolution_clock::now();
+						game.Run(delta_run.count());
+						if (delta_draw.count() > 1.0f) {
+							startDraw = high_resolution_clock::now();
+							game.Draw();
+							graphic.Process();
+						}
+					} else {
+						startRun = high_resolution_clock::now();
+						menu.Run(delta_run.count());
+						if (delta_draw.count() > 1.0f) {
+							startDraw = high_resolution_clock::now();
+							menu.Draw();
+							graphic.Process();
+						}
 					}
 				}
 			}
 		}
-
+		
 		//Desctruction
 		DestroyGlobals();
 		DestroyWindow(wndHandle);

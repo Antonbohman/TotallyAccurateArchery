@@ -109,9 +109,6 @@
     </ClCompile>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
-    <ClCompile Include="Shaders.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +151,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="headers\Menu.h" />
-    <ClInclude Include="headers\Shaders.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dump.txt" />
