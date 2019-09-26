@@ -4,7 +4,17 @@
 
 class BaseElement {
 private:
-	void renderElement(); //loads elemnt and texture into pipeline
+	typedef struct TriangleVertex {
+		float x, y, z;
+		float r, g, b;
+		float u, v;
+	};
+
+	ID3D11Buffer* quadBuffer;
+	ID3D11Device* device;
+
+	void createQuad(); //calculates new quad for element
+	void renderElement(); //loads element and texture into pipeline
 	void createVertices(); //creates vertices from dimensions and positions
 
 protected:
@@ -25,7 +35,7 @@ protected:
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* device, const wchar_t* textureName);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, const wchar_t* textureName);
 	virtual ~BaseElement();
 };
 
