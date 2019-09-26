@@ -3,8 +3,11 @@
 
 class PhysicalElement :
 	protected BaseElement {
+	//Bool Moving;
 public:
 	PhysicalElement();
 	virtual ~PhysicalElement();
+	//Calc movement();
+
 };
 

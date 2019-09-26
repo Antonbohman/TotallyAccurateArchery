@@ -46,7 +46,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 					TranslateMessage(&msg);
 					DispatchMessage(&msg);
 				} else {
-					//Upate graphical flags
+					//Update graphical flags
 					graphic.Update();
 
 					//update inputs
