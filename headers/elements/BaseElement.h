@@ -20,12 +20,12 @@ protected:
 	XMFLOAT2 Size;
 	Anchor anchor;
 
-	ID3D11Texture2D* texture2D;
+	ID3D11Resource* texture2D;
 	ID3D11ShaderResourceView* ShaderResourceView;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor anchorPlace, char* textureName);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor anchorPlace, ID3D11Device* device, const wchar_t* textureName);
 	virtual ~BaseElement();
 };
 
