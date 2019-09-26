@@ -85,9 +85,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="headers\ConstantBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -121,5 +118,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="dump.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

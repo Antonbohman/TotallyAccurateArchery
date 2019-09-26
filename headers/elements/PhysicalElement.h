@@ -3,7 +3,9 @@
 
 class PhysicalElement :
 	protected BaseElement {
-	//Bool Moving;
+	bool Moving;
+	XMFLOAT3 Movement;
+
 public:
 	PhysicalElement();
 	virtual ~PhysicalElement();
