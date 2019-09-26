@@ -13,8 +13,26 @@ using namespace DirectX;
 
 class Graphic {
 private:
+	struct Loaded {
+		int nrOfVertices = 0;
+		bool textureLoaded = false;
+	};
+
+	struct Buffer {
+		bool wireframe = false;
+		bool texture = false;
+		float padding1, padding2, padding3;
+	};
+
+	Loaded load;
+	Buffer* cb;
+
 	HWND wndHandle;
 	IDXGISwapChain* swapChain;
+
+	//clear pointers
+	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+	ID3D11Buffer* nullBuff = nullptr;
 
 	ID3D11ShaderResourceView* depthShaderResourceView;
 	ID3D11DepthStencilView* depth;
@@ -32,6 +50,8 @@ private:
 
 	ID3D11InputLayout* vertexLayout;
 
+	ID3D11Buffer* constantData;
+
 	D3D11_VIEWPORT* vp;
 
 	bool initialized;
@@ -43,6 +63,7 @@ private:
 	HRESULT createRasterizerState();
 	HRESULT createSampling();
 	HRESULT createShadersAndLayout();
+	HRESULT createConstantBuffer();
 	void createViewport();
 
 public:
@@ -54,19 +75,12 @@ public:
 
 	bool Ready();
 	void Update();
+	void Clear();
 	void Process();
+	void Finalize();
 
-	/*
-		setVertexBuffer
-		setResourceView [textures]
-		setConstantBuffers
-	*/
+	void setConstantBuffer();
+	void setVertexBuffer(ID3D11Buffer* buffer, UINT32 amount, UINT32 size, UINT32 offset);
+	void setTextureResource(ID3D11ShaderResourceView* resource);
+	
 };
-
-
-/*
-void setVertexBuffer(ID3D11Buffer* buffer, UINT32 size, UINT32 offset) {
-	// specify which vertex buffer to use next.
-	gDeviceContext->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
-}
-*/

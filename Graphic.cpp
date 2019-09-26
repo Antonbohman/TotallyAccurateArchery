@@ -26,6 +26,9 @@ Graphic::Graphic(HWND _wndHandle) {
 
 	vertexLayout = nullptr;
 
+	constantData = nullptr;
+
+	cb = nullptr;
 	vp = nullptr;
 
 	createViewport();
@@ -36,30 +39,34 @@ Graphic::Graphic(HWND _wndHandle) {
 				if (SUCCEEDED(createRasterizerState()))
 					if (SUCCEEDED(createSampling()))
 						if (SUCCEEDED(createShadersAndLayout()))
-							initialized = true;
+							if (SUCCEEDED(createConstantBuffer()))
+								initialized = true;
 }
 
 Graphic::~Graphic() {
-	device->Release();
-	deviceContext->Release();
-	swapChain->Release();
+	if (device) device->Release();
+	if (deviceContext) deviceContext->Release();
+	if (swapChain) swapChain->Release();
 
-	depthShaderResourceView->Release();
-	depth->Release();
+	if (depthShaderResourceView) depthShaderResourceView->Release();
+	if (depth) depth->Release();
 
-	backbufferRTV->Release();
+	if (backbufferRTV) backbufferRTV->Release();
 
-	normalState->Release();
-	wireframeState->Release();
+	if (normalState) normalState->Release();
+	if (wireframeState) wireframeState->Release();
 
-	vertexShader->Release();
-	geometryShader->Release();
-	pixelShader->Release();
+	if (sampling) sampling->Release();
 
-	vertexLayout->Release();
+	if (vertexShader) vertexShader->Release();
+	if (geometryShader) geometryShader->Release();
+	if (pixelShader) pixelShader->Release();
 
-	sampling->Release();
+	if (vertexLayout) vertexLayout->Release();
 
+	if (constantData) constantData->Release();
+
+	_aligned_free(cb);
 	delete vp;
 }
 
@@ -99,7 +106,7 @@ HRESULT Graphic::createDepthAndStencilBuffer() {
 	//pointer to texture data in memory
 	ID3D11Texture2D* depthTexture = nullptr;
 
-	HRESULT hr = S_FALSE;
+	HRESULT hr = E_FAIL;
 
 	//describe how the texture should be handled
 	D3D11_TEXTURE2D_DESC depthDesc;
@@ -146,7 +153,7 @@ HRESULT Graphic::createDepthAndStencilBuffer() {
 }
 
 HRESULT Graphic::createRenderTarget() {
-	HRESULT hr = S_FALSE;
+	HRESULT hr = E_FAIL;
 
 	// texture to hold render content
 	ID3D11Texture2D* backBuffer = nullptr;
@@ -165,7 +172,7 @@ HRESULT Graphic::createRenderTarget() {
 }
 
 HRESULT Graphic::createRasterizerState() {
-	HRESULT hr = S_FALSE;
+	HRESULT hr = E_FAIL;
 
 	D3D11_RASTERIZER_DESC rastDesc;
 	ZeroMemory(&rastDesc, sizeof(D3D11_RASTERIZER_DESC));
@@ -216,7 +223,7 @@ HRESULT Graphic::createShadersAndLayout() {
 	ID3DBlob* errorBlob = nullptr;
 	ID3DBlob* shader = nullptr;
 
-	HRESULT hr = S_FALSE;
+	HRESULT hr = E_FAIL;
 
 	D3D11_INPUT_ELEMENT_DESC inputDesc[] = {
 		{
@@ -265,7 +272,7 @@ HRESULT Graphic::createShadersAndLayout() {
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	if (errorBlob) {
@@ -277,6 +284,29 @@ HRESULT Graphic::createShadersAndLayout() {
 		shader->Release();
 
 	return hr;
+}
+
+HRESULT Graphic::createConstantBuffer() {
+	//allocate space in memory aligned to a multitude of 16
+	cb = (Buffer*)_aligned_malloc(sizeof(Buffer), 16);
+
+	//create a description objekt defining how the buffer should be handled
+	D3D11_BUFFER_DESC optDesc;
+	ZeroMemory(&optDesc, sizeof(optDesc));
+	optDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	optDesc.ByteWidth = sizeof(Buffer);
+	optDesc.Usage = D3D11_USAGE_DYNAMIC;
+	optDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	//bind data to subresource
+	D3D11_SUBRESOURCE_DATA optData;
+	ZeroMemory(&optData, sizeof(optData));
+	optData.pSysMem = cb;
+	optData.SysMemPitch = 0;
+	optData.SysMemSlicePitch = 0;
+
+	//create buffer
+	return device->CreateBuffer(&optDesc, &optData, &constantData);
 }
 
 void Graphic::createViewport() {
@@ -325,8 +355,70 @@ void Graphic::Update() {
 	}
 }
 
+void Graphic::Clear() {
+	if (!initialized) return;
+
+	// clear the back buffer to a black
+	float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+	deviceContext->ClearRenderTargetView(backbufferRTV, clearColor);
+
+	// make sure our depth buffer is cleared to black each time we render
+	deviceContext->ClearDepthStencilView(depth, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	if (renderOpt & RENDER_WIREFRAME)
+		cb->wireframe = true;
+}
+
 void Graphic::Process() {
 	if (!initialized) return;
 
+	deviceContext->PSSetSamplers(0, 1, &sampling);
 
+	if(!load.textureLoaded)
+		cb->texture = true;
+
+	setConstantBuffer();
+
+	deviceContext->PSSetConstantBuffers(0, 1, &constantData);
+
+	deviceContext->Draw(load.nrOfVertices, 0);
+
+	//clear loaded parameters and load object
+	load.nrOfVertices = 0;
+	load.textureLoaded = false;
+
+	cb->texture = false;
+	cb->wireframe = false;
+
+	deviceContext->PSSetShaderResources(0, 1, &nullSRV[0]);
+	deviceContext->PSSetConstantBuffers(0, 1, &nullBuff);
+	deviceContext->IASetVertexBuffers(0, 1, &nullBuff, 0, 0);
+}
+
+void Graphic::Finalize() {
+	if (!initialized) return;
+	
+	swapChain->Present(0, 0);
+}
+
+void Graphic::setConstantBuffer() {
+	//create a subresource to hold our data while we copy between cpu and gpu memory
+	D3D11_MAPPED_SUBRESOURCE mappedMemory;
+
+	//copy and map our cpu memory to our gpu buffert
+	deviceContext->Map(constantData, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedMemory);
+	memcpy(mappedMemory.pData, &cb, sizeof(Buffer));
+	deviceContext->Unmap(constantData, 0);
+}
+
+void Graphic::setVertexBuffer(ID3D11Buffer* buffer, UINT32 amount, UINT32 size, UINT32 offset) {
+	// specify which vertex buffer to use next.
+	load.nrOfVertices = amount;
+	deviceContext->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
+}
+
+void Graphic::setTextureResource(ID3D11ShaderResourceView* resource) {
+	deviceContext->PSSetShaderResources(0, 1, &resource);
+	load.textureLoaded = true;
 }

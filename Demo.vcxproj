@@ -97,9 +97,6 @@
   <ItemGroup>
     <ClCompile Include="AbstractElement.cpp" />
     <ClCompile Include="BaseElement.cpp" />
-    <ClCompile Include="ConstantBuffers.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -137,9 +134,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\ConstantBuffers.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />
