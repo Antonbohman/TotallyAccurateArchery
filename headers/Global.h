@@ -69,39 +69,6 @@ struct RenderOptions {
 	float padding1, padding2;
 };
 
-// heightmap
-struct Heightmap {
-	int imageWidth;			//Width of image file
-	int imageHeight;		//Height of image file
-	XMFLOAT3 *verticesPos;  //Array of vertex positions
-};
-
-// resource storing ambient and specular
-struct AmbientSpecular {
-	XMVECTOR Ambient;
-	XMVECTOR Diffuse;
-	XMVECTOR Specular;
-};
-
-// resource storing camera source
-struct CameraMatrix {
-	XMVECTOR Origin;
-	XMVECTOR Focus;
-};
-
-// a resource to store world matrix for objects in the GPU
-struct ObjectW {
-	XMMATRIX World;
-};
-
-// a resource to store type, origin and view,porojection matrix for lights in the GPU
-struct LightVP {
-	UINT LightType;
-	XMFLOAT3 Origin;
-	XMMATRIX ViewProjection;
-	XMMATRIX RotatedViewProjection[5];
-};
-
 // a resource to store world,view,porojection matrix for object in the GPU
 struct CameraWVP {
 	XMMATRIX World;

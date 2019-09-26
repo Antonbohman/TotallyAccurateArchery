@@ -18,23 +18,6 @@ ID3D11Buffer* gDeferredQuadBuffer = nullptr;
 RenderOptions* gRenderingOptionsData = nullptr;
 ID3D11Buffer* gRenderingOptionsBuffer = nullptr;
 
-AmbientSpecular* gAmbientSpecularData = nullptr;
-ID3D11Buffer* gAmbientSpecularBuffer = nullptr;
-
-CameraMatrix* gCameraMatrix = nullptr;
-ID3D11Buffer* gCameraMatrixBuffer = nullptr;
-
-CameraWVP* gWorldMatrix = nullptr;
-ID3D11Buffer* gWorldMatrixBuffer = nullptr;
-
-ObjectW* gObjectMatrix = nullptr;
-ID3D11Buffer* gObjectMatrixBuffer = nullptr;
-
-LightVP* gLightMatrix = nullptr;
-ID3D11Buffer* gLightMatrixBuffer = nullptr;
-
-ID3D11Buffer* gLightDataBuffer = nullptr;
-
 
 // CAMERAVIEW
 Camera camera({ -40.0f,20.0f,-10.0f, 0.0f }, { 0.0f, 20.0f, 0.0f, 0.0f });
@@ -76,22 +59,6 @@ XMMATRIX Projection;
 Heightmap g_heightmap;
 TriangleVertex* g_map;
 
-//clear pointers
-ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
-ID3D11Buffer* nullCB = nullptr;
-
-//Objects
-ID3D11ShaderResourceView* gTextureSRV[OBJECTS] = { nullptr, nullptr, nullptr, nullptr, nullptr }; //SRVs for each object
-ID3D11Resource* gTexture2D[OBJECTS] = { nullptr, nullptr, nullptr, nullptr, nullptr }; //Texture2Ds for each object
-
-ReflectionAmount* gReflection = new ReflectionAmount[OBJECTS]; //How much each material reflects of each colour and light
-ID3D11Buffer* reflectionBuffers[OBJECTS] = { nullptr, nullptr, nullptr, nullptr, nullptr };
-
-//Blendmapping
-ID3D11ShaderResourceView* gMapTexturesSRV[4] = { nullptr, nullptr, nullptr, nullptr }; //SRVs for blendmapping
-ID3D11Resource* gMapTextureResource[4] = { nullptr, nullptr, nullptr, nullptr }; //Resources for each texture2Ds
-
-ID3D11UnorderedAccessView* nullUAV = nullptr; //null UAV for clearing
 
 
 */

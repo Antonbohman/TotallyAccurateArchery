@@ -5,10 +5,10 @@ Input::Input(HWND _wndHandle) {
 	mouseInput = std::make_unique<DirectX::Mouse>();
 	mouseInput->SetWindow(_wndHandle);
 
-	nrOfKeys = 0;
+	nrOfKeys = 1;
 	keyList = new KeyInfo[nrOfKeys];
 
-	//initKey(0, Key::W, false);
+	initKey(0, Key::F9, false);
 
 	mouse.Left.Key = Key::_LeftClick;
 	mouse.Right.Key = Key::_RightClick;
