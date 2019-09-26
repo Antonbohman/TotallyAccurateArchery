@@ -1,4 +1,5 @@
 #pragma once
+#include "Graphic.h"
 
 
 class BaseElement {
@@ -15,15 +16,16 @@ protected:
 		BottomRight = 0x32,
 	};
 
-	int x;
-	int y;
-	int z;
-	int height;
-	int width;
+	XMFLOAT3 Position;
+	XMFLOAT2 Size;
 	Anchor anchor;
+
+	ID3D11Texture2D* texture2D;
+	ID3D11ShaderResourceView* ShaderResourceView;
 
 public:
 	BaseElement();
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor anchorPlace, char* textureName);
 	virtual ~BaseElement();
 };
 

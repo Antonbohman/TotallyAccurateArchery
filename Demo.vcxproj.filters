@@ -116,4 +116,9 @@
   <ItemGroup>
     <Text Include="dump.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
