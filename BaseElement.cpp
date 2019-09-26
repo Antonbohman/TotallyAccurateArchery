@@ -12,11 +12,11 @@ BaseElement::BaseElement() {
 
 }
 
-BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor anchorPlace, ID3D11Device* device, const wchar_t * textureName)
+BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* device, const wchar_t * textureName)
 {
 	Position = PosToSet;
 	Size = SizeToSet;
-	anchor = anchorPlace;
+	anchor = Harbor;
 
 	CreateDDSTextureFromFile(device, textureName, &texture2D, &ShaderResourceView);
 }

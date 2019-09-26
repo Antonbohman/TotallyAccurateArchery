@@ -25,7 +25,7 @@ protected:
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor anchorPlace, ID3D11Device* device, const wchar_t* textureName);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* device, const wchar_t* textureName);
 	virtual ~BaseElement();
 };
 
