@@ -7,6 +7,7 @@ class Game {
 private:
 	Graphic* graphic;
 	Input* input;
+	
 
 public:
 	Game(Graphic* _graphic, Input* _input);
