@@ -10,6 +10,8 @@ private:
 	Input* input;
 	Game* game;
 
+	TextureHandler textures;
+
 public:
 	Menu(Graphic* _graphic, Input* _input, Game* _game);
 	~Menu();

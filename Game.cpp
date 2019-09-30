@@ -3,12 +3,15 @@
 Game::Game(Graphic* _graphic, Input* _input) {
 	graphic = _graphic;
 	input = _input;
+
+	//textures.SetTexture(graphic->device, L"path/to/texture");
 }
 
 Game::~Game() {
 }
 
 void Game::NewGame() {
+
 	//create new objects and set init variables for a new game
 }
 

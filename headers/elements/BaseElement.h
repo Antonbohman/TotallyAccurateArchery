@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphic.h"
-
+#include "Input.h"
 
 class BaseElement {
 private:
@@ -26,16 +26,25 @@ protected:
 		BottomRight = 0x32,
 	};
 
+	typedef struct Sprite {
+		bool spritesheet = false;
+		int currentFrame = 0;
+		int columns = 0;			//keep it even divided with 1 for correct UV cords
+		int rows = 0;				//keep it even divided with 1 for correct UV cords
+	};
+
 	XMFLOAT3 Position;
 	XMFLOAT2 Size;
 	Anchor anchor;
 
-	ID3D11Resource* texture2D;
+	Sprite spriteInfo;
+
 	ID3D11ShaderResourceView* ShaderResourceView;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, const wchar_t* textureName);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
 	virtual ~BaseElement();
 };
 

@@ -63,7 +63,7 @@ enum Anchor {
 ///////////////////
 
 // a resource to store world,view,porojection matrix for object in the GPU
-struct CameraWVP {
+/*struct CameraWVP {
 	XMMATRIX World;
 	XMMATRIX ViewProjection;
 	XMMATRIX RotatedViewProjection[3];
@@ -79,7 +79,7 @@ struct WorldSpace {
 	float scale_x;
 	float scale_y;
 	float scale_z;
-};
+};*/
 
 
 /////////////////////
@@ -88,33 +88,8 @@ struct WorldSpace {
 
 // rendering options
 extern ULONG renderOpt;
-extern UINT renderMode;
+//extern UINT renderMode;
 
-/*
-
-extern int gnrOfVert[OBJECTS]; //The number of vertices in each object
-extern ID3D11Buffer*ppVertexBuffers[OBJECTS]; //Buffers for storing the objects
-extern ID3D11Buffer *heightmapBuffer; //Buffer for storing the heightmap
-extern int nrOfHMVert; //The number of vertices in the heightmap
-extern int nrOfVertexBuffers; //A counter for how many vertexBuffers are being used at the moment
-
-//World/View/Projection
-extern XMMATRIX World;
-extern XMMATRIX View;
-extern XMMATRIX ViewRotated[5];
-extern XMMATRIX Projection;
-
-extern WorldSpace worldObjects[5];
-
-extern ID3D11ShaderResourceView* gTextureSRV[OBJECTS]; //SRVs for each object
-extern ID3D11Resource* gTexture2D[OBJECTS]; //Resources for each object
-
-extern ReflectionAmount* gReflection;
-extern ID3D11Buffer* reflectionBuffers[OBJECTS];
-
-extern ID3D11ShaderResourceView* gMapTexturesSRV[4]; //SRVs for blendmapping
-extern ID3D11Resource* gMapTextureResource[4]; //Resources for each object
-*/
 
 ///////////////////////
 // Garbage Collector //

@@ -1,13 +1,16 @@
 #pragma once
-#include "Global.h"
 #include "Graphic.h"
 #include "Input.h"
+#include "TextureHandler.h"
 
 class Game {
 private:
+	enum Texture { Background, Arrow };
+
 	Graphic* graphic;
 	Input* input;
-	
+
+	TextureHandler textures;
 
 public:
 	Game(Graphic* _graphic, Input* _input);
