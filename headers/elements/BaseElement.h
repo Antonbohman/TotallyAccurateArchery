@@ -1,10 +1,20 @@
 #pragma once
 #include "Graphic.h"
-
+#include "Input.h"
 
 class BaseElement {
 private:
-	void renderElement(); //loads elemnt and texture into pipeline
+	typedef struct TriangleVertex {
+		float x, y, z;
+		float r, g, b;
+		float u, v;
+	};
+
+	ID3D11Buffer* quadBuffer;
+	ID3D11Device* device;
+
+	void createQuad(); //calculates new quad for element
+	void renderElement(); //loads element and texture into pipeline
 	void createVertices(); //creates vertices from dimensions and positions
 
 protected:
@@ -16,16 +26,25 @@ protected:
 		BottomRight = 0x32,
 	};
 
-	XMFLOAT3 position;
-	XMFLOAT2 size;
+	typedef struct Sprite {
+		bool spritesheet = false;
+		int currentFrame = 0;
+		int columns = 0;			//keep it even divided with 1 for correct UV cords
+		int rows = 0;				//keep it even divided with 1 for correct UV cords
+	};
+
+	XMFLOAT3 Position;
+	XMFLOAT2 Size;
 	Anchor anchor;
 
-	ID3D11Resource* texture2D;
-	ID3D11ShaderResourceView* shaderResourceView;
+	Sprite spriteInfo;
+
+	ID3D11ShaderResourceView* ShaderResourceView;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 sosToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* device, const wchar_t* textureName);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
+	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
 	virtual ~BaseElement();
 };
 

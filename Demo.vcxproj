@@ -107,6 +107,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextureHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -145,6 +146,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="headers\Menu.h" />
+    <ClInclude Include="TextureHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dump.txt" />
