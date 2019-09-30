@@ -30,7 +30,8 @@ BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, I
 
 
 BaseElement::~BaseElement() {
-
+	texture2D = nullptr;
+	ShaderResourceView = nullptr;
 }
 
 void BaseElement::createQuad() {
