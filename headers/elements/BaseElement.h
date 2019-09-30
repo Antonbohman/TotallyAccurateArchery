@@ -16,16 +16,16 @@ protected:
 		BottomRight = 0x32,
 	};
 
-	XMFLOAT3 Position;
-	XMFLOAT2 Size;
+	XMFLOAT3 position;
+	XMFLOAT2 size;
 	Anchor anchor;
 
 	ID3D11Resource* texture2D;
-	ID3D11ShaderResourceView* ShaderResourceView;
+	ID3D11ShaderResourceView* shaderResourceView;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* device, const wchar_t* textureName);
+	BaseElement(XMFLOAT3 sosToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* device, const wchar_t* textureName);
 	virtual ~BaseElement();
 };
 
