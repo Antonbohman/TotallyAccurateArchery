@@ -33,18 +33,18 @@ protected:
 		int rows = 0;				//keep it even divided with 1 for correct UV cords
 	};
 
-	XMFLOAT3 Position;
-	XMFLOAT2 Size;
+	XMFLOAT3 position;
+	XMFLOAT2 size;
 	Anchor anchor;
 
 	Sprite spriteInfo;
 
-	ID3D11ShaderResourceView* ShaderResourceView;
+	ID3D11ShaderResourceView* shaderResourceView;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
-	BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
+	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
+	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
 	virtual ~BaseElement();
 };
 

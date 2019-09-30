@@ -9,10 +9,10 @@ BaseElement::BaseElement() {
 
 	quadBuffer = nullptr;
 	
-	ShaderResourceView = nullptr;
+	shaderResourceView = nullptr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr)
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr)
 {
 	position = posToSet;
 	size = sizeToSet;
@@ -22,19 +22,19 @@ BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, I
 
 	quadBuffer = nullptr;
 
-	ShaderResourceView = texturePtr;
+	shaderResourceView = texturePtr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 PosToSet, XMFLOAT2 SizeToSet, Anchor Harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
-	Position = PosToSet;
-	Size = SizeToSet;
-	anchor = Harbor;
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
+	position = posToSet;
+	size = sizeToSet;
+	anchor = harbor;
 
 	device = _device;
 
 	quadBuffer = nullptr;
 
-	ShaderResourceView = texturePtr;
+	shaderResourceView = texturePtr;
 
 	spriteInfo.spritesheet = true;
 	spriteInfo.columns = columns;
