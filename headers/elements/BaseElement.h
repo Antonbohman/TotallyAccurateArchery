@@ -6,16 +6,15 @@ class BaseElement {
 private:
 	typedef struct TriangleVertex {
 		float x, y, z;
-		float r, g, b;
+		float r, g, b, a;
 		float u, v;
 	};
 
 	ID3D11Buffer* quadBuffer;
 	ID3D11Device* device;
+	ID3D11ShaderResourceView* shaderResourceView;
 
 	void createQuad(); //calculates new quad for element
-	void renderElement(); //loads element and texture into pipeline
-	void createVertices(); //creates vertices from dimensions and positions
 
 protected:
 	typedef enum Anchor {
@@ -26,6 +25,13 @@ protected:
 		BottomRight = 0x32,
 	};
 
+	typedef struct UV {
+		int X0 = 0;
+		int X1 = 1;
+		int Y0 = 0;
+		int Y1 = 1;
+	};
+
 	typedef struct Sprite {
 		bool spritesheet = false;
 		int currentFrame = 0;
@@ -33,18 +39,19 @@ protected:
 		int rows = 0;				//keep it even divided with 1 for correct UV cords
 	};
 
+	XMFLOAT4 colour;
 	XMFLOAT3 position;
 	XMFLOAT2 size;
 	Anchor anchor;
-
+	UV uv;
 	Sprite spriteInfo;
-
-	ID3D11ShaderResourceView* shaderResourceView;
 
 public:
 	BaseElement();
 	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
 	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
 	virtual ~BaseElement();
+
+	void renderElement(Graphic* graphic);
 };
 
