@@ -7,13 +7,12 @@ BaseElement::BaseElement() {
 	anchor = TopLeft;
 
 	device = nullptr;
-
 	quadBuffer = nullptr;
 	
 	shaderResourceView = nullptr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr)
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr)
 {
 	colour = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	position = posToSet;
@@ -21,21 +20,19 @@ BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, I
 	anchor = harbor;
 
 	device = _device;
-	deviceContext = _deviceContext;
 
 	quadBuffer = nullptr;
 
 	shaderResourceView = texturePtr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
 	colour = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	position = posToSet;
 	size = sizeToSet;
 	anchor = harbor;
 
 	device = _device;
-	deviceContext = _deviceContext;
 
 	quadBuffer = nullptr;
 

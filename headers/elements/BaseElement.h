@@ -12,7 +12,6 @@ private:
 
 	ID3D11Buffer* quadBuffer;
 	ID3D11Device* device;
-	ID3D11DeviceContext* deviceContext;
 	ID3D11ShaderResourceView* shaderResourceView;
 
 	void createQuad(); //calculates new quad for element
@@ -49,8 +48,8 @@ protected:
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr);
-	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
+	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
+	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
 	virtual ~BaseElement();
 
 	void renderElement(Graphic* graphic);
