@@ -1,8 +1,7 @@
 #pragma once
 #include "elements/BaseElement.h"
 
-class AbstractElement :
-	protected BaseElement {
+class AbstractElement : public BaseElement {
 public:
 	AbstractElement();
 	virtual ~AbstractElement();

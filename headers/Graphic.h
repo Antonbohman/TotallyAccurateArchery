@@ -59,6 +59,8 @@ private:
 	HRESULT createConstantBuffer();
 	void createViewport();
 
+	void setConstantBuffer();
+
 public:
 	ID3D11Device* device;
 	ID3D11DeviceContext* deviceContext;
@@ -72,7 +74,6 @@ public:
 	void Process();
 	void Finalize();
 
-	void setConstantBuffer();
 	void setVertexBuffer(ID3D11Buffer* buffer, UINT32 amount, UINT32 size, UINT32 offset);
 	void setTextureResource(ID3D11ShaderResourceView* resource);
 	

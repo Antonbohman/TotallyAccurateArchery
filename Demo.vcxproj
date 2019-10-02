@@ -105,6 +105,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="NumberCounter.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
+    <ClInclude Include="headers\elements\NumberCounter.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\Global.h" />
@@ -146,7 +148,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="headers\Menu.h" />
-    <ClInclude Include="TextureHandler.h" />
+    <ClInclude Include="headers\TextureHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dump.txt" />
