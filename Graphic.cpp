@@ -247,7 +247,7 @@ HRESULT Graphic::createShadersAndLayout() {
 		{
 			"UV_POS",
 			0,							// same slot as previous (same vertexBuffer)
-			DXGI_FORMAT_R32G32B32_FLOAT,
+			DXGI_FORMAT_R32G32_FLOAT,
 			0,
 			D3D11_APPEND_ALIGNED_ELEMENT,// offset of FIRST element (after COLOR)
 			D3D11_INPUT_PER_VERTEX_DATA,
@@ -289,6 +289,8 @@ HRESULT Graphic::createShadersAndLayout() {
 HRESULT Graphic::createConstantBuffer() {
 	//allocate space in memory aligned to a multitude of 16
 	cb = (Buffer*)_aligned_malloc(sizeof(Buffer), 16);
+	cb->texture = false;
+	cb->wireframe = false;
 
 	//create a description objekt defining how the buffer should be handled
 	D3D11_BUFFER_DESC optDesc;
@@ -335,7 +337,7 @@ void Graphic::Update() {
 		deviceContext->VSSetShader(vertexShader, nullptr, 0);
 		deviceContext->HSSetShader(nullptr, nullptr, 0);
 		deviceContext->DSSetShader(nullptr, nullptr, 0);
-		deviceContext->GSSetShader(geometryShader, nullptr, 0);
+		deviceContext->GSSetShader(nullptr, nullptr, 0);
 		deviceContext->PSSetShader(pixelShader, nullptr, 0);
 		deviceContext->CSSetShader(nullptr, nullptr, 0);
 
@@ -375,7 +377,7 @@ void Graphic::Process() {
 
 	deviceContext->PSSetSamplers(0, 1, &sampling);
 
-	if(!load.textureLoaded)
+	if(load.textureLoaded)
 		cb->texture = true;
 
 	setConstantBuffer();
@@ -393,7 +395,6 @@ void Graphic::Process() {
 
 	deviceContext->PSSetShaderResources(0, 1, &nullSRV[0]);
 	deviceContext->PSSetConstantBuffers(0, 1, &nullBuff);
-	deviceContext->IASetVertexBuffers(0, 1, &nullBuff, 0, 0);
 }
 
 void Graphic::Finalize() {

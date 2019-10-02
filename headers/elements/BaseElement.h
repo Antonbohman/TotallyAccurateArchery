@@ -2,6 +2,8 @@
 #include "Graphic.h"
 #include "Input.h"
 
+using namespace DirectX;
+
 class BaseElement {
 private:
 	typedef struct TriangleVertex {
@@ -10,14 +12,16 @@ private:
 		float u, v;
 	};
 
+	Graphic* graphic;
 	ID3D11Buffer* quadBuffer;
-	ID3D11Device* device;
 	ID3D11ShaderResourceView* shaderResourceView;
 
-	void createQuad(); //calculates new quad for element
+	XMFLOAT2 rotatePoint(float x, float y); //moves point to origo and rotates it around its anchor and moves it back correspondly
+	void createVertexBuffer();
+	void createQuad();	//calculates new quad for element
 
 protected:
-	typedef enum Anchor {
+	enum Anchor {
 		Middle = 0x02,
 		TopLeft = 0x04,
 		TopRight = 0x08,
@@ -26,10 +30,10 @@ protected:
 	};
 
 	typedef struct UV {
-		int X0 = 0;
-		int X1 = 1;
-		int Y0 = 0;
-		int Y1 = 1;
+		float X0 = 0;
+		float X1 = 1;
+		float Y0 = 0;
+		float Y1 = 1;
 	};
 
 	typedef struct Sprite {
@@ -43,15 +47,15 @@ protected:
 	XMFLOAT3 position;
 	XMFLOAT2 size;
 	Anchor anchor;
+	float rotation;
 	UV uv;
 	Sprite spriteInfo;
 
 public:
 	BaseElement();
-	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr);
-	BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows);
+	BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
 	virtual ~BaseElement();
 
-	void renderElement(Graphic* graphic);
+	void renderElement();
 };
 

@@ -19,7 +19,7 @@ public:
 	TextureHandler();
 	~TextureHandler();
 
-	const TextureObj* GetTexture(int index) const;
+	TextureObj* GetTexture(int index) const;
 	int SetTexture(ID3D11Device* device, const std::wstring _fileName);
 };
 

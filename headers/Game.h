@@ -3,6 +3,8 @@
 #include "Input.h"
 #include "TextureHandler.h"
 
+#include "elements/BaseElement.h"
+
 class Game {
 private:
 	enum Texture { Background, Arrow };
@@ -11,6 +13,7 @@ private:
 	Input* input;
 
 	TextureHandler textures;
+	BaseElement* testObj;
 
 public:
 	Game(Graphic* _graphic, Input* _input);

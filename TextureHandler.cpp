@@ -3,11 +3,15 @@
 TextureHandler::TextureHandler() {
 	maxTextures = 30;
 	nrOfTextures = 0;
-	textureBank = new TextureObj*[nrOfTextures];
+	textureBank = new TextureObj*[maxTextures];
+
+	for (int i = 0; i < maxTextures; i++) {
+		textureBank[i] = nullptr;
+	}
 }
 
 TextureHandler::~TextureHandler() {
-	for (int i = 0; i < nrOfTextures; i++) {
+	for (int i = 0; i < maxTextures; i++) {
 		if (textureBank[i]) {
 			textureBank[i]->texture2D->Release();
 			textureBank[i]->ShaderResourceView->Release();
@@ -18,7 +22,7 @@ TextureHandler::~TextureHandler() {
 	delete[] textureBank;
 }
 
-const TextureObj* TextureHandler::GetTexture(int index) const {
+TextureObj* TextureHandler::GetTexture(int index) const {
 	if (index < nrOfTextures)
 		return textureBank[index];
 	return nullptr;

@@ -74,9 +74,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shaders\WireframeFragment.hlsl">
-      <Filter>Shader Files</Filter>
-    </FxCompile>
     <FxCompile Include="shaders\Fragment.hlsl">
       <Filter>Shader Files</Filter>
     </FxCompile>
