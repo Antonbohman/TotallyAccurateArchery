@@ -12,25 +12,27 @@ BaseElement::BaseElement() {
 	shaderResourceView = nullptr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr)
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr)
 {
 	position = posToSet;
 	size = sizeToSet;
 	anchor = harbor;
 
 	device = _device;
+	deviceContext = _deviceContext;
 
 	quadBuffer = nullptr;
 
 	shaderResourceView = texturePtr;
 }
 
-BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
+BaseElement::BaseElement(XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, Anchor harbor, ID3D11Device* _device, ID3D11DeviceContext* _deviceContext, ID3D11ShaderResourceView* texturePtr, int columns, int rows) {
 	position = posToSet;
 	size = sizeToSet;
 	anchor = harbor;
 
 	device = _device;
+	deviceContext = _deviceContext;
 
 	quadBuffer = nullptr;
 
@@ -85,7 +87,7 @@ void BaseElement::createQuad() {
 	ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	bufferDesc.ByteWidth = sizeof(vertices) * 6;
+	bufferDesc.ByteWidth = sizeof(vertices) * 6; //Inte säker på varför vi har 6st verts men lämnar det till dig.
 
 	D3D11_SUBRESOURCE_DATA data;
 	ZeroMemory(&data, sizeof(data));
