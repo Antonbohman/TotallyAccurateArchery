@@ -133,8 +133,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 		break;
 		
 	case WM_ACTIVATEAPP:
-		//Keyboard::ProcessMessage(message, wParam, lParam);
-		//Mouse::ProcessMessage(message, wParam, lParam);
+		Keyboard::ProcessMessage(message, wParam, lParam);
+		Mouse::ProcessMessage(message, wParam, lParam);
 		break;
 
 	case WM_INPUT:
@@ -149,14 +149,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 	case WM_XBUTTONDOWN:
 	case WM_XBUTTONUP:
 	case WM_MOUSEHOVER:
-		//Mouse::ProcessMessage(message, wParam, lParam);
+		Mouse::ProcessMessage(message, wParam, lParam);
 		break;
 
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
-		//Keyboard::ProcessMessage(message, wParam, lParam);
+		Keyboard::ProcessMessage(message, wParam, lParam);
 		break;
 	}
 

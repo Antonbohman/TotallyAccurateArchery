@@ -123,6 +123,7 @@ struct MouseInfo {
 class Input {
 private:
 	UINT nrOfKeys;
+	UINT maxKeys;
 	KeyInfo* keyList;
 	MouseInfo mouse;
 
@@ -131,7 +132,7 @@ private:
 	std::unique_ptr<DirectX::Mouse>mouseInput;
 	std::unique_ptr<DirectX::Keyboard>keyboardInput;
 
-	void initKey(UINT index, UINT keyID, bool Repeat);
+	void initKey(UINT keyID, bool Repeat);
 	void updateKey(int index, bool state);
 public:
 	Input(HWND _wndHandle);

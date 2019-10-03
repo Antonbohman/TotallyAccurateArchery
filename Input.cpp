@@ -5,10 +5,11 @@ Input::Input(HWND _wndHandle) {
 	mouseInput = std::make_unique<DirectX::Mouse>();
 	mouseInput->SetWindow(_wndHandle);
 
-	nrOfKeys = 1;
-	keyList = new KeyInfo[nrOfKeys];
+	nrOfKeys = 0;
+	maxKeys = 2;
+	keyList = new KeyInfo[maxKeys];
 
-	initKey(0, Key::F9, false);
+	initKey(Key::F9, REPEAT_OFF);
 
 	mouse.Left.Key = Key::_LeftClick;
 	mouse.Right.Key = Key::_RightClick;
@@ -19,10 +20,12 @@ Input::~Input() {
 	delete[] keyList;
 }
 
-void Input::initKey(UINT index, UINT keyID, bool repeat) {
-	if (index < nrOfKeys) {
-		keyList[index].Key = keyID;
-		keyList[index].Repeat = repeat;
+void Input::initKey(UINT keyID, bool repeat) {
+	if (nrOfKeys < maxKeys) {
+		keyList[nrOfKeys].Key = keyID;
+		keyList[nrOfKeys].Repeat = repeat;
+
+		nrOfKeys++;
 	}
 }
 
