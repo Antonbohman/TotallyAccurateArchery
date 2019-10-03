@@ -17,7 +17,7 @@ void Game::NewGame() {
 		graphic,
 		{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 400, 200 },
-		TopLeft, 
+		Middle, 
 		textures.GetTexture(T0_Background)->ShaderResourceView
 	);
 }

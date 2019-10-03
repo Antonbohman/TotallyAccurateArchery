@@ -5,13 +5,11 @@ BaseElement::BaseElement() {
 	position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	size = XMFLOAT2(0.0f, 0.0f);
 	anchor = TopLeft;
+	rotation = 0.0f;
 
 	graphic = nullptr;
-
-	quadBuffer = nullptr;
-	
 	shaderResourceView = nullptr;
-
+	quadBuffer = nullptr;
 	vertices = nullptr;
 }
 
@@ -21,11 +19,9 @@ BaseElement::BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSe
 	position = posToSet;
 	size = sizeToSet;
 	anchor = Anchor(harbor);
+	rotation = 0.5f;
 
 	graphic = _graphic;
-
-	quadBuffer = nullptr;
-
 	shaderResourceView = texturePtr;
 
 	createVertexBuffer();
@@ -38,23 +34,18 @@ BaseElement::~BaseElement() {
 }
 
 XMFLOAT2 BaseElement::rotatePoint(float x, float y) {
+	XMFLOAT2 newPoint(0, 0);
 	
-	float zeroF = 0.0f;
-
-	x -= position.x;
-	y -= position.y;
-
-	XMFLOAT2 newPoint(x, y);
-	
-	/*XMVECTOR rotatedPoint = XMVector3Transform(
-		XMVectorSet(x, y, zeroF, zeroF),
-		XMMatrixRotationY(rotation)
-	);
-
 	XMStoreFloat2(
 		&newPoint,
-		rotatedPoint
-	);*/
+		XMVector3Rotate(
+			XMVectorSet(x - position.x, y - position.y, 0.0f, 0.0f),
+			XMQuaternionRotationAxis(
+				XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
+				rotation
+			)
+		)
+	);
 
 	newPoint.x += position.x;
 	newPoint.y += position.y;
@@ -195,6 +186,7 @@ void BaseElement::createQuad() {
 }
 
 void BaseElement::renderElement() {
+	rotation += 0.01f;
 	createQuad();
 
 	graphic->setTextureResource(shaderResourceView);
