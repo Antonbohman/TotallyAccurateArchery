@@ -16,13 +16,14 @@ void Game::NewGame() {
 	testObj = new BaseElement(
 		graphic,
 		
-		/*{ 0, 0, 1 },
-		{ 1, 1 },
-		TopLeft,*/
+		{ -1, -1, 1 },
+		{ 2, 2 },
+		TopLeft,
 
-		{ W_WIDTH / 2, W_HEIGHT / 2, 1 },
+		/*{ W_WIDTH / 2, W_HEIGHT / 2, 1 },
 		{ 50, 50 },
-		Middle, 
+		Middle, */
+
 		textures.GetTexture(Background)->ShaderResourceView
 	);
 }
