@@ -36,6 +36,7 @@ private:
 	ID3D11RasterizerState* wireframeState;
 	
 	ID3D11SamplerState* sampling;
+	ID3D11BlendState* blendState;
 
 	ID3D11VertexShader* vertexShader;
 	ID3D11GeometryShader* geometryShader;
@@ -54,6 +55,7 @@ private:
 	HRESULT createRenderTarget();
 	HRESULT createRasterizerState();
 	HRESULT createSampling();
+	HRESULT createBlendState();
 	HRESULT createShadersAndLayout();
 	HRESULT createConstantBuffer();
 	void createViewport();

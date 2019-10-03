@@ -18,6 +18,7 @@ Graphic::Graphic(HWND _wndHandle) {
 	wireframeState = nullptr;
 
 	sampling = nullptr;
+	blendState = nullptr;
 
 	vertexShader = nullptr;
 	geometryShader = nullptr;
@@ -37,9 +38,10 @@ Graphic::Graphic(HWND _wndHandle) {
 			if (SUCCEEDED(createRenderTarget()))
 				if (SUCCEEDED(createRasterizerState()))
 					if (SUCCEEDED(createSampling()))
-						if (SUCCEEDED(createShadersAndLayout()))
-							if (SUCCEEDED(createConstantBuffer()))
-								initialized = true;
+						if (SUCCEEDED(createBlendState()))
+							if (SUCCEEDED(createShadersAndLayout()))
+								if (SUCCEEDED(createConstantBuffer()))
+									initialized = true;
 }
 
 Graphic::~Graphic() {
@@ -56,6 +58,7 @@ Graphic::~Graphic() {
 	if (wireframeState) wireframeState->Release();
 
 	if (sampling) sampling->Release();
+	if (blendState) blendState->Release();
 
 	if (vertexShader) vertexShader->Release();
 	if (geometryShader) geometryShader->Release();
@@ -218,6 +221,22 @@ HRESULT Graphic::createSampling() {
 	return device->CreateSamplerState(&samplingDesc, &sampling);
 }
 
+HRESULT Graphic::createBlendState() {
+	D3D11_BLEND_DESC BlendState;
+	ZeroMemory(&BlendState, sizeof(D3D10_BLEND_DESC));
+
+	BlendState.RenderTarget[0].BlendEnable = TRUE;
+	BlendState.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	BlendState.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	BlendState.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	BlendState.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+	BlendState.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	BlendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	BlendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	return device->CreateBlendState(&BlendState, &blendState);
+}
+
 HRESULT Graphic::createShadersAndLayout() {
 	ID3DBlob* errorBlob = nullptr;
 	ID3DBlob* shader = nullptr;
@@ -333,6 +352,8 @@ void Graphic::Update() {
 	//set shaders
 	deviceContext->OMSetRenderTargets(1, &backbufferRTV, depth);
 
+	deviceContext->OMSetBlendState(blendState, NULL, 0xFFFFFF);
+
 	deviceContext->VSSetShader(vertexShader, nullptr, 0);
 	deviceContext->HSSetShader(nullptr, nullptr, 0);
 	deviceContext->DSSetShader(nullptr, nullptr, 0);
@@ -357,7 +378,7 @@ void Graphic::Clear() {
 	if (!initialized) return;
 
 	// clear the back buffer to a black
-	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float clearColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	deviceContext->ClearRenderTargetView(backbufferRTV, clearColor);
 
