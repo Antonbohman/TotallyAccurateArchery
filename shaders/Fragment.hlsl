@@ -10,23 +10,30 @@ Texture2D Texture : register(t0);
 
 SamplerState Sampling : register(s0);
 
-/*cbuffer PS_CB_OPTIONS: register(b0)
+cbuffer PS_CB_OPTIONS: register(b0)
 {
-    bool wireframe;
-    bool textureLoaded;
-};*/
+    float wireframe;
+    float textureLoaded;
+};
 
 float4 PS_main(PS_IN input) : SV_TARGET
 {
     float4 pixelColour;
     
-    /*if (wireframe)
+    if (wireframe)
         pixelColour = float4(input.Colour);
     else if (textureLoaded)
+    {
         pixelColour = Texture.Sample(Sampling, input.UV);
+        pixelColour = float4(
+            pixelColour.r * input.Colour.r,
+            pixelColour.g * input.Colour.g,
+            pixelColour.b * input.Colour.b,
+            pixelColour.a * input.Colour.a
+        );
+    }
     else
-        pixelColour = float4(.0f, 0.0f, 0.0f, 0.0f);*/
-    pixelColour = float4(1.0f, 0.0f, 1.0f, 1.0f);
+        pixelColour = float4(0.0f, 0.0f, 0.0f, 0.0f);
     
     return pixelColour;
 };

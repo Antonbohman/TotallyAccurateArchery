@@ -44,17 +44,17 @@ using namespace DirectX;
 
 // render types
 enum RenderFlags {
-	RENDER_DEFAULT = 0x00000000UL,
-	RENDER_GAME = 0x00000001UL,
-	RENDER_WIREFRAME = 0x00000010UL,
+	RENDER_DEFAULT	 =	0x00000000UL,
+	RENDER_GAME		 =	0x00000001UL,
+	RENDER_WIREFRAME =	0x00000010UL,
 };
 
 // anchor points for screen elements
 enum Anchor {
-	Middle = 0x02,
-	TopLeft = 0x04,
-	TopRight = 0x08,
-	BottomLeft = 0x16,
+	Middle		= 0x02,
+	TopLeft		= 0x04,
+	TopRight	= 0x08,
+	BottomLeft	= 0x16,
 	BottomRight = 0x32,
 };
 

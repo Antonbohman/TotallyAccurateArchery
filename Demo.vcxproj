@@ -101,9 +101,6 @@
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Loader.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NumberCounter.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
@@ -140,14 +137,8 @@
     <ClInclude Include="headers\Global.h" />
     <ClInclude Include="headers\Graphic.h" />
     <ClInclude Include="headers\Input.h" />
-    <ClInclude Include="headers\Loader.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="headers\Menu.h" />
     <ClInclude Include="headers\TextureHandler.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="dump.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

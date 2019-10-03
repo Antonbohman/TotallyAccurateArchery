@@ -15,15 +15,9 @@ void Game::NewGame() {
 	//create new objects and set init variables for a new game
 	testObj = new BaseElement(
 		graphic,
-		
-		{ -1, -1, 1 },
-		{ 2, 2 },
-		TopLeft,
-
-		/*{ W_WIDTH / 2, W_HEIGHT / 2, 1 },
-		{ 50, 50 },
-		Middle, */
-
+		{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ 400, 200 },
+		TopLeft, 
 		textures.GetTexture(Background)->ShaderResourceView
 	);
 }

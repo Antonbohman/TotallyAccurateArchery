@@ -16,6 +16,8 @@ private:
 	ID3D11Buffer* quadBuffer;
 	ID3D11ShaderResourceView* shaderResourceView;
 
+	TriangleVertex* vertices;
+
 	XMFLOAT2 rotatePoint(float x, float y); //moves point to origo and rotates it around its anchor and moves it back correspondly
 	void createVertexBuffer();
 	void createQuad();	//calculates new quad for element
@@ -56,6 +58,6 @@ public:
 	BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
 	virtual ~BaseElement();
 
-	void renderElement();
+	virtual void renderElement();
 };
 

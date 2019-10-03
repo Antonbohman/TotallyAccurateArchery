@@ -12,9 +12,9 @@ private:
 	};
 
 	struct Buffer {
-		bool wireframe = false;
-		bool texture = false;
-		float padding1, padding2, padding3;
+		float wireframe;
+		float texture;
+		float padding1, padding2;
 	};
 
 	Loaded load;

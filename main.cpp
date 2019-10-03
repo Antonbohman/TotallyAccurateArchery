@@ -54,11 +54,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 					//update render mode prior to key inputs
 					if (input.Key(F9).Active) {
 						renderOpt & RENDER_WIREFRAME ? renderOpt &= ~RENDER_WIREFRAME : renderOpt |= RENDER_WIREFRAME;
+
+						//Upate graphical flags
 						graphic.Update();
 					}
-
-					//Upate graphical flags
-					graphic.Clear();
 
 					//set timestamps and calculate delta between start end end time
 					end = high_resolution_clock::now();
@@ -70,6 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 						game.Run(delta_run.count());
 						if (delta_draw.count() > 1.0f) {
 							startDraw = high_resolution_clock::now();
+							graphic.Clear();
 							game.Draw();
 							graphic.Finalize();
 						}
@@ -78,6 +78,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 						menu.Run(delta_run.count());
 						if (delta_draw.count() > 1.0f) {
 							startDraw = high_resolution_clock::now();
+							graphic.Clear();
 							menu.Draw();
 							graphic.Finalize();
 						}
