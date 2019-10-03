@@ -12,7 +12,6 @@ struct TextureObj {
 class TextureHandler {
 private:
 	int maxTextures;
-	int nrOfTextures;
 	TextureObj** textureBank;
 
 public:
@@ -20,6 +19,7 @@ public:
 	~TextureHandler();
 
 	TextureObj* GetTexture(int index) const;
-	int SetTexture(ID3D11Device* device, const std::wstring _fileName);
+	HRESULT SetTexture(ID3D11Device* device, UINT index, const std::wstring _fileName);
+	HRESULT ReleaseTexture(UINT index);
 };
 

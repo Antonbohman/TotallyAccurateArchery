@@ -5,7 +5,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	input = _input;
 
 	//make sure to preload all necesary textures here in right order as described in Texture enum
-	textures.SetTexture(graphic->device, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
 }
 
 Game::~Game() {
@@ -18,7 +18,7 @@ void Game::NewGame() {
 		{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 400, 200 },
 		TopLeft, 
-		textures.GetTexture(Background)->ShaderResourceView
+		textures.GetTexture(T0_Background)->ShaderResourceView
 	);
 }
 

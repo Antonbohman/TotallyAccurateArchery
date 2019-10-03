@@ -2,7 +2,6 @@
 
 TextureHandler::TextureHandler() {
 	maxTextures = 30;
-	nrOfTextures = 0;
 	textureBank = new TextureObj*[maxTextures];
 
 	for (int i = 0; i < maxTextures; i++) {
@@ -23,23 +22,39 @@ TextureHandler::~TextureHandler() {
 }
 
 TextureObj* TextureHandler::GetTexture(int index) const {
-	if (index < nrOfTextures)
+	if (index < maxTextures)
 		return textureBank[index];
 	return nullptr;
 }
 
-int TextureHandler::SetTexture(ID3D11Device* device, const std::wstring _fileName) {
-	textureBank[nrOfTextures] = new TextureObj;
-	textureBank[nrOfTextures]->fileName = _fileName;
+HRESULT TextureHandler::SetTexture(ID3D11Device* device, UINT index, const std::wstring _fileName) {
+	if (textureBank[index]) {
+		return E_FAIL;
+	}
 
-	CreateDDSTextureFromFile(
-		device, 
-		textureBank[nrOfTextures]->fileName.c_str(),
-		&textureBank[nrOfTextures]->texture2D,
-		&textureBank[nrOfTextures]->ShaderResourceView
+	textureBank[index] = new TextureObj;
+	textureBank[index]->fileName = _fileName;
+
+	return CreateDDSTextureFromFile(
+		device,
+		textureBank[index]->fileName.c_str(),
+		&textureBank[index]->texture2D,
+		&textureBank[index]->ShaderResourceView
 	);
+}
 
-	nrOfTextures++;
-	
-	return nrOfTextures - 1;
+HRESULT TextureHandler::ReleaseTexture(UINT index) {
+	HRESULT hr = E_FAIL;
+
+	if (textureBank[index]) {
+		textureBank[index]->texture2D->Release();
+		textureBank[index]->ShaderResourceView->Release();
+		delete textureBank[index];
+
+		textureBank[index] = nullptr;
+
+		hr = S_OK;
+	}
+
+	return hr;
 }

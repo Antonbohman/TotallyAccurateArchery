@@ -7,7 +7,10 @@
 
 class Game {
 private:
-	enum Texture { Background, Arrow };
+	enum Texture { 
+		T0_Background,
+		T1_Arrow
+	};
 
 	Graphic* graphic;
 	Input* input;
