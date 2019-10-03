@@ -48,7 +48,6 @@ private:
 	D3D11_VIEWPORT* vp;
 
 	bool initialized;
-	bool first;
 
 	HRESULT createDirect3DContext();
 	HRESULT createDepthAndStencilBuffer();
@@ -76,5 +75,4 @@ public:
 
 	void setVertexBuffer(ID3D11Buffer* buffer, UINT32 amount, UINT32 size, UINT32 offset);
 	void setTextureResource(ID3D11ShaderResourceView* resource);
-	
 };

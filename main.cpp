@@ -32,6 +32,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		Input input(wndHandle);
 
 		if (graphic.Ready()) {
+			graphic.Update();
+
 			//create game and meny object
 			Game game(&graphic, &input);
 			Menu menu(&graphic, &input, &game);
@@ -51,14 +53,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 					
 					//update render mode prior to key inputs
 					if (input.Key(F9).Active) {
-						if (renderOpt & RENDER_WIREFRAME)
-							renderOpt &= ~RENDER_WIREFRAME;
-						else
-							renderOpt |= RENDER_WIREFRAME;
+						renderOpt & RENDER_WIREFRAME ? renderOpt &= ~RENDER_WIREFRAME : renderOpt |= RENDER_WIREFRAME;
+						graphic.Update();
 					}
 
 					//Upate graphical flags
-					graphic.Update();
+					graphic.Clear();
 
 					//set timestamps and calculate delta between start end end time
 					end = high_resolution_clock::now();

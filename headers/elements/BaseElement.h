@@ -6,7 +6,7 @@ using namespace DirectX;
 
 class BaseElement {
 private:
-	typedef struct TriangleVertex {
+	struct TriangleVertex {
 		float x, y, z;
 		float r, g, b, a;
 		float u, v;
@@ -29,14 +29,14 @@ protected:
 		BottomRight = 0x32,
 	};
 
-	typedef struct UV {
+	struct UV {
 		float X0 = 0;
 		float X1 = 1;
 		float Y0 = 0;
 		float Y1 = 1;
 	};
 
-	typedef struct Sprite {
+	 struct Sprite {
 		bool spritesheet = false;
 		int currentFrame = 0;
 		int columns = 0;			//keep it even divided with 1 for correct UV cords

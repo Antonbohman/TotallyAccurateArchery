@@ -26,7 +26,9 @@ BaseElement::BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSe
 
 	shaderResourceView = texturePtr;
 
-	createVertexBuffer();
+	//createVertexBuffer();
+
+	createQuad();
 }
 
 BaseElement::~BaseElement() {
@@ -107,10 +109,10 @@ void BaseElement::createQuad() {
 		break;
 	}
 
-	XMFLOAT2 NE = rotatePoint(pos_X0, pos_Y0);
-	XMFLOAT2 NW = rotatePoint(pos_X1, pos_Y0);
-	XMFLOAT2 SE = rotatePoint(pos_X0, pos_Y1);
-	XMFLOAT2 SW = rotatePoint(pos_X1, pos_Y1);
+	XMFLOAT2 NW = rotatePoint(pos_X0, pos_Y0);
+	XMFLOAT2 NE = rotatePoint(pos_X1, pos_Y0);
+	XMFLOAT2 SW = rotatePoint(pos_X0, pos_Y1);
+	XMFLOAT2 SE = rotatePoint(pos_X1, pos_Y1);
 
 	if (spriteInfo.spritesheet) {
 		float xSplit = 1 / spriteInfo.columns;
@@ -153,7 +155,7 @@ void BaseElement::createQuad() {
 	};
 
 	//create a subresource for our data
-	D3D11_SUBRESOURCE_DATA data;
+	/*D3D11_SUBRESOURCE_DATA data;
 	ZeroMemory(&data, sizeof(data));
 	data.pSysMem = vertices;
 
@@ -163,11 +165,26 @@ void BaseElement::createQuad() {
 	//copy and map our cpu memory to our gpu buffert
 	graphic->deviceContext->Map(quadBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedMemory);
 	memcpy(mappedMemory.pData, &data, sizeof(TriangleVertex) * 6);
-	graphic->deviceContext->Unmap(quadBuffer, 0);
+	graphic->deviceContext->Unmap(quadBuffer, 0);*/
+
+	//create a subresource for our data
+	D3D11_SUBRESOURCE_DATA data;
+	ZeroMemory(&data, sizeof(data));
+	data.pSysMem = vertices;
+
+	// Describe the Vertex Buffer
+	D3D11_BUFFER_DESC bufferDesc;
+	ZeroMemory(&bufferDesc, sizeof(bufferDesc));
+	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	bufferDesc.ByteWidth = sizeof(TriangleVertex) * 6;
+
+	// create a Vertex Buffer
+	graphic->device->CreateBuffer(&bufferDesc, &data, &quadBuffer);
 }
 
 void BaseElement::renderElement() {
-	createQuad();
+	//createQuad();
 
 	graphic->setTextureResource(shaderResourceView);
 	graphic->setVertexBuffer(quadBuffer, 6, sizeof(TriangleVertex), 0);
