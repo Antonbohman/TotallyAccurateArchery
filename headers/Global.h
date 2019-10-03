@@ -17,7 +17,7 @@ using namespace DirectX;
 // version
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_PATCH 5
+#define VERSION_PATCH 6
 
 // refresh rates
 #define CPS 30
@@ -58,28 +58,10 @@ enum Anchor {
 	BottomRight = 0x32,
 };
 
+
 ///////////////////
 // Structs       //
 ///////////////////
-
-// a resource to store world,view,porojection matrix for object in the GPU
-/*struct CameraWVP {
-	XMMATRIX World;
-	XMMATRIX ViewProjection;
-	XMMATRIX RotatedViewProjection[3];
-};
-
-struct WorldSpace {
-	float rotation_x;
-	float rotation_y;
-	float rotation_z;
-	float offset_x;
-	float offset_y;
-	float offset_z;
-	float scale_x;
-	float scale_y;
-	float scale_z;
-};*/
 
 
 /////////////////////
