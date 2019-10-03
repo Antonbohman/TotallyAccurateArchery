@@ -402,6 +402,7 @@ void Graphic::Finalize() {
 void Graphic::setConstantBuffer() {
 	/*//create a subresource to hold our data while we copy between cpu and gpu memory
 	D3D11_MAPPED_SUBRESOURCE mappedMemory;
+	ZeroMemory(&mappedMemory, sizeof(mappedMemory));
 
 	//copy and map our cpu memory to our gpu buffert
 	deviceContext->Map(constantData, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedMemory);

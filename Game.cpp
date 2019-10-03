@@ -22,7 +22,7 @@ void Game::NewGame() {
 
 		/*{ W_WIDTH / 2, W_HEIGHT / 2, 1 },
 		{ 50, 50 },
-		Middle,*/ 
+		Middle, */
 
 		textures.GetTexture(Background)->ShaderResourceView
 	);

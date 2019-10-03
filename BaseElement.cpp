@@ -68,6 +68,7 @@ void BaseElement::createVertexBuffer() {
 	bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bufferDesc.ByteWidth = sizeof(TriangleVertex) * 6;
+	bufferDesc.StructureByteStride = sizeof(TriangleVertex);
 
 	// create a Vertex Buffer
 	graphic->device->CreateBuffer(&bufferDesc, nullptr, &quadBuffer);
@@ -124,32 +125,32 @@ void BaseElement::createQuad() {
 	TriangleVertex vertices[6] =
 	{
 		//v0
-		NE.x, NE.y, position.z,						//pos
+		NW.x, NW.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y0,								//uv
 
 		//v1
-		NW.x, NW.y, position.z,						//pos
+		NE.x, NE.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 
 		//v2
-		SE.x, SE.y, position.z,						//pos
+		SW.x, SW.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, -uv.Y1,								//uv
 
 		//v3
-		NW.x, NW.y, position.z,						//pos
+		NE.x, NE.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 
 		//v4
-		SW.x, SW.y, position.z,						//pos
+		SE.x, SE.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y1,								//uv
 
 		//v5
-		SE.x, SE.y, position.z,						//pos
+		SW.x, SW.y, position.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y1,								//uv
 	};
@@ -161,6 +162,8 @@ void BaseElement::createQuad() {
 
 	//create a subresource to hold our data while we copy between cpu and gpu memory
 	D3D11_MAPPED_SUBRESOURCE mappedMemory;
+	ZeroMemory(&mappedMemory, sizeof(mappedMemory));
+	mappedMemory.pData = vertices;
 
 	//copy and map our cpu memory to our gpu buffert
 	graphic->deviceContext->Map(quadBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedMemory);
