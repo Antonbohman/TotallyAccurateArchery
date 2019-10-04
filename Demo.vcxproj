@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractElement.cpp" />
     <ClCompile Include="BaseElement.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -129,6 +130,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Camera.h" />
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
     <ClInclude Include="headers\elements\NumberCounter.h" />

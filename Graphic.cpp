@@ -439,6 +439,8 @@ void Graphic::setVertexBuffer(ID3D11Buffer* buffer, UINT32 amount, UINT32 size, 
 }
 
 void Graphic::setTextureResource(ID3D11ShaderResourceView* resource) {
-	deviceContext->PSSetShaderResources(0, 1, &resource);
-	load.textureLoaded = true;
+	if (resource) {
+		deviceContext->PSSetShaderResources(0, 1, &resource);
+		load.textureLoaded = true;
+	}
 }

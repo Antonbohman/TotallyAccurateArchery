@@ -46,7 +46,7 @@ protected:
 	};
 
 	XMFLOAT4 colour;
-	XMFLOAT3 position;
+	XMFLOAT3 viewPosition;
 	XMFLOAT2 size;
 	Anchor anchor;
 	float rotation;

@@ -2,7 +2,7 @@
 
 BaseElement::BaseElement() {
 	colour = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	viewPosition = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	size = XMFLOAT2(0.0f, 0.0f);
 	anchor = TopLeft;
 	rotation = 0.0f;
@@ -16,10 +16,10 @@ BaseElement::BaseElement() {
 BaseElement::BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr)
 {
 	colour = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	position = posToSet;
+	viewPosition = posToSet;
 	size = sizeToSet;
 	anchor = Anchor(harbor);
-	rotation = 0.5f;
+	rotation = 1;
 
 	graphic = _graphic;
 	shaderResourceView = texturePtr;
@@ -39,7 +39,7 @@ XMFLOAT2 BaseElement::rotatePoint(float x, float y) {
 	XMStoreFloat2(
 		&newPoint,
 		XMVector3Rotate(
-			XMVectorSet(x - position.x, y - position.y, 0.0f, 0.0f),
+			XMVectorSet(x - viewPosition.x, y - viewPosition.y, 0.0f, 0.0f),
 			XMQuaternionRotationAxis(
 				XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
 				rotation
@@ -47,8 +47,8 @@ XMFLOAT2 BaseElement::rotatePoint(float x, float y) {
 		)
 	);
 
-	newPoint.x += position.x;
-	newPoint.y += position.y;
+	newPoint.x += viewPosition.x;
+	newPoint.y += viewPosition.y;
 
 	return newPoint;
 }
@@ -78,34 +78,34 @@ void BaseElement::createQuad() {
 
 	switch (anchor) {
 	case Middle:
-		pos_X0 = position.x - (size.x / 2);
-		pos_X1 = position.x + (size.x / 2);
-		pos_Y0 = position.y - (size.y / 2);
-		pos_Y1 = position.y + (size.y / 2);
+		pos_X0 = viewPosition.x - (size.x / 2);
+		pos_X1 = viewPosition.x + (size.x / 2);
+		pos_Y0 = viewPosition.y - (size.y / 2);
+		pos_Y1 = viewPosition.y + (size.y / 2);
 		break;
 	case TopLeft:
-		pos_X0 = position.x;
-		pos_X1 = position.x + size.x;
-		pos_Y0 = position.y - size.y;
-		pos_Y1 = position.y;
+		pos_X0 = viewPosition.x;
+		pos_X1 = viewPosition.x + size.x;
+		pos_Y0 = viewPosition.y - size.y;
+		pos_Y1 = viewPosition.y;
 		break;
 	case TopRight:
-		pos_X0 = position.x - size.x;
-		pos_X1 = position.x;
-		pos_Y0 = position.y - size.y;
-		pos_Y1 = position.y;
+		pos_X0 = viewPosition.x - size.x;
+		pos_X1 = viewPosition.x;
+		pos_Y0 = viewPosition.y - size.y;
+		pos_Y1 = viewPosition.y;
 		break;
 	case BottomLeft:
-		pos_X0 = position.x;
-		pos_X1 = position.x + size.x;
-		pos_Y0 = position.y;
-		pos_Y1 = position.y + size.y;
+		pos_X0 = viewPosition.x;
+		pos_X1 = viewPosition.x + size.x;
+		pos_Y0 = viewPosition.y;
+		pos_Y1 = viewPosition.y + size.y;
 		break;
 	case BottomRight:
-		pos_X0 = position.x - size.x;
-		pos_X1 = position.x;
-		pos_Y0 = position.y;
-		pos_Y1 = position.y + size.y;
+		pos_X0 = viewPosition.x - size.x;
+		pos_X1 = viewPosition.x;
+		pos_Y0 = viewPosition.y;
+		pos_Y1 = viewPosition.y + size.y;
 		break;
 	}
 
@@ -130,47 +130,47 @@ void BaseElement::createQuad() {
 		float xSplit = 1 / spriteInfo.columns;
 		float ySplit = 1 / spriteInfo.rows;
 
-
+		//fix sprite calc...
 	}
 
 	//v0
 	vertices[0] = {
-		NW.x, NW.y, position.z,				//pos
+		NW.x, NW.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y0,								//uv
 	};
 
 	//v1
 	vertices[1] = {
-		NE.x, NE.y, position.z,						//pos
+		NE.x, NE.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 	};
 
 	//v2
 	vertices[2] = {		
-		SW.x, SW.y, position.z,						//pos
+		SW.x, SW.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y1,								//uv
 	};
 
 	//v3
 	vertices[3] = {
-		NE.x, NE.y, position.z,						//pos
+		NE.x, NE.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 	};
 
 	//v4
 	vertices[4] = {	
-		SE.x, SE.y, position.z,						//pos
+		SE.x, SE.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y1,								//uv
 	};
 
 	//v5
 	vertices[5] = {	
-		SW.x, SW.y, position.z,						//pos
+		SW.x, SW.y, viewPosition.z,						//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y1,								//uv
 	};
@@ -186,7 +186,6 @@ void BaseElement::createQuad() {
 }
 
 void BaseElement::renderElement() {
-	rotation += 0.01f;
 	createQuad();
 
 	graphic->setTextureResource(shaderResourceView);
