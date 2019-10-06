@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "TextureHandler.h"
 
-#include "elements/BaseElement.h"
+#include "elements/Camera.h"
 
 class Game {
 private:
@@ -16,7 +16,8 @@ private:
 	Input* input;
 
 	TextureHandler textures;
-	BaseElement* testObj;
+	PhysicalElement* testObj;
+	Camera* camera;
 
 public:
 	Game(Graphic* _graphic, Input* _input);

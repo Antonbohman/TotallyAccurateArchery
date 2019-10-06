@@ -70,7 +70,7 @@
       <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +118,7 @@
     <ClInclude Include="headers\TextureHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Camera.h">
+    <ClInclude Include="headers\elements\Camera.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>

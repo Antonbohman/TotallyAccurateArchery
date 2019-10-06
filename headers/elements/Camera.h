@@ -1,17 +1,21 @@
 #pragma once
 #include "elements/AbstractElement.h"
+#include "elements/PhysicalElement.h"
 
-#include "Graphic.h"
+class PhysicalElement;
 
 class Camera : public AbstractElement {
-	bool Moving;
-	XMFLOAT3 Movement;
-
+private:
+	PhysicalElement* focus;
+		
 public:
 	Camera();
+	Camera(Graphic* _graphic, XMFLOAT3 posToSet);
 	~Camera();
 	
-	void setFocus();
-	XMFLOAT2 getFocus();
-	
+	void setFocus(PhysicalElement* target);
+	void clearFocus();
+	void updateFocus();
+	void setPos(XMFLOAT2 newPos);
+	XMFLOAT2 getPos();	
 };

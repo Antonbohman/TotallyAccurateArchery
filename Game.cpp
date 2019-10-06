@@ -9,15 +9,24 @@ Game::Game(Graphic* _graphic, Input* _input) {
 }
 
 Game::~Game() {
+	delete testObj;
+	delete camera;
 }
 
 void Game::NewGame() {
-	//create new objects and set init variables for a new game
-	testObj = new BaseElement(
+	//create camera element to be used to move view
+	camera = new Camera(
 		graphic,
+		{ 0, 0, 1.0f }
+	);
+
+	//create new objects and set init variables for a new game
+	testObj = new PhysicalElement(
+		graphic,
+		camera,
 		{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 400, 200 },
-		Middle, 
+		Middle,
 		textures.GetTexture(T0_Background)->ShaderResourceView
 	);
 }
@@ -25,6 +34,9 @@ void Game::NewGame() {
 void Game::Run(double delta) {
 	//call on calculation function for all objects in game
 	//e.g update movement, values and check collisons
+	testObj->updateElement();
+	camera->updateFocus();
+	testObj->moveWorldToView();
 }
 
 void Game::Draw() {

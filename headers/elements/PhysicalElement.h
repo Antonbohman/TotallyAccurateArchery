@@ -2,20 +2,30 @@
 #include "elements/BaseElement.h"
 #include "elements/Camera.h"
 
+class Camera;
+
 class PhysicalElement : public BaseElement {
+private:
+	Camera * camera;
+
+protected:
+	//some kind of acceleration value? should prolly be moved to child element
 	bool Moving;
 	XMFLOAT3 Movement;
 	
+
 	XMFLOAT3 worldPosition;
 
-	void moveWorldToView();
+	void setAsCameraFocus();
 
 public:
 	PhysicalElement();
-	PhysicalElement(Graphic* _graphic = nullptr, XMFLOAT3 posToSet = XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2 sizeToSet = XMFLOAT2(0.0f, 0.0f), UINT harbor = 0, ID3D11ShaderResourceView* texturePtr = nullptr);
+	PhysicalElement(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
 	virtual ~PhysicalElement();
 
-	//Calc movement();
+	XMFLOAT2 getWorldPos();
+	void moveWorldToView();
 
+	virtual void updateElement();
 };
 

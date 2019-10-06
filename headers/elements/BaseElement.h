@@ -59,5 +59,6 @@ public:
 	virtual ~BaseElement();
 
 	virtual void renderElement();
+	virtual void updateElement() = 0;
 };
 

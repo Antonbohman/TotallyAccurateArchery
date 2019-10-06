@@ -130,9 +130,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="headers\Camera.h" />
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
+    <ClInclude Include="headers\elements\Camera.h" />
     <ClInclude Include="headers\elements\NumberCounter.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />
     <ClInclude Include="headers\Game.h" />
