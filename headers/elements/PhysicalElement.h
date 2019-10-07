@@ -13,6 +13,9 @@ protected:
 	XMFLOAT3 force;
 	XMFLOAT3 velocity;
 	XMFLOAT3 acceleration;
+	float dragCoefficient;
+
+	static float fluidDensity;
 
 
 	XMFLOAT3 movement;
