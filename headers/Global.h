@@ -19,7 +19,7 @@ using namespace DirectX;
 #define VERSION_PATCH 7
 
 // refresh rates
-#define CPS 30
+#define CPS 1
 #define FPS 30
 
 // window size
