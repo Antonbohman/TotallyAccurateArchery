@@ -9,8 +9,8 @@ private:
 	Camera* camera;
 
 protected:
-	bool Moving;
-	XMFLOAT3 Movement;
+	bool moving;
+	XMFLOAT3 movement;
 
 	XMFLOAT3 worldPosition;
 
@@ -23,6 +23,7 @@ public:
 
 	XMFLOAT2 getWorldPos();
 	void moveWorldToView();
+	bool isColliding(PhysicalElement otherObject);
 
 	virtual void updateElement();
 };

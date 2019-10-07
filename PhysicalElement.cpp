@@ -29,5 +29,39 @@ void PhysicalElement::moveWorldToView() {
 	viewPosition.y = worldPosition.y - offset.y;
 }
 
+bool PhysicalElement::isColliding(PhysicalElement otherObject)
+{
+	//This might be stupid
+
+	float distanceBetweenObjectsX, distanceBetweenObjectsY;
+	distanceBetweenObjectsX = (viewPosition.x - otherObject.viewPosition.x);
+	distanceBetweenObjectsY = (viewPosition.y - otherObject.viewPosition.y);
+
+	float distanceBetweenObjects = pow(pow(distanceBetweenObjectsX, 2) + pow(distanceBetweenObjectsY, 2), 0.5);
+
+	float maxSize = pow(pow(size.x, 2) + pow(size.y, 2), 0.5);
+
+	if (distanceBetweenObjects <= maxSize)
+	{
+		float X0, X1, Y0, Y1;
+		getQuadBoundries(&X0, &X1, &Y0, &Y1);
+
+		float otherX0, otherX1, otherY0, otherY1;
+		getQuadBoundries(&otherX0, &otherX1, &otherY0, &otherY1);
+
+		if (X1 < otherX1 && X1 > otherX0)
+		{
+			if ((Y0 > otherY0 && Y0 < otherY1) ||
+				(Y1 > otherY0 && Y1 < otherY1))
+			{
+				this->moving = false;
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 void PhysicalElement::updateElement() {
 }
