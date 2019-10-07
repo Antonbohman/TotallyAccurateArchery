@@ -2,6 +2,18 @@
 
 
 
+Arrow::Arrow() : PhysicalElement()
+{
+}
+
+Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, Vector3 dragForce, Vector3 velocity, Vector3 acceleration, float dragCoefficient, float mass, float fluidDensity)
+{
+}
+
+Arrow::~Arrow()
+{
+}
+
 void Arrow::doPhysics(float deltaTime)
 {
 	//Beräkna DragForce
