@@ -10,6 +10,11 @@ private:
 
 protected:
 	bool moving;
+	XMFLOAT3 force;
+	XMFLOAT3 velocity;
+	XMFLOAT3 acceleration;
+
+
 	XMFLOAT3 movement;
 
 	XMFLOAT3 worldPosition;

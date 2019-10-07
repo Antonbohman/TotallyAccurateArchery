@@ -34,8 +34,8 @@ bool PhysicalElement::isColliding(PhysicalElement otherObject)
 	//This might be stupid
 
 	float distanceBetweenObjectsX, distanceBetweenObjectsY;
-	distanceBetweenObjectsX = (viewPosition.x - otherObject.viewPosition.x);
-	distanceBetweenObjectsY = (viewPosition.y - otherObject.viewPosition.y);
+	distanceBetweenObjectsX = (worldPosition.x - otherObject.worldPosition.x);
+	distanceBetweenObjectsY = (worldPosition.y - otherObject.worldPosition.y);
 
 	float distanceBetweenObjects = pow(pow(distanceBetweenObjectsX, 2) + pow(distanceBetweenObjectsY, 2), 0.5);
 
@@ -63,5 +63,7 @@ bool PhysicalElement::isColliding(PhysicalElement otherObject)
 	return false;
 }
 
-void PhysicalElement::updateElement() {
+void PhysicalElement::updateElement() 
+{
+
 }
