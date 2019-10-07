@@ -75,12 +75,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 						}
 					} else {
 						startRun = high_resolution_clock::now();
-						menu.Run(delta_run.count());
-						if (delta_draw.count() > 1.0f) {
-							startDraw = high_resolution_clock::now();
-							graphic.Clear();
-							menu.Draw();
-							graphic.Finalize();
+						if (menu.Run(delta_run.count())) {
+							if (delta_draw.count() > 1.0f) {
+								startDraw = high_resolution_clock::now();
+								graphic.Clear();
+								menu.Draw();
+								graphic.Finalize();
+							}
+						} else {
+							msg.message = WM_QUIT;
 						}
 					}
 				}

@@ -1,7 +1,7 @@
 #include "Global.h"
 
 // rendering options
-ULONG renderOpt = RENDER_GAME;
+ULONG renderOpt = RENDER_DEFAULT;
 //UINT renderMode = 0;
 
 

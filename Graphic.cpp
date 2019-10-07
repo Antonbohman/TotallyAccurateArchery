@@ -378,7 +378,7 @@ void Graphic::Clear() {
 	if (!initialized) return;
 
 	// clear the back buffer to a black
-	float clearColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	deviceContext->ClearRenderTargetView(backbufferRTV, clearColor);
 

@@ -53,6 +53,8 @@ protected:
 	UV uv;
 	Sprite spriteInfo;
 
+	void getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1);
+
 public:
 	BaseElement();
 	BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);

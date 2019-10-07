@@ -4,16 +4,22 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	graphic = _graphic;
 	input = _input;
 
+	testObj = nullptr;
+	camera = nullptr;
+
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
 }
 
 Game::~Game() {
-	delete testObj;
 	delete camera;
+	delete testObj;
 }
 
 void Game::NewGame() {
+	delete camera;
+	delete testObj;
+
 	//create camera element to be used to move view
 	camera = new Camera(
 		graphic,
@@ -34,8 +40,14 @@ void Game::NewGame() {
 void Game::Run(double delta) {
 	//call on calculation function for all objects in game
 	//e.g update movement, values and check collisons
+
+	//update elements movements and such
 	testObj->updateElement();
+
+	//update camera with focus or fixed position if needed
 	camera->updateFocus();
+
+	//set all elements in view regarding its world position in relation to camera position
 	testObj->moveWorldToView();
 }
 

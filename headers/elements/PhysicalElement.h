@@ -6,13 +6,11 @@ class Camera;
 
 class PhysicalElement : public BaseElement {
 private:
-	Camera * camera;
+	Camera* camera;
 
 protected:
-	//some kind of acceleration value? should prolly be moved to child element
 	bool Moving;
 	XMFLOAT3 Movement;
-	
 
 	XMFLOAT3 worldPosition;
 

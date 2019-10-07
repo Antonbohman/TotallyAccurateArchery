@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="AbstractElement.cpp" />
     <ClCompile Include="BaseElement.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
+    <ClInclude Include="headers\elements\Button.h" />
     <ClInclude Include="headers\elements\Camera.h" />
     <ClInclude Include="headers\elements\NumberCounter.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />

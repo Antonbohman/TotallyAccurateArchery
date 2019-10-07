@@ -72,6 +72,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Objects\AbstractObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -119,6 +122,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\elements\Camera.h">
+      <Filter>Header Files\Objects\AbstractObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\Button.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>

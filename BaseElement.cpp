@@ -19,7 +19,7 @@ BaseElement::BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSe
 	viewPosition = posToSet;
 	size = sizeToSet;
 	anchor = Anchor(harbor);
-	rotation = 1;
+	rotation = 0;
 
 	graphic = _graphic;
 	shaderResourceView = texturePtr;
@@ -31,6 +31,41 @@ BaseElement::~BaseElement() {
 	if (quadBuffer) quadBuffer->Release();
 
 	delete[] vertices;
+}
+
+void BaseElement::getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1) {
+	switch (anchor) {
+	case Middle:
+		*pos_X0 = viewPosition.x - (size.x / 2);
+		*pos_X1 = viewPosition.x + (size.x / 2);
+		*pos_Y0 = viewPosition.y - (size.y / 2);
+		*pos_Y1 = viewPosition.y + (size.y / 2);
+		break;
+	case TopLeft:
+		*pos_X0 = viewPosition.x;
+		*pos_X1 = viewPosition.x + size.x;
+		*pos_Y0 = viewPosition.y - size.y;
+		*pos_Y1 = viewPosition.y;
+		break;
+	case TopRight:
+		*pos_X0 = viewPosition.x - size.x;
+		*pos_X1 = viewPosition.x;
+		*pos_Y0 = viewPosition.y - size.y;
+		*pos_Y1 = viewPosition.y;
+		break;
+	case BottomLeft:
+		*pos_X0 = viewPosition.x;
+		*pos_X1 = viewPosition.x + size.x;
+		*pos_Y0 = viewPosition.y;
+		*pos_Y1 = viewPosition.y + size.y;
+		break;
+	case BottomRight:
+		*pos_X0 = viewPosition.x - size.x;
+		*pos_X1 = viewPosition.x;
+		*pos_Y0 = viewPosition.y;
+		*pos_Y1 = viewPosition.y + size.y;
+		break;
+	}
 }
 
 XMFLOAT2 BaseElement::rotatePoint(float x, float y) {
@@ -75,39 +110,7 @@ void BaseElement::createVertexBuffer() {
 
 void BaseElement::createQuad() {
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
-
-	switch (anchor) {
-	case Middle:
-		pos_X0 = viewPosition.x - (size.x / 2);
-		pos_X1 = viewPosition.x + (size.x / 2);
-		pos_Y0 = viewPosition.y - (size.y / 2);
-		pos_Y1 = viewPosition.y + (size.y / 2);
-		break;
-	case TopLeft:
-		pos_X0 = viewPosition.x;
-		pos_X1 = viewPosition.x + size.x;
-		pos_Y0 = viewPosition.y - size.y;
-		pos_Y1 = viewPosition.y;
-		break;
-	case TopRight:
-		pos_X0 = viewPosition.x - size.x;
-		pos_X1 = viewPosition.x;
-		pos_Y0 = viewPosition.y - size.y;
-		pos_Y1 = viewPosition.y;
-		break;
-	case BottomLeft:
-		pos_X0 = viewPosition.x;
-		pos_X1 = viewPosition.x + size.x;
-		pos_Y0 = viewPosition.y;
-		pos_Y1 = viewPosition.y + size.y;
-		break;
-	case BottomRight:
-		pos_X0 = viewPosition.x - size.x;
-		pos_X1 = viewPosition.x;
-		pos_Y0 = viewPosition.y;
-		pos_Y1 = viewPosition.y + size.y;
-		break;
-	}
+	getQuadBoundries(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
 	XMFLOAT2 NW = rotatePoint(pos_X0, pos_Y1);
 	XMFLOAT2 NE = rotatePoint(pos_X1, pos_Y1);
@@ -135,42 +138,42 @@ void BaseElement::createQuad() {
 
 	//v0
 	vertices[0] = {
-		NW.x, NW.y, viewPosition.z,						//pos
+		NW.x, NW.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y0,								//uv
 	};
 
 	//v1
 	vertices[1] = {
-		NE.x, NE.y, viewPosition.z,						//pos
+		NE.x, NE.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 	};
 
 	//v2
 	vertices[2] = {		
-		SW.x, SW.y, viewPosition.z,						//pos
+		SW.x, SW.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y1,								//uv
 	};
 
 	//v3
 	vertices[3] = {
-		NE.x, NE.y, viewPosition.z,						//pos
+		NE.x, NE.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y0,								//uv
 	};
 
 	//v4
 	vertices[4] = {	
-		SE.x, SE.y, viewPosition.z,						//pos
+		SE.x, SE.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X1, uv.Y1,								//uv
 	};
 
 	//v5
 	vertices[5] = {	
-		SW.x, SW.y, viewPosition.z,						//pos
+		SW.x, SW.y, viewPosition.z,					//pos
 		colour.x, colour.y, colour.z, colour.w,		//colour
 		uv.X0, uv.Y1,								//uv
 	};
