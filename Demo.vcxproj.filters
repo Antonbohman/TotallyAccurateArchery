@@ -75,6 +75,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Source Files\Objects\PhysicalObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -126,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="headers\elements\Button.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Header Files\Objects\PhysicalObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

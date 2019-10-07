@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractElement.cpp" />
+    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="BaseElement.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -131,6 +132,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arrow.h" />
     <ClInclude Include="headers\elements\AbstractElement.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
     <ClInclude Include="headers\elements\Button.h" />
