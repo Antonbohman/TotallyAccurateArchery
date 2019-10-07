@@ -33,15 +33,13 @@ bool PhysicalElement::isColliding(PhysicalElement otherObject)
 {
 	//This might be stupid
 
-	float distanceBetweenObjectsX, distanceBetweenObjectsY;
-	distanceBetweenObjectsX = (worldPosition.x - otherObject.worldPosition.x);
-	distanceBetweenObjectsY = (worldPosition.y - otherObject.worldPosition.y);
-
-	float distanceBetweenObjects = pow(pow(distanceBetweenObjectsX, 2) + pow(distanceBetweenObjectsY, 2), 0.5);
+	Vector2 distanceBetweenObjects;
+	distanceBetweenObjects.x = (worldPosition.x - otherObject.worldPosition.x);
+	distanceBetweenObjects.y = (worldPosition.y - otherObject.worldPosition.y);
 
 	float maxSize = pow(pow(size.x, 2) + pow(size.y, 2), 0.5);
 
-	if (distanceBetweenObjects <= maxSize)
+	if (distanceBetweenObjects.Length() <= maxSize)
 	{
 		float X0, X1, Y0, Y1;
 		getQuadBoundries(&X0, &X1, &Y0, &Y1);
@@ -54,7 +52,7 @@ bool PhysicalElement::isColliding(PhysicalElement otherObject)
 			if ((Y0 > otherY0 && Y0 < otherY1) ||
 				(Y1 > otherY0 && Y1 < otherY1))
 			{
-				this->moving = false;
+				//this->moving = false;
 				return true;
 			}
 		}

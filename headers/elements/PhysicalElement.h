@@ -9,17 +9,6 @@ private:
 	Camera* camera;
 
 protected:
-	bool moving;
-	XMFLOAT3 force;
-	XMFLOAT3 velocity;
-	XMFLOAT3 acceleration;
-	float dragCoefficient;
-
-	static float fluidDensity;
-
-
-	XMFLOAT3 movement;
-
 	XMFLOAT3 worldPosition;
 
 	void setAsCameraFocus();
