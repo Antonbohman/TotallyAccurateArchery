@@ -4,6 +4,7 @@
 #include "TextureHandler.h"
 
 #include "elements/Camera.h"
+#include "Arrow.h"
 
 class Game {
 private:
