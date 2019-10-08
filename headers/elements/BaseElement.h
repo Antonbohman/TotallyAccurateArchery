@@ -40,9 +40,11 @@ protected:
 
 	 struct Sprite {
 		bool spritesheet = false;
-		int currentFrame = 0;
-		int columns = 0;			//keep it even divided with 1 for correct UV cords
-		int rows = 0;				//keep it even divided with 1 for correct UV cords
+		int maxColumns = 0;				//keep it even divided with 1 for correct UV cords
+		int maxRows = 0;				//keep it even divided with 1 for correct UV cords
+		int column = 0;
+		int row = 0;
+		int frame = 0;
 	};
 
 	XMFLOAT4 colour;

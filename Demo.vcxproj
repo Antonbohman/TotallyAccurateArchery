@@ -104,6 +104,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Line.cpp" />
@@ -136,12 +137,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arrow.h" />
     <ClInclude Include="headers\elements\AbstractElement.h" />
+    <ClInclude Include="headers\elements\Arrow.h" />
     <ClInclude Include="headers\elements\BaseElement.h" />
     <ClInclude Include="headers\elements\Bow.h" />
     <ClInclude Include="headers\elements\Button.h" />
     <ClInclude Include="headers\elements\Camera.h" />
+    <ClInclude Include="headers\elements\Ground.h" />
     <ClInclude Include="headers\elements\Human.h" />
     <ClInclude Include="headers\elements\Line.h" />
     <ClInclude Include="headers\elements\NumberCounter.h" />

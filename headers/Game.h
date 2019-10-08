@@ -4,10 +4,11 @@
 #include "TextureHandler.h"
 
 #include "elements/Camera.h"
-#include "Arrow.h"
+#include "elements/Arrow.h"
 #include "elements/Human.h"
 #include "elements/Bow.h"
 #include "elements/Target.h"
+#include "elements/Ground.h"
 
 #define MAX_TARGET 10
 #define MAX_ARROW 50
@@ -30,6 +31,7 @@ private:
 
 	Camera* camera;
 
+	Ground* ground;
 	Human* human;
 	Bow* bow;
 	Arrow* activeArrow;

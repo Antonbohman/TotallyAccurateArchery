@@ -6,6 +6,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	camera = nullptr;
 
+	ground = nullptr;
 	human = nullptr;
 	bow = nullptr;
 	activeArrow = nullptr;
@@ -27,12 +28,13 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T5_Ground, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
 }
 
 Game::~Game() {
 	delete camera;
 
+	delete ground;
 	delete human;
 	delete bow;
 	delete activeArrow;
@@ -51,6 +53,7 @@ Game::~Game() {
 void Game::NewGame() {
 	delete camera;
 
+	delete ground;
 	delete human;
 	delete bow;
 	delete activeArrow;
@@ -71,10 +74,19 @@ void Game::NewGame() {
 		{ 0, 0, 1.0f }
 	);
 
+	ground = new Ground(
+		graphic,
+		camera,
+		{ 0, 150, 0.0f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ 80000, 900 },
+		TopLeft,
+		textures.GetTexture(T5_Ground)->ShaderResourceView
+	); 
+	
 	human = new Human(
 		graphic,
 		camera,
-		{ W_WIDTH / 2, W_HEIGHT / 2, 0.85f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ W_WIDTH / 2, 225, 0.55f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
 		textures.GetTexture(T3_Human)->ShaderResourceView
@@ -83,7 +95,7 @@ void Game::NewGame() {
 	bow = new Bow(
 		graphic,
 		camera,
-		{ W_WIDTH / 2, (W_HEIGHT / 2)-10, 0.82f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ W_WIDTH / 2, 225, 0.52f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
 		textures.GetTexture(T2_Bow)->ShaderResourceView
@@ -92,7 +104,7 @@ void Game::NewGame() {
 	targets[0] = new Target(
 		graphic,
 		camera,
-		{ W_WIDTH * 2, W_HEIGHT * 2, 0.30f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ W_WIDTH * 2, W_HEIGHT * 2, 0.40f }, 
 		{ 100, 100 },
 		Middle,
 		textures.GetTexture(T4_Target)->ShaderResourceView
@@ -130,12 +142,12 @@ void Game::Run(double delta) {
 		human->updateElement();
 		bow->updateElement();
 
-		//quick way to release a fixed arrow
+		//quick way to release a custom valued arrow on demand
 		if (input->Key(Key::_Space).Active) activeArrow = new Arrow(
 			//set arrow values for new arrow to be throwned away
 			/*graphic,
 			camera,
-			{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+			{ W_WIDTH / 2, W_HEIGHT / 2, 0.70f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 			{ 400, 200 },
 			Middle,
 			textures.GetTexture(T1_Arrow)->ShaderResourceView*/
@@ -149,6 +161,7 @@ void Game::Run(double delta) {
 	camera->updateFocus();
 
 	//set all elements in view regarding its world position in relation to camera position
+	ground->moveWorldToView();
 	human->moveWorldToView();
 	bow->moveWorldToView();
 
@@ -165,6 +178,7 @@ void Game::Run(double delta) {
 
 void Game::Draw() {
 	//call draw function for all objects
+	ground->renderElement();
 	human->renderElement();
 	bow->renderElement();
 
@@ -178,3 +192,15 @@ void Game::Draw() {
 		//if (arrows[i]) arrows[i]->renderElement();
 	}
 }
+
+
+/*
+	Anton's Jazzlists
+	*dragable line
+	*counter incl. font with sprites (alternative check with printing to console or something...)
+	*ground with onetexture object and one transparent collison object
+	*texture for arrow, targets, world, background
+	*moving background with triple object pushing on sides
+	*smooth camera movement
+	*option object for stuff like kind of bows, planets and wind forces (moving obstacles?)
+*/

@@ -90,6 +90,9 @@
     <ClCompile Include="Arrow.cpp">
       <Filter>Source Files\Objects\PhysicalObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -154,7 +157,10 @@
     <ClInclude Include="headers\elements\Line.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Arrow.h">
+    <ClInclude Include="Ground.h">
+      <Filter>Header Files\Objects\PhysicalObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\Arrow.h">
       <Filter>Header Files\Objects\PhysicalObjects</Filter>
     </ClInclude>
   </ItemGroup>
