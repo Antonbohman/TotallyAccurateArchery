@@ -19,7 +19,6 @@ private:
 
 	TriangleVertex* vertices;
 
-	XMFLOAT2 rotatePoint(float x, float y); //moves point to origo and rotates it around its anchor and moves it back correspondly
 	void createVertexBuffer();
 	void createQuad();	//calculates new quad for element
 
@@ -54,7 +53,8 @@ protected:
 	UV uv;
 	Sprite spriteInfo;
 
-	void getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1);
+	void getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1); //sets x and y positon for elements boundries
+	XMFLOAT2 rotatePoint(float x, float y); //transforms points to origo and rotates it around its anchor point and transforms it back correspondly
 
 public:
 	BaseElement();
