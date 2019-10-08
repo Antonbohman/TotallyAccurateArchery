@@ -27,13 +27,19 @@ void Game::NewGame() {
 	);
 
 	//create new objects and set init variables for a new game
-	testObj = new PhysicalElement(
+	testObj = new Arrow(
 		graphic,
 		camera,
 		{ W_WIDTH / 2, W_HEIGHT / 2, 0.5f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 400, 200 },
 		Middle,
-		textures.GetTexture(T0_Background)->ShaderResourceView
+		textures.GetTexture(T0_Background)->ShaderResourceView,
+		Vector3(0,0,0),
+		Vector3(0, 100, 0),
+		Vector3(0,0,0),
+		float(1),
+		float(0.300),
+		float(1.225)
 	);
 }
 
@@ -42,7 +48,7 @@ void Game::Run(double delta) {
 	//e.g update movement, values and check collisons
 
 	//update elements movements and such
-	testObj->updateElement();
+	testObj->updateElement(delta);
 
 	//update camera with focus or fixed position if needed
 	camera->updateFocus();

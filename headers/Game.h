@@ -17,7 +17,7 @@ private:
 	Input* input;
 
 	TextureHandler textures;
-	PhysicalElement* testObj;
+	Arrow* testObj;
 	Camera* camera;
 
 public:

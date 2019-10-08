@@ -19,4 +19,6 @@ public:
 	~Arrow();
 
 	void doPhysics(float deltaTime);
+
+	void updateElement(float deltaTime);
 };
