@@ -10,3 +10,9 @@ Bow::Bow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToS
 Bow::~Bow() {
 
 }
+
+void Bow::updateElement() {
+	if (rotation < -0.6 || rotation > 0.6)
+		direction *= -1;
+	rotation += 0.000001*direction;
+}

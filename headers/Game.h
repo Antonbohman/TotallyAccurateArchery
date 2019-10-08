@@ -5,20 +5,36 @@
 
 #include "elements/Camera.h"
 #include "Arrow.h"
+#include "elements/Human.h"
+#include "elements/Bow.h"
+#include "elements/Target.h"
+
+#define MAX_TARGET 10
+#define MAX_ARROW 50
 
 class Game {
 private:
 	enum Texture { 
 		T0_Background,
-		T1_Arrow
+		T1_Arrow,
+		T2_Bow,
+		T3_Human,
+		T4_Target,
+		T5_Ground
 	};
 
 	Graphic* graphic;
 	Input* input;
 
 	TextureHandler textures;
-	PhysicalElement* testObj;
+
 	Camera* camera;
+
+	Human* human;
+	Bow* bow;
+	Arrow* activeArrow;
+	Arrow** arrows;
+	Target** targets;
 
 public:
 	Game(Graphic* _graphic, Input* _input);

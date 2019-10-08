@@ -13,8 +13,8 @@ protected:
 
 	void setAsCameraFocus();
 
-	double convertPixelToMeter(const int* pixels);
-	int convertMeterToPixel(const double* meters);
+	double convertPixelToMeter(const float* pixels);
+	float convertMeterToPixel(const double* meters);
 
 public:
 	PhysicalElement();

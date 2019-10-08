@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphic.h"
 #include "Input.h"
-#include <SimpleMath.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
