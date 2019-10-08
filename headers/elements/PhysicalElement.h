@@ -5,13 +5,15 @@
 class Camera;
 
 class PhysicalElement : public BaseElement {
-private:
-	Camera* camera;
-
 protected:
+	Camera * camera;
+
 	XMFLOAT3 worldPosition;
 
 	void setAsCameraFocus();
+
+	double convertPixelToMeter(const float* pixels);
+	float convertMeterToPixel(const double* meters);
 
 public:
 	PhysicalElement();
@@ -19,7 +21,7 @@ public:
 	virtual ~PhysicalElement();
 
 	XMFLOAT2 getWorldPos();
-	void moveWorldToView();
+	virtual void moveWorldToView();
 	bool isColliding(PhysicalElement otherObject);
 
 	virtual void updateElement();

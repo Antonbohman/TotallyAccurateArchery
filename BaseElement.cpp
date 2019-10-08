@@ -130,10 +130,26 @@ void BaseElement::createQuad() {
 	NE.y = (NE.y / (W_HEIGHT / 2)) - 1;
 
 	if (spriteInfo.spritesheet) {
-		float xSplit = 1 / spriteInfo.columns;
-		float ySplit = 1 / spriteInfo.rows;
+		float uSize = 1 / spriteInfo.maxColumns;
+		float vSize = 1 / spriteInfo.maxRows;
 
-		//fix sprite calc...
+		if (spriteInfo.frame) {
+			int rows = spriteInfo.frame / spriteInfo.maxColumns;
+			int column = spriteInfo.frame % spriteInfo.maxColumns;
+			int row = rows % spriteInfo.maxRows;
+
+			uv.X0 = uSize * column;
+			uv.X1 = uSize * (column +1);
+
+			uv.Y0 = vSize * row;
+			uv.Y1 = vSize * (row + 1);
+		} else {
+			uv.X0 = uSize * spriteInfo.column;
+			uv.X1 = uSize * (spriteInfo.column + 1);
+
+			uv.Y0 = vSize * spriteInfo.row;
+			uv.Y1 = vSize * (spriteInfo.row + 1);
+		}
 	}
 
 	//v0

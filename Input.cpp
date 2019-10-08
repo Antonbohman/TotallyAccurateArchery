@@ -10,6 +10,7 @@ Input::Input(HWND _wndHandle) {
 	keyList = new KeyInfo[maxKeys];
 
 	initKey(Key::F9, REPEAT_OFF);
+	initKey(Key::_Space, REPEAT_OFF);
 
 	mouse.Left.Key = Key::_LeftClick;
 	mouse.Right.Key = Key::_RightClick;

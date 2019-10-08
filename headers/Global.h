@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <SimpleMath.h>
 
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "d3dcompiler.lib")
@@ -16,10 +17,10 @@ using namespace DirectX;
 // version
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_PATCH 7
+#define VERSION_PATCH 8
 
 // refresh rates
-#define CPS 30
+#define CPS 1
 #define FPS 30
 
 // window size

@@ -14,6 +14,14 @@ PhysicalElement::~PhysicalElement() {
 
 }
 
+double PhysicalElement::convertPixelToMeter(const float* pixels) {
+	return (double)*pixels / (double)100;
+}
+
+float PhysicalElement::convertMeterToPixel(const double* meters) {
+	return (float)round(*meters * 100);
+}
+
 void PhysicalElement::setAsCameraFocus() {
 	camera->setFocus(this);
 }

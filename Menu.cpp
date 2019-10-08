@@ -8,11 +8,11 @@ Menu::Menu(Graphic* _graphic, Input* _input, Game* _game) {
 	stage = MAIN;
 
 	textures.SetTexture(graphic->device, T0_Background, L"resources/bg.dds");
-	textures.SetTexture(graphic->device, T1_PLAY, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T2_BACK, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T3_QUIT, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T4_CRED, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T5_HELP, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T1_PLAY, L"resources/play.dds");
+	textures.SetTexture(graphic->device, T2_BACK, L"resources/back.dds");
+	textures.SetTexture(graphic->device, T3_QUIT, L"resources/quit.dds");
+	textures.SetTexture(graphic->device, T4_CRED, L"resources/cred.dds");
+	textures.SetTexture(graphic->device, T5_HELP, L"resources/help.dds");
 
 	background = new AbstractElement(
 		graphic,

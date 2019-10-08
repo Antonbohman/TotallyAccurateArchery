@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphic.h"
 #include "Input.h"
-#include <SimpleMath.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -20,7 +19,6 @@ private:
 
 	TriangleVertex* vertices;
 
-	XMFLOAT2 rotatePoint(float x, float y); //moves point to origo and rotates it around its anchor and moves it back correspondly
 	void createVertexBuffer();
 	void createQuad();	//calculates new quad for element
 
@@ -42,9 +40,11 @@ protected:
 
 	 struct Sprite {
 		bool spritesheet = false;
-		int currentFrame = 0;
-		int columns = 0;			//keep it even divided with 1 for correct UV cords
-		int rows = 0;				//keep it even divided with 1 for correct UV cords
+		int maxColumns = 0;				//keep it even divided with 1 for correct UV cords
+		int maxRows = 0;				//keep it even divided with 1 for correct UV cords
+		int column = 0;
+		int row = 0;
+		int frame = 0;
 	};
 
 	XMFLOAT4 colour;
@@ -55,7 +55,8 @@ protected:
 	UV uv;
 	Sprite spriteInfo;
 
-	void getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1);
+	void getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1); //sets x and y positon for elements boundries
+	XMFLOAT2 rotatePoint(float x, float y); //transforms points to origo and rotates it around its anchor point and transforms it back correspondly
 
 public:
 	BaseElement();
