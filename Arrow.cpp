@@ -37,12 +37,15 @@ void Arrow::doPhysics(float deltaTime)
 	newVelocity.y += acceleration.y * deltaTime;
 
 	//Beräkna position FEL
+
 	velocity =
 		Vector3(
 		((velocity.x + newVelocity.x) / 2.0f),
 			((velocity.y + newVelocity.y) / 2.0f),
 			(0)
 		);
+
+	rotation = acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length())))) * 2;
 
 	worldPosition += (velocity * deltaTime * 100);
 }

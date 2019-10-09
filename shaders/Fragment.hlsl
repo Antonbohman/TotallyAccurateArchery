@@ -29,7 +29,7 @@ float4 PS_main(PS_IN input) : SV_TARGET
             pixelColour.r * input.Colour.r,
             pixelColour.g * input.Colour.g,
             pixelColour.b * input.Colour.b,
-            pixelColour.a //* input.Colour.a
+            pixelColour.a * input.Colour.a
         );
     }
     else

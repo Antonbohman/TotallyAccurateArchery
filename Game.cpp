@@ -24,7 +24,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T1_Arrow, L"resources/bow.dds");
+	textures.SetTexture(graphic->device, T1_Arrow, L"resources/Fishy.dds");
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/Fishy.dds");
@@ -165,7 +165,7 @@ void Game::Run(double delta) {
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
 				Vector3(0, 0, 0),
-				Vector3(3, 1, 0),
+				Vector3(11, 11, 0),
 				Vector3(0, 0, 0),
 				0.0001f,
 				0.018f,
@@ -210,6 +210,7 @@ void Game::Draw() {
 
 	for (int i = 0; i < MAX_ARROW; i++) {
 		if (arrows[i]) arrows[i]->renderElement();
+		else i = MAX_ARROW;
 	}
 }
 
