@@ -24,7 +24,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T1_Arrow, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T1_Arrow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/Fishy.dds");
@@ -119,7 +119,18 @@ void Game::Run(double delta) {
 		activeArrow->updateElement(delta);
 
 		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
+		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
+		{
+			int i = 0;
+			while (arrows[i]) { i++; }
+			if (i < MAX_ARROW) {
+				arrows[i] = activeArrow;
+				activeArrow = nullptr;
+			}
 
+			camera->clearFocus();
+			camera->setPos({ W_WIDTH / 2, W_HEIGHT / 2 });
+		}
 
 
 		//some temporary keybinds to alter current state, manualy sets arrow as collided and resets camera back to human
@@ -143,21 +154,24 @@ void Game::Run(double delta) {
 		bow->updateElement();
 
 		//quick way to release a custom valued arrow on demand
-		if (input->Key(Key::_Space).Active) activeArrow = new Arrow(
-			//set arrow values for new arrow to be throwned away
-			graphic,
-			camera,
-			{ W_WIDTH / 2, W_HEIGHT / 2, 0.70f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
-			{ 400, 200 },
-			Middle,
-			textures.GetTexture(T1_Arrow)->ShaderResourceView,
-			Vector3(0, 0, 0),
-			Vector3(40, 100, 0),
-			Vector3(0, 0, 0),
-			0.0001f,
-			0.018f,
-			1.225f
-		);
+		if (input->Key(Key::_Space).Active) {
+			nrOfArrows++;
+			activeArrow = new Arrow(
+				//set arrow values for new arrow to be throwned away
+				graphic,
+				camera,
+				{ W_WIDTH / 2, W_HEIGHT / 2, 0.80f-(nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ 400, 200 },
+				Middle,
+				textures.GetTexture(T1_Arrow)->ShaderResourceView,
+				Vector3(0, 0, 0),
+				Vector3(3, 1, 0),
+				Vector3(0, 0, 0),
+				0.0001f,
+				0.018f,
+				1.225f
+			);
+		}
 
 		//should be set to new arrow instead as focus point when added, or keep it as is to see the arrow land from targets viewpoint
 		if (input->Key(Key::_Space).Active) camera->setFocus(activeArrow);

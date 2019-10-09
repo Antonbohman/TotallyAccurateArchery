@@ -38,6 +38,8 @@ private:
 	Arrow** arrows;
 	Target** targets;
 
+	int nrOfArrows = 0;
+
 public:
 	Game(Graphic* _graphic, Input* _input);
 	~Game();

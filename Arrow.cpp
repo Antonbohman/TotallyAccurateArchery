@@ -24,7 +24,7 @@ void Arrow::doPhysics(float deltaTime)
 
 	Vector3 newVelocity = velocity;
 
-	dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity/velocity.Length());
+	dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity / velocity.Length());
 
 	//Beräkna acceleration
 
@@ -39,12 +39,12 @@ void Arrow::doPhysics(float deltaTime)
 	//Beräkna position FEL
 	velocity =
 		Vector3(
-			((velocity.x + newVelocity.x) / 2.0f),
+		((velocity.x + newVelocity.x) / 2.0f),
 			((velocity.y + newVelocity.y) / 2.0f),
 			(0)
 		);
 
-	worldPosition += (velocity * deltaTime);
+	worldPosition += (velocity * deltaTime * 100);
 }
 
 void Arrow::updateElement(float deltaTime)

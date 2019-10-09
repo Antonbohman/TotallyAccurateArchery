@@ -15,7 +15,7 @@ Button::~Button() {
 bool Button::isPressed(const MouseInfo* mouse) {
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	if (mouse->Left.Active) {
-		getQuadBoundries(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+		getQuadBoundriesView(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
 		if (mouse->X > pos_X0 &&
 			mouse->X < pos_X1 &&
