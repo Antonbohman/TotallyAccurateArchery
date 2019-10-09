@@ -11,7 +11,7 @@ Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	this->acceleration = acceleration;
 	this->dragCoefficient = dragCoefficient;
 	this->mass = mass;
-	this->fluidDensity = fluidDensity;
+	//this->fluidDensity = fluidDensity;
 }
 
 Arrow::~Arrow()
@@ -20,34 +20,31 @@ Arrow::~Arrow()
 
 void Arrow::doPhysics(float deltaTime)
 {
-	//Beräkna position
-
-	deltaTime = 0.01;
-
-	worldPosition.x += (velocity.x * deltaTime);
-	worldPosition.y += (velocity.y * deltaTime); //Känns för lätt
-
 	//Beräkna DragForce
 
-	Vector2 realSize;
-	realSize.x = float(0.3); 
-	realSize.y = float(0.04);
+	Vector3 newVelocity = velocity;
 
-	dragForce.x = 0.5 * fluidDensity * pow(velocity.x, 2)
-		* realSize.y * dragCoefficient; //Delar upp dem för att få alla olika dimensioner
-
-	dragForce.y = 0.5 * fluidDensity * pow(velocity.y, 2)
-		* realSize.x * dragCoefficient; //Funkar det?
+	dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity/velocity.Length());
 
 	//Beräkna acceleration
 
-	acceleration.x = -(dragForce.x * velocity.x) / (mass * velocity.Length());
-	acceleration.y = -9.82 /*- (dragForce.y * velocity.y) / (mass * velocity.Length())*/;
+	acceleration = dragForce / mass; //F = ma => F/m = a
+	acceleration.y -= 9.82;
 
-	//Beräkna velocity (Diffrential)
+	//Beräkna velocity (Diffrential ekvation) FEL
 
-	velocity.x += acceleration.x * deltaTime;
-	velocity.y += acceleration.y * deltaTime;
+	newVelocity.x += acceleration.x * deltaTime;
+	newVelocity.y += acceleration.y * deltaTime;
+
+	//Beräkna position FEL
+	velocity =
+		Vector3(
+			((velocity.x + newVelocity.x) / 2.0f),
+			((velocity.y + newVelocity.y) / 2.0f),
+			(0)
+		);
+
+	worldPosition += (velocity * deltaTime);
 }
 
 void Arrow::updateElement(float deltaTime)

@@ -8,7 +8,7 @@ class PhysicalElement : public BaseElement {
 protected:
 	Camera * camera;
 
-	XMFLOAT3 worldPosition;
+	Vector3 worldPosition;
 
 	void setAsCameraFocus();
 

@@ -10,7 +10,7 @@ private:
 	float dragCoefficient;
 	float mass;
 	//const float fluidDensity = 1.225f; Dis air
-	float fluidDensity;
+	//float fluidDensity;
 
 public:
 
