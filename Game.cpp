@@ -119,7 +119,7 @@ void Game::Run(double delta) {
 		activeArrow->updateElement(delta);
 
 		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
-		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
+		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)) || activeArrow->isColliding(targets[0]))
 		{
 			int i = 0;
 			while (arrows[i]) { i++; }
@@ -164,12 +164,12 @@ void Game::Run(double delta) {
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
-				Vector3(0, 0, 0),
-				Vector3(10, 30, 0),
-				Vector3(0, 0, 0),
+				//Vector3(0, 0, 0),
+				Vector3(20, 14, 0),
+				//Vector3(0, 0, 0),
 				0.0001f,
-				0.018f,
-				1.225f
+				0.018f/*,
+				1.225f*/
 			);
 		}
 
