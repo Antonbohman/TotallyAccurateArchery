@@ -1,5 +1,6 @@
 #pragma once
 #include "elements/PhysicalElement.h"
+#include "elements/Bow.h"
 
 class Arrow : public PhysicalElement
 {
@@ -19,6 +20,5 @@ public:
 	~Arrow();
 
 	void doPhysics(float deltaTime);
-
 	void updateElement(float deltaTime);
 };

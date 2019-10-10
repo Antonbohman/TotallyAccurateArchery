@@ -98,7 +98,11 @@ void Game::NewGame() {
 		{ W_WIDTH / 2, 225, 0.52f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
-		textures.GetTexture(T2_Bow)->ShaderResourceView
+		textures.GetTexture(T2_Bow)->ShaderResourceView,
+		Vector3(1, 1, 0),
+		float(0.9),
+		float(1),
+		float(0.05)
 	); 
 
 	targets[0] = new Target(
@@ -165,10 +169,11 @@ void Game::Run(double delta) {
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
 				//Vector3(0, 0, 0),
-				Vector3(20, 14, 0),
+				bow->fireArrow(0.06f),
+				//Vector3(20, 14, 0),
 				//Vector3(0, 0, 0),
 				0.0001f,
-				0.018f/*,
+				0.06f/*,
 				1.225f*/
 			);
 		}
