@@ -45,7 +45,14 @@ void Arrow::doPhysics(float deltaTime)
 			(0)
 		);
 
-	rotation = acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length())))) * 2;
+	if (velocity.y > 0)
+	{
+		rotation = -acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length()))));
+	}
+	else
+	{
+		rotation = acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length()))));
+	}
 
 	worldPosition += (velocity * deltaTime * 100);
 }

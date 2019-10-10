@@ -165,7 +165,7 @@ void Game::Run(double delta) {
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
 				Vector3(0, 0, 0),
-				Vector3(11, 11, 0),
+				Vector3(10, 30, 0),
 				Vector3(0, 0, 0),
 				0.0001f,
 				0.018f,
