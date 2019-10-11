@@ -8,12 +8,13 @@ class PhysicalElement : public BaseElement {
 protected:
 	Camera * camera;
 
-	XMFLOAT3 worldPosition;
+	Vector3 worldPosition;
 
 	void setAsCameraFocus();
 
 	double convertPixelToMeter(const float* pixels);
-	float convertMeterToPixel(const double* meters);
+	float convertMeterToPixel(const double* meters); 
+	void getQuadBoundriesWorld(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1);
 
 public:
 	PhysicalElement();
@@ -22,7 +23,7 @@ public:
 
 	XMFLOAT2 getWorldPos();
 	virtual void moveWorldToView();
-	bool isColliding(PhysicalElement otherObject);
+	bool isColliding(PhysicalElement* otherObject);
 
 	virtual void updateElement();
 };

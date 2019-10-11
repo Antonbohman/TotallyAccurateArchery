@@ -24,7 +24,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
-	textures.SetTexture(graphic->device, T1_Arrow, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T1_Arrow, L"resources/giftpil.dds");
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/Fishy.dds");
@@ -98,7 +98,11 @@ void Game::NewGame() {
 		{ W_WIDTH / 2, 225, 0.52f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
-		textures.GetTexture(T2_Bow)->ShaderResourceView
+		textures.GetTexture(T2_Bow)->ShaderResourceView,
+		Vector3(1, 1, 0),
+		float(0.9),
+		float(1),
+		float(0.05)
 	); 
 
 	targets[0] = new Target(
@@ -116,10 +120,21 @@ void Game::NewGame() {
 void Game::Run(double delta) {
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
-		//activeArrow->updateElement();
+		activeArrow->updateElement(delta);
 
 		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
+		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)) || activeArrow->isColliding(targets[0]))
+		{
+			int i = 0;
+			while (arrows[i]) { i++; }
+			if (i < MAX_ARROW) {
+				arrows[i] = activeArrow;
+				activeArrow = nullptr;
+			}
 
+			camera->clearFocus();
+			camera->setPos({ W_WIDTH / 2, W_HEIGHT / 2 });
+		}
 
 
 		//some temporary keybinds to alter current state, manualy sets arrow as collided and resets camera back to human
@@ -143,18 +158,28 @@ void Game::Run(double delta) {
 		bow->updateElement();
 
 		//quick way to release a custom valued arrow on demand
-		if (input->Key(Key::_Space).Active) activeArrow = new Arrow(
-			//set arrow values for new arrow to be throwned away
-			/*graphic,
-			camera,
-			{ W_WIDTH / 2, W_HEIGHT / 2, 0.70f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
-			{ 400, 200 },
-			Middle,
-			textures.GetTexture(T1_Arrow)->ShaderResourceView*/
-		);
+		if (input->Key(Key::_Space).Active) {
+			nrOfArrows++;
+			activeArrow = new Arrow(
+				//set arrow values for new arrow to be throwned away
+				graphic,
+				camera,
+				{ W_WIDTH / 2, W_HEIGHT / 2, 0.80f-(nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ 90, 14 },
+				Middle,
+				textures.GetTexture(T1_Arrow)->ShaderResourceView,
+				//Vector3(0, 0, 0),
+				bow->fireArrow(0.06f),
+				//Vector3(20, 14, 0),
+				//Vector3(0, 0, 0),
+				0.0001f,
+				0.06f/*,
+				1.225f*/
+			);
+		}
 
 		//should be set to new arrow instead as focus point when added, or keep it as is to see the arrow land from targets viewpoint
-		if (input->Key(Key::_Space).Active) camera->setFocus(targets[0]);
+		if (input->Key(Key::_Space).Active) camera->setFocus(activeArrow);
 	}
 
 	//update camera with focus or fixed position if needed
@@ -165,14 +190,14 @@ void Game::Run(double delta) {
 	human->moveWorldToView();
 	bow->moveWorldToView();
 
-	//if (activeArrow) activeArrow->moveWorldToView();
+	if (activeArrow) activeArrow->moveWorldToView();
 
 	for (int i = 0; i < MAX_TARGET; i++) {
 		if (targets[i]) targets[i]->moveWorldToView();
 	}
 
 	for (int i = 0; i < MAX_ARROW; i++) {
-		//if (arrows[i]) arrows[i]->moveWorldToView();
+		if (arrows[i]) arrows[i]->moveWorldToView();
 	}
 }
 
@@ -182,14 +207,15 @@ void Game::Draw() {
 	human->renderElement();
 	bow->renderElement();
 
-	//if (activeArrow) activeArrow->renderElement();
+	if (activeArrow) activeArrow->renderElement();
 
 	for (int i = 0; i < MAX_TARGET; i++) {
 		if (targets[i]) targets[i]->renderElement();
 	}
 
 	for (int i = 0; i < MAX_ARROW; i++) {
-		//if (arrows[i]) arrows[i]->renderElement();
+		if (arrows[i]) arrows[i]->renderElement();
+		else i = MAX_ARROW;
 	}
 }
 

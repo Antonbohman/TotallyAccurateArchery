@@ -33,7 +33,7 @@ BaseElement::~BaseElement() {
 	delete[] vertices;
 }
 
-void BaseElement::getQuadBoundries(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1) {
+void BaseElement::getQuadBoundriesView(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1) {
 	switch (anchor) {
 	case Middle:
 		*pos_X0 = viewPosition.x - (size.x / 2);
@@ -110,7 +110,7 @@ void BaseElement::createVertexBuffer() {
 
 void BaseElement::createQuad() {
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
-	getQuadBoundries(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+	getQuadBoundriesView(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
 	XMFLOAT2 NW = rotatePoint(pos_X0, pos_Y1);
 	XMFLOAT2 NE = rotatePoint(pos_X1, pos_Y1);
