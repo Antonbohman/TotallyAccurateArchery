@@ -32,11 +32,11 @@ Vector3 Bow::fireArrow(float arrowMass)
 void Bow::updateElement() {
 	if (rotation < -0.6 || rotation > 0.6)
 		rotationDirection *= -1;
-	rotation += 0.000001* rotationDirection;
+	rotation += 0.00001* rotationDirection;
 	direction = Vector3
 	(
-		cos(rotation),
-		sin(rotation),
+		cos(-rotation),
+		sin(-rotation),
 		0
 	);
 }
