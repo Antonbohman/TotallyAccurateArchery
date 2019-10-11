@@ -30,6 +30,7 @@ void Arrow::doPhysics(float deltaTime)
 
 	acceleration = dragForce / mass; //F = ma => F/m = a
 	acceleration.y -= 9.82;
+	//acceleration.y -= 1.62; //Moon
 
 	//Beräkna velocity (Diffrential ekvation) FEL
 
