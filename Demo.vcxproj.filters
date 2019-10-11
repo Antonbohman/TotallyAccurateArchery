@@ -66,9 +66,6 @@
     <ClCompile Include="TextureHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NumberCounter.cpp">
-      <Filter>Source Files\Objects\AbstractObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
@@ -92,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Print.cpp">
+      <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,9 +133,6 @@
     <ClInclude Include="headers\elements\AbstractElement.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="headers\elements\NumberCounter.h">
-      <Filter>Header Files\Objects\AbstractObjects</Filter>
-    </ClInclude>
     <ClInclude Include="headers\TextureHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -157,11 +154,14 @@
     <ClInclude Include="headers\elements\Line.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Header Files\Objects\PhysicalObjects</Filter>
-    </ClInclude>
     <ClInclude Include="headers\elements\Arrow.h">
       <Filter>Header Files\Objects\PhysicalObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\Ground.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\Print.h">
+      <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ private:
 		float yStart;
 	public:
 		Layer() : AbstractElement() { yStart = 0; };
-		Layer(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, ID3D11ShaderResourceView* texturePtr, float vStart) : AbstractElement(_graphic, posToSet, sizeToSet, TopLeft, texturePtr) {
+		Layer(Graphic* graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, ID3D11ShaderResourceView* texturePtr, float vStart) : AbstractElement(graphic, posToSet, sizeToSet, TopLeft, texturePtr) {
 			yStart = posToSet.y;
 			uv.Y0 = vStart;
 		};

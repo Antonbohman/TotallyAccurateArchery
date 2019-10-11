@@ -77,7 +77,7 @@ void Game::NewGame() {
 	ground = new Ground(
 		graphic,
 		camera,
-		{ 0, 150, 0.0f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ 0, 150, 0.0f }, // z value for back "ground" is 0.8 and fore "ground" is 0.6  
 		{ 80000, 900 },
 		TopLeft,
 		textures.GetTexture(T5_Ground)->ShaderResourceView
@@ -104,7 +104,7 @@ void Game::NewGame() {
 	targets[0] = new Target(
 		graphic,
 		camera,
-		{ W_WIDTH * 2, W_HEIGHT * 2, 0.40f }, 
+		{ W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.40f }, 
 		{ 100, 100 },
 		Middle,
 		textures.GetTexture(T4_Target)->ShaderResourceView
@@ -197,10 +197,11 @@ void Game::Draw() {
 /*
 	Anton's Jazzlists
 	*dragable line
+	*moving background with triple object pushing on sides 
+
 	*counter incl. font with sprites (alternative check with printing to console or something...)
-	*ground with onetexture object and one transparent collison object
-	*texture for arrow, targets, world, background
-	*moving background with triple object pushing on sides
+	*texture for arrow, targets, world
+
 	*smooth camera movement
 	*option object for stuff like kind of bows, planets and wind forces (moving obstacles?)
 */
