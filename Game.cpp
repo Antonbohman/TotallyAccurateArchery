@@ -184,7 +184,7 @@ void Game::Run(double delta) {
 
 		//when no arrow is currently flying we do calculation for firing a new arrow
 		human->updateElement();
-		bow->updateElement(camera->getPos(), input->Mouse());
+		bow->updateElement(input->Mouse());
 		
 
 		//quick way to release a custom valued arrow on demand

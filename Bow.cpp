@@ -30,15 +30,15 @@ Vector3 Bow::fireArrow(float arrowMass)
 }
 
 void Bow::updateElement(MouseInfo mouse) {
-	vector3 bowPos(viewPosition.x, viewPosition.y, 0);
+	Vector3 bowPos(viewPosition.x, viewPosition.y, 0);
 	Vector3 mousePos(mouse.X, mouse.Y, 0);
 
 	mousePos = mousePos - bowPos;
 
-	cameraPos.Normalize();
+	bowPos.Normalize();
 	mousePos.Normalize();
 
-
+	
 
 	if (rotation < -0.6 || rotation > 0.6)
 		rotationDirection *= -1;
