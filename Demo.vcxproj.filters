@@ -163,7 +163,7 @@
     <ClInclude Include="headers\elements\Print.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Sky.h">
+    <ClInclude Include="headers\elements\Sky.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>

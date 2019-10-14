@@ -9,6 +9,7 @@
 #include "elements/Bow.h"
 #include "elements/Target.h"
 #include "elements/Ground.h"
+#include "elements/Sky.h"
 
 #define MAX_TARGET 10
 #define MAX_ARROW 50
@@ -31,6 +32,7 @@ private:
 
 	Camera* camera;
 
+	Sky* sky;
 	Ground* ground;
 	Human* human;
 	Bow* bow;

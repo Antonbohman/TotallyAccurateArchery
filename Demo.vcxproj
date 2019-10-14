@@ -148,6 +148,7 @@
     <ClInclude Include="headers\elements\Human.h" />
     <ClInclude Include="headers\elements\Print.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />
+    <ClInclude Include="headers\elements\Sky.h" />
     <ClInclude Include="headers\elements\Target.h" />
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\Global.h" />
@@ -155,7 +156,6 @@
     <ClInclude Include="headers\Input.h" />
     <ClInclude Include="headers\Menu.h" />
     <ClInclude Include="headers\TextureHandler.h" />
-    <ClInclude Include="Sky.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

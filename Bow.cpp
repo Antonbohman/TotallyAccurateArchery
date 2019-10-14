@@ -29,7 +29,17 @@ Vector3 Bow::fireArrow(float arrowMass)
 	return(direction * velocitySize);
 }
 
-void Bow::updateElement(XMFLOAT2 cameraPos, MouseInfo mouse) {
+void Bow::updateElement(MouseInfo mouse) {
+	vector3 bowPos(viewPosition.x, viewPosition.y, 0);
+	Vector3 mousePos(mouse.X, mouse.Y, 0);
+
+	mousePos = mousePos - bowPos;
+
+	cameraPos.Normalize();
+	mousePos.Normalize();
+
+
+
 	if (rotation < -0.6 || rotation > 0.6)
 		rotationDirection *= -1;
 	rotation += 0.00001* rotationDirection;

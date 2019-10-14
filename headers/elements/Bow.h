@@ -21,7 +21,7 @@ public:
 
 	Vector3 fireArrow(float arrowMass);
 
-	void Bow::updateElement(XMFLOAT2 cameraPos, MouseInfo mouse);
+	void Bow::updateElement(XMFLOAT2 camera, MouseInfo mouse);
 
 };
 

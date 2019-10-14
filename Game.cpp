@@ -26,7 +26,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	bowForce = 0;
 
 	//make sure to preload all necesary textures here in right order as described in Texture enum
-	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T0_Background, L"resources/sky.dds");
 	textures.SetTexture(graphic->device, T1_Arrow, L"resources/giftpil.dds");
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
@@ -77,6 +77,15 @@ void Game::NewGame() {
 		{ 0, 0, 1.0f }
 	);
 
+	sky = new Sky(
+		graphic,
+		camera,
+		{ 0, 0, 0.89f }, // z value for back "ground" is 0.8 and fore "ground" is 0.6  
+		{ W_WIDTH, W_HEIGHT },
+		BottomLeft,
+		textures.GetTexture(T0_Background)->ShaderResourceView
+	);
+
 	ground = new Ground(
 		graphic,
 		camera,
@@ -121,6 +130,8 @@ void Game::NewGame() {
 }
 
 void Game::Run(double delta) {
+	delta = delta * 0.25;
+
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta);
@@ -211,6 +222,9 @@ void Game::Run(double delta) {
 	//update camera with focus or fixed position if needed
 	camera->updateFocus();
 
+	//update sky position
+	sky->updateElement();
+
 	//set all elements in view regarding its world position in relation to camera position
 	ground->moveWorldToView();
 	human->moveWorldToView();
@@ -229,6 +243,7 @@ void Game::Run(double delta) {
 
 void Game::Draw() {
 	//call draw function for all objects
+	sky->renderElement();
 	ground->renderElement();
 	human->renderElement();
 	bow->renderElement();
