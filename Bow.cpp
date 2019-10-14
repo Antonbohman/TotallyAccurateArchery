@@ -31,18 +31,29 @@ Vector3 Bow::fireArrow(float arrowMass)
 
 void Bow::updateElement(MouseInfo mouse) {
 	Vector3 bowPos(viewPosition.x, viewPosition.y, 0);
-	Vector3 mousePos(mouse.X, mouse.Y, 0);
+	Vector3 mousePos(mouse.X, W_HEIGHT - mouse.Y, 0);
 
-	mousePos = mousePos - bowPos;
+	Vector3 bowAim = mousePos - bowPos;
+	bowAim.Normalize();
 
-	bowPos.Normalize();
-	mousePos.Normalize();
+	if (bowAim.x >= 0) {
+		if (bowAim.y >= 0) {
+			Vector3 bowNormal(1.0f, 0.0f, 0.0f);
+			rotation = 1.5+(0.5*bowNormal.Dot(bowAim));
+		} else {
+			Vector3 bowNormal(0.0f, -1.0f, 0.0f);
+			rotation = 0.5*bowNormal.Dot(bowAim);
+		}
+	} else {
+		if (bowAim.y >= 0) {
+			rotation = 1.5;
+		} else {
+			rotation = 0.5;
+		}
+	}
 
-	
+	rotation *= XM_PI;
 
-	if (rotation < -0.6 || rotation > 0.6)
-		rotationDirection *= -1;
-	rotation += 0.00001* rotationDirection;
 	direction = Vector3
 	(
 		cos(-rotation),
