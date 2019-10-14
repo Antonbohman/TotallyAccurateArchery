@@ -16,8 +16,9 @@ Bow::~Bow() {
 
 }
 
-Vector3 Bow::fireArrow(float arrowMass)
+Vector3 Bow::fireArrow(float _drawDistance, float arrowMass)
 {
+	drawDistance = _drawDistance;
 	float velocitySize = pow(
 		(efficiencyFactor * drawForce * drawDistance) /
 		(arrowMass + scalingFactor * mass),

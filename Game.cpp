@@ -30,7 +30,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T1_Arrow, L"resources/giftpil.dds");
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
-	textures.SetTexture(graphic->device, T4_Target, L"resources/Fishy.dds");
+	textures.SetTexture(graphic->device, T4_Target, L"resources/target.dds");
 	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
 }
 
@@ -121,7 +121,7 @@ void Game::NewGame() {
 		graphic,
 		camera,
 		{ W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.40f }, 
-		{ 100, 100 },
+		{ 58, 96 },
 		Middle,
 		textures.GetTexture(T4_Target)->ShaderResourceView
 	);
@@ -130,7 +130,7 @@ void Game::NewGame() {
 }
 
 void Game::Run(double delta) {
-	delta = delta * 0.25;
+	//delta = delta * 0.5;
 
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
@@ -203,7 +203,7 @@ void Game::Run(double delta) {
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
 				//Vector3(0, 0, 0),
-				bow->fireArrow(0.06f),
+				bow->fireArrow(bowForce,0.06f),
 				//Vector3(20, 14, 0),
 				//Vector3(0, 0, 0),
 				0.0001f,

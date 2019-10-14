@@ -19,7 +19,7 @@ public:
 		Vector3 _direction, float _efficiencyFactor, float _mass, float _scalingFactor);
 	~Bow();
 
-	Vector3 fireArrow(float arrowMass);
+	Vector3 fireArrow(float _drawDistance, float arrowMass);
 
 	void Bow::updateElement(MouseInfo mouse);
 };
