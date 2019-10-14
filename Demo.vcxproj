@@ -112,6 +112,7 @@
     <ClCompile Include="Print.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
   </ItemGroup>
@@ -145,7 +146,6 @@
     <ClInclude Include="headers\elements\Camera.h" />
     <ClInclude Include="headers\elements\Ground.h" />
     <ClInclude Include="headers\elements\Human.h" />
-    <ClInclude Include="headers\elements\Line.h" />
     <ClInclude Include="headers\elements\Print.h" />
     <ClInclude Include="headers\elements\PhysicalElement.h" />
     <ClInclude Include="headers\elements\Target.h" />
@@ -155,6 +155,7 @@
     <ClInclude Include="headers\Input.h" />
     <ClInclude Include="headers\Menu.h" />
     <ClInclude Include="headers\TextureHandler.h" />
+    <ClInclude Include="Sky.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

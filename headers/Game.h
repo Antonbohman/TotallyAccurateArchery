@@ -38,7 +38,8 @@ private:
 	Arrow** arrows;
 	Target** targets;
 
-	int nrOfArrows = 0;
+	int nrOfArrows;
+	float bowForce;
 
 public:
 	Game(Graphic* _graphic, Input* _input);

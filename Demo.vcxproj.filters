@@ -93,6 +93,9 @@
     <ClCompile Include="Print.cpp">
       <Filter>Source Files\Objects\AbstractObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Sky.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -151,9 +154,6 @@
     <ClInclude Include="headers\elements\Target.h">
       <Filter>Header Files\Objects\PhysicalObjects</Filter>
     </ClInclude>
-    <ClInclude Include="headers\elements\Line.h">
-      <Filter>Header Files\Objects\AbstractObjects</Filter>
-    </ClInclude>
     <ClInclude Include="headers\elements\Arrow.h">
       <Filter>Header Files\Objects\PhysicalObjects</Filter>
     </ClInclude>
@@ -161,6 +161,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\elements\Print.h">
+      <Filter>Header Files\Objects\AbstractObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky.h">
       <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,6 +22,9 @@ Game::Game(Graphic* _graphic, Input* _input) {
 		arrows[i] = nullptr;
 	}
 
+	nrOfArrows = 0;
+	bowForce = 0;
+
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/Fishy.dds");
 	textures.SetTexture(graphic->device, T1_Arrow, L"resources/giftpil.dds");
@@ -130,12 +133,14 @@ void Game::Run(double delta) {
 			if (i < MAX_ARROW) {
 				arrows[i] = activeArrow;
 				activeArrow = nullptr;
+			} else {
+				delete activeArrow;
+				activeArrow = nullptr;
 			}
 
 			camera->clearFocus();
 			camera->setPos({ W_WIDTH / 2, W_HEIGHT / 2 });
 		}
-
 
 		//some temporary keybinds to alter current state, manualy sets arrow as collided and resets camera back to human
 		if (input->Key(Key::_Space).Active) {
@@ -149,22 +154,40 @@ void Game::Run(double delta) {
 			if (i < MAX_ARROW) {
 				arrows[i] = activeArrow;
 				activeArrow = nullptr;
+			} else {
+				delete activeArrow;
+				activeArrow = nullptr;
 			}
 		}
 		
 	} else {
+		//clear game field of old arrows
+		if (input->Key(Key::F5).Active) {
+			for (int i = 0; i < MAX_ARROW; i++) {
+				delete arrows[i];
+				arrows[i] = nullptr;
+			}
+
+			nrOfArrows = 0;
+		}
+
 		//when no arrow is currently flying we do calculation for firing a new arrow
 		human->updateElement();
-		bow->updateElement();
+		bow->updateElement(camera->getPos(), input->Mouse());
+		
 
 		//quick way to release a custom valued arrow on demand
 		if (input->Key(Key::_Space).Active) {
+			bowForce += delta;
+		}
+		
+		if (bowForce && !input->Key(Key::_Space).Active) {
 			nrOfArrows++;
 			activeArrow = new Arrow(
 				//set arrow values for new arrow to be throwned away
 				graphic,
 				camera,
-				{ W_WIDTH / 2, W_HEIGHT / 2, 0.80f-(nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ W_WIDTH / 2, W_HEIGHT / 2, 0.80f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
@@ -174,12 +197,15 @@ void Game::Run(double delta) {
 				//Vector3(0, 0, 0),
 				0.0001f,
 				0.06f/*,
-				1.225f*/
+					 1.225f*/
 			);
-		}
 
-		//should be set to new arrow instead as focus point when added, or keep it as is to see the arrow land from targets viewpoint
-		if (input->Key(Key::_Space).Active) camera->setFocus(activeArrow);
+			//zero our force ahead for next arrow
+			bowForce = 0;
+
+			//set camera focus to current arrow
+			camera->setFocus(activeArrow);
+		}
 	}
 
 	//update camera with focus or fixed position if needed
@@ -207,26 +233,25 @@ void Game::Draw() {
 	human->renderElement();
 	bow->renderElement();
 
+	for (int i = 0; i < MAX_ARROW; i++) {
+		if (arrows[i]) arrows[i]->renderElement();
+		else i = MAX_ARROW;
+	}
+
 	if (activeArrow) activeArrow->renderElement();
 
 	for (int i = 0; i < MAX_TARGET; i++) {
 		if (targets[i]) targets[i]->renderElement();
-	}
-
-	for (int i = 0; i < MAX_ARROW; i++) {
-		if (arrows[i]) arrows[i]->renderElement();
-		else i = MAX_ARROW;
 	}
 }
 
 
 /*
 	Anton's Jazzlists
-	*dragable line
 	*moving background with triple object pushing on sides 
 
 	*counter incl. font with sprites (alternative check with printing to console or something...)
-	*texture for arrow, targets, world
+	*texture for targets, sky
 
 	*smooth camera movement
 	*option object for stuff like kind of bows, planets and wind forces (moving obstacles?)
