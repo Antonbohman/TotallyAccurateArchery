@@ -6,6 +6,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	camera = nullptr;
 
+	sky = nullptr;
 	ground = nullptr;
 	human = nullptr;
 	bow = nullptr;
@@ -37,6 +38,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 Game::~Game() {
 	delete camera;
 
+	delete sky;
 	delete ground;
 	delete human;
 	delete bow;
@@ -130,15 +132,27 @@ void Game::NewGame() {
 }
 
 void Game::Run(double delta) {
+	bool collide = false;
+
 	//delta = delta * 0.5;
 
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta);
 
+		//see if arrow is colliding with ground
+		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
+			collide = true;
+
+		//see if arrow is colliding with any of the targets
+		for (int i = 0; i < MAX_TARGET; i++) {
+			if (targets[i]) 
+				if (activeArrow->isColliding(targets[i])) 
+					collide = true;
+		}
+
 		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
-		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)) || activeArrow->isColliding(targets[0]))
-		{
+		if(collide || input->Key(Key::_Enter).Active ) {
 			int i = 0;
 			while (arrows[i]) { i++; }
 			if (i < MAX_ARROW) {
@@ -149,26 +163,9 @@ void Game::Run(double delta) {
 				activeArrow = nullptr;
 			}
 
-			camera->clearFocus();
-			camera->setPos({ W_WIDTH / 2, W_HEIGHT / 2 });
-		}
-
-		//some temporary keybinds to alter current state, manualy sets arrow as collided and resets camera back to human
-		if (input->Key(Key::_Space).Active) {
-			camera->clearFocus();
-			camera->setPos({ W_WIDTH / 2, W_HEIGHT / 2 });
-		}
-
-		if (input->Key(Key::_Space).Active) {
-			int i = 0;
-			while (arrows[i]) { i++; }
-			if (i < MAX_ARROW) {
-				arrows[i] = activeArrow;
-				activeArrow = nullptr;
-			} else {
-				delete activeArrow;
-				activeArrow = nullptr;
-			}
+			camera->setDelay(3.0f);
+			camera->setAnimation(1.0f, 10.0f);
+			camera->setFocus({ W_WIDTH / 2, W_HEIGHT / 2 });
 		}
 		
 	} else {
@@ -215,12 +212,13 @@ void Game::Run(double delta) {
 			bowForce = 0;
 
 			//set camera focus to current arrow
+			camera->clearAnimation();
 			camera->setFocus(activeArrow);
 		}
 	}
 
 	//update camera with focus or fixed position if needed
-	camera->updateFocus();
+	camera->updateFocus(delta);
 
 	//update sky position
 	sky->updateElement();

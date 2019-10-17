@@ -6,12 +6,20 @@ Input::Input(HWND _wndHandle) {
 	mouseInput->SetWindow(_wndHandle);
 
 	nrOfKeys = 0;
-	maxKeys = 3;
+	maxKeys = 11;
 	keyList = new KeyInfo[maxKeys];
 
 	initKey(Key::F9, REPEAT_OFF);
 	initKey(Key::F5, REPEAT_OFF);
+	initKey(Key::F2, REPEAT_OFF);
+	initKey(Key::F1, REPEAT_OFF);
 	initKey(Key::_Space, REPEAT_ON);
+	initKey(Key::_Enter, REPEAT_ON);
+	initKey(Key::_Escape, REPEAT_OFF);
+	initKey(Key::_Up, REPEAT_ON);
+	initKey(Key::_Down, REPEAT_ON);
+	initKey(Key::_Left, REPEAT_ON);
+	initKey(Key::_Right, REPEAT_ON);
 
 	mouse.Left.Key = Key::_LeftClick;
 	mouse.Right.Key = Key::_RightClick;
