@@ -7,6 +7,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	camera = nullptr;
 	
 	print = nullptr;
+	print2 = nullptr;
 
 	sky = nullptr;
 	ground = nullptr;
@@ -42,6 +43,7 @@ Game::~Game() {
 	delete camera;
 
 	delete print;
+	delete print2;
 
 	delete sky;
 	delete ground;
@@ -64,6 +66,7 @@ void Game::NewGame() {
 	delete camera;
 
 	delete print;
+	delete print2;
 
 	delete ground;
 	delete human;
@@ -88,12 +91,22 @@ void Game::NewGame() {
 
 	print = new Print(
 		graphic,
-		{ W_WIDTH-480, W_HEIGHT, 0.05f },
-		{ 480, 40 },
+		{ W_WIDTH-390, W_HEIGHT, 0.05f },
+		{ 320, 40 },
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
 		WRITE_LEFT,
-		12
+		8
+	);
+
+	print2 = new Print(
+		graphic,
+		{ W_WIDTH - 60, W_HEIGHT, 0.05f },
+		{ 60, 40 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		3
 	);
 
 	sky = new Sky(
@@ -157,6 +170,9 @@ void Game::Run(double delta) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta);
 
+		print->setValue(activeArrow->getVelocity(), 4);
+		print2->setString("M/S", 3);
+
 		//see if arrow is colliding with ground
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
 			collide = true;
@@ -184,7 +200,7 @@ void Game::Run(double delta) {
 			camera->setAnimation(1.0f, 10.0f);
 			camera->setFocus({ W_WIDTH / 2, W_HEIGHT / 2 });
 		}
-		
+
 	} else {
 		//reset camera to archer
 		if (input->Key(Key::F1).Active) {
@@ -278,10 +294,11 @@ void Game::Run(double delta) {
 			camera->clearAnimation();
 			camera->setFocus(activeArrow);
 		}
-	}
 
-	//print->setValue((float)(delta),7);
-	print->setString("Testar Lite!", 12);
+		print->setValue(0.0f, 4);
+		print2->setString("M/S", 3);
+
+	}
 
 	//update camera with focus or fixed position if needed
 	camera->updateFocus(delta);
@@ -325,6 +342,7 @@ void Game::Draw() {
 	bow->renderElement();
 
 	print->renderElement();
+	print2->renderElement();
 }
 
 

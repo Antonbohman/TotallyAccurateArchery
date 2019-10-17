@@ -65,6 +65,8 @@ void Arrow::updateElement(float deltaTime)
 	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
 	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);
 	if (worldPosition.y < 0) worldPosition.y = 590;
-	
+}
 
+float Arrow::getVelocity() {
+	return velocity.Length();
 }

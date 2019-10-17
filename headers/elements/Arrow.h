@@ -21,4 +21,6 @@ public:
 
 	void doPhysics(float deltaTime);
 	void updateElement(float deltaTime);
+
+	float getVelocity();
 };

@@ -35,6 +35,7 @@ private:
 	Camera* camera;
 
 	Print* print;
+	Print* print2;
 
 	Sky* sky;
 	Ground* ground;
