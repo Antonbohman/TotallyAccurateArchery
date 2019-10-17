@@ -23,7 +23,8 @@ public:
 	void clearFocus();
 	void updateFocus(double delta);
 
-	XMFLOAT2 getPos();	
+	XMFLOAT2 getOffset();
+	XMFLOAT2 getPos();
 
 	void setAnimation(float _acceleration, float _maxVelocity);
 	void clearAnimation();

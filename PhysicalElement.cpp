@@ -67,7 +67,7 @@ XMFLOAT2 PhysicalElement::getWorldPos() {
 }
 
 void PhysicalElement::moveWorldToView() {
-	XMFLOAT2 offset = camera->getPos();
+	XMFLOAT2 offset = camera->getOffset();
 
 	viewPosition.x = worldPosition.x - offset.x;
 	viewPosition.y = worldPosition.y - offset.y;

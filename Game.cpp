@@ -169,6 +169,22 @@ void Game::Run(double delta) {
 		}
 		
 	} else {
+		//reset camera to archer
+		if (input->Key(Key::F1).Active) {
+			camera->setDelay(0.0f);
+			camera->setAnimation(1.0f, 10.0f);
+			camera->setFocus({ W_WIDTH / 2, W_HEIGHT / 2 });
+		}
+
+		//focus camera on last fired arrow
+		if (input->Key(Key::F2).Active) {
+			if (nrOfArrows > 0) {
+				camera->setDelay(0.0f);
+				camera->setAnimation(1.0f, 10.0f);
+				camera->setFocus(arrows[nrOfArrows - 1]);
+			}
+		}
+
 		//clear game field of old arrows
 		if (input->Key(Key::F5).Active) {
 			for (int i = 0; i < MAX_ARROW; i++) {
@@ -177,6 +193,35 @@ void Game::Run(double delta) {
 			}
 
 			nrOfArrows = 0;
+		}
+
+		//move camera with arrow keys
+		if (input->Key(Key::_Up).Active || 
+			input->Key(Key::_Down).Active ||
+			input->Key(Key::_Left).Active ||
+			input->Key(Key::_Right).Active) {
+
+			XMFLOAT2 cameraPos = camera->getPos();
+			float pixelPerDelta = 1000;
+
+			//move camera up
+			if (input->Key(Key::_Up).Active) cameraPos.y += (pixelPerDelta * delta);
+
+			//move camera down
+			if (input->Key(Key::_Down).Active) cameraPos.y -= (pixelPerDelta * delta);
+
+			//move camera left
+			if (input->Key(Key::_Left).Active) cameraPos.x -= (pixelPerDelta * delta);
+
+			//move camera right
+			if (input->Key(Key::_Right).Active) cameraPos.x += (pixelPerDelta * delta);
+
+			if (cameraPos.x < (W_WIDTH / 2)) cameraPos.x = (W_WIDTH / 2);
+			if (cameraPos.y < (W_HEIGHT / 2)) cameraPos.y = (W_HEIGHT / 2);
+
+			camera->setDelay(0.0f);
+			camera->clearAnimation();
+			camera->setFocus(cameraPos);
 		}
 
 		//when no arrow is currently flying we do calculation for firing a new arrow
@@ -205,13 +250,14 @@ void Game::Run(double delta) {
 				//Vector3(0, 0, 0),
 				0.0001f,
 				0.06f/*,
-					 1.225f*/
+				1.225f*/
 			);
 
 			//zero our force ahead for next arrow
 			bowForce = 0;
 
 			//set camera focus to current arrow
+			camera->setDelay(0.0f);
 			camera->clearAnimation();
 			camera->setFocus(activeArrow);
 		}

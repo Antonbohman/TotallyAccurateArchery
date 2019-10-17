@@ -22,7 +22,7 @@ Sky::~Sky() {
 }
 
 void Sky::updateElement() {
-	XMFLOAT2 camPos = camera->getPos();
+	XMFLOAT2 camPos = camera->getOffset();
 
 	float offsetX = -fmod(camPos.x, W_WIDTH);
 	float offsetY = -fmod(camPos.y, W_HEIGHT);

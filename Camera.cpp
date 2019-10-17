@@ -85,8 +85,12 @@ void Camera::updateFocus(double delta) {
 	}
 }
 
-XMFLOAT2 Camera::getPos() {
+XMFLOAT2 Camera::getOffset() {
 	return XMFLOAT2(viewPosition.x, viewPosition.y);
+}
+
+XMFLOAT2 Camera::getPos() {
+	return XMFLOAT2(viewPosition.x + (W_WIDTH / 2), viewPosition.y + (W_HEIGHT / 2));
 }
 
 void Camera::setAnimation(float _acceleration, float _maxVelocity) {

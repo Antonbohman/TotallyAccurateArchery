@@ -45,7 +45,7 @@ Ground::~Ground() {
 }
 
 void Ground::moveWorldToView() {
-	float offset = camera->getPos().y;
+	float offset = camera->getOffset().y;
 
 	back->moveLayerInAxisY(offset);
 	front->moveLayerInAxisY(offset);
