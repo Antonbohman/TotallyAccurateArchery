@@ -14,13 +14,14 @@ private:
 		};
 		~Layer() {};
 
-		void moveLayerInAxisY(float offset) {
+		void updateElement(float position, float offset) {
+			viewPosition.x = position;
 			viewPosition.y = yStart - offset;
 		};
 	};
 
-	Layer* back;
-	Layer* front;
+	Layer* back[3];
+	Layer* front[3];
 
 public:
 	Ground();

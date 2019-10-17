@@ -107,7 +107,6 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Line.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Print.cpp" />
     <ClCompile Include="PhysicalElement.cpp" />
