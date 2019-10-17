@@ -4,6 +4,7 @@
 #include "TextureHandler.h"
 
 #include "elements/Camera.h"
+#include "elements/Print.h"
 #include "elements/Arrow.h"
 #include "elements/Human.h"
 #include "elements/Bow.h"
@@ -22,7 +23,8 @@ private:
 		T2_Bow,
 		T3_Human,
 		T4_Target,
-		T5_Ground
+		T5_Ground,
+		T6_Font
 	};
 
 	Graphic* graphic;
@@ -31,6 +33,8 @@ private:
 	TextureHandler textures;
 
 	Camera* camera;
+
+	Print* print;
 
 	Sky* sky;
 	Ground* ground;

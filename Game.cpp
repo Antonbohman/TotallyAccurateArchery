@@ -5,6 +5,8 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	input = _input;
 
 	camera = nullptr;
+	
+	print = nullptr;
 
 	sky = nullptr;
 	ground = nullptr;
@@ -33,10 +35,13 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/target.dds");
 	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
+	textures.SetTexture(graphic->device, T6_Font, L"resources/font.dds");
 }
 
 Game::~Game() {
 	delete camera;
+
+	delete print;
 
 	delete sky;
 	delete ground;
@@ -57,6 +62,8 @@ Game::~Game() {
 
 void Game::NewGame() {
 	delete camera;
+
+	delete print;
 
 	delete ground;
 	delete human;
@@ -79,10 +86,20 @@ void Game::NewGame() {
 		{ 0, 0, 1.0f }
 	);
 
+	print = new Print(
+		graphic,
+		{ W_WIDTH-480, W_HEIGHT, 0.05f },
+		{ 480, 40 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		12
+	);
+
 	sky = new Sky(
 		graphic,
 		camera,
-		{ 0, 0, 0.89f }, // z value for back "ground" is 0.8 and fore "ground" is 0.6  
+		{ 0, 0, 0.89f },
 		{ W_WIDTH, W_HEIGHT },
 		BottomLeft,
 		textures.GetTexture(T0_Background)->ShaderResourceView
@@ -91,8 +108,8 @@ void Game::NewGame() {
 	ground = new Ground(
 		graphic,
 		camera,
-		{ 0, 150, 0.0f }, // z value for back "ground" is 0.8 and fore "ground" is 0.6  
-		{ 80000, 900 },
+		{ 0, 150, 0.0f }, // z value for back "ground" is 0.8 and fore "ground" is 0.5
+		{ 8000000, 900 },
 		TopLeft,
 		textures.GetTexture(T5_Ground)->ShaderResourceView
 	); 
@@ -100,7 +117,7 @@ void Game::NewGame() {
 	human = new Human(
 		graphic,
 		camera,
-		{ W_WIDTH / 2, 225, 0.55f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ W_WIDTH / 2, 225, 0.45f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
 		textures.GetTexture(T3_Human)->ShaderResourceView
@@ -109,7 +126,7 @@ void Game::NewGame() {
 	bow = new Bow(
 		graphic,
 		camera,
-		{ W_WIDTH / 2, 225, 0.52f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+		{ W_WIDTH / 2, 225, 0.42f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 		{ 100, 180 },
 		Middle,
 		textures.GetTexture(T2_Bow)->ShaderResourceView,
@@ -122,7 +139,7 @@ void Game::NewGame() {
 	targets[0] = new Target(
 		graphic,
 		camera,
-		{ W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.40f }, 
+		{ W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.70f }, 
 		{ 58, 96 },
 		Middle,
 		textures.GetTexture(T4_Target)->ShaderResourceView
@@ -240,7 +257,7 @@ void Game::Run(double delta) {
 				//set arrow values for new arrow to be throwned away
 				graphic,
 				camera,
-				{ W_WIDTH / 2, W_HEIGHT / 2, 0.80f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ W_WIDTH / 2, W_HEIGHT / 2, 0.70f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
@@ -262,6 +279,9 @@ void Game::Run(double delta) {
 			camera->setFocus(activeArrow);
 		}
 	}
+
+	//print->setValue((float)(delta),7);
+	print->setString("Testar Lite!", 12);
 
 	//update camera with focus or fixed position if needed
 	camera->updateFocus(delta);
@@ -289,8 +309,10 @@ void Game::Draw() {
 	//call draw function for all objects
 	sky->renderElement();
 	ground->renderElement();
-	human->renderElement();
-	bow->renderElement();
+
+	for (int i = 0; i < MAX_TARGET; i++) {
+		if (targets[i]) targets[i]->renderElement();
+	}
 
 	for (int i = 0; i < MAX_ARROW; i++) {
 		if (arrows[i]) arrows[i]->renderElement();
@@ -299,19 +321,14 @@ void Game::Draw() {
 
 	if (activeArrow) activeArrow->renderElement();
 
-	for (int i = 0; i < MAX_TARGET; i++) {
-		if (targets[i]) targets[i]->renderElement();
-	}
+	human->renderElement();
+	bow->renderElement();
+
+	print->renderElement();
 }
 
 
 /*
 	Anton's Jazzlists
-	*moving background with triple object pushing on sides 
-
-	*counter incl. font with sprites (alternative check with printing to console or something...)
-	*texture for targets, sky
-
-	*smooth camera movement
 	*option object for stuff like kind of bows, planets and wind forces (moving obstacles?)
 */

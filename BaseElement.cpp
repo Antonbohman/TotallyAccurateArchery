@@ -130,8 +130,8 @@ void BaseElement::createQuad() {
 	NE.y = (NE.y / (W_HEIGHT / 2)) - 1;
 
 	if (spriteInfo.spritesheet) {
-		float uSize = 1 / spriteInfo.maxColumns;
-		float vSize = 1 / spriteInfo.maxRows;
+		float uSize = 1 / (float)spriteInfo.maxColumns;
+		float vSize = 1 / (float)spriteInfo.maxRows;
 
 		if (spriteInfo.frame) {
 			int rows = spriteInfo.frame / spriteInfo.maxColumns;

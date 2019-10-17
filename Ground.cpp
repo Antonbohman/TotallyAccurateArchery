@@ -43,9 +43,9 @@ Ground::Ground(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	back[1] = new Layer(_graphic, { xLeft - W_WIDTH, newTopY, 0.80f }, { W_WIDTH, newSizeY }, texturePtr, 0.0f);
 	back[2] = new Layer(_graphic, { xLeft + W_WIDTH, newTopY, 0.80f }, { W_WIDTH, newSizeY }, texturePtr, 0.0f);
 
-	front[0] = new Layer(_graphic, { xLeft, yTop, 0.60f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
-	front[1] = new Layer(_graphic, { xLeft - W_WIDTH, yTop, 0.60f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
-	front[2] = new Layer(_graphic, { xLeft + W_WIDTH, yTop, 0.60f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
+	front[0] = new Layer(_graphic, { xLeft, yTop, 0.50f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
+	front[1] = new Layer(_graphic, { xLeft - W_WIDTH, yTop, 0.50f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
+	front[2] = new Layer(_graphic, { xLeft + W_WIDTH, yTop, 0.50f }, { W_WIDTH, sizeToSet.y }, texturePtr, 0.1f);
 }
 
 Ground::~Ground() {

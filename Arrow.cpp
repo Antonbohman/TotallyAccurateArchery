@@ -61,7 +61,10 @@ void Arrow::doPhysics(float deltaTime)
 void Arrow::updateElement(float deltaTime)
 {
 	doPhysics(deltaTime);
-	if (worldPosition.y < 0) worldPosition.y = 1500;
 
+	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
+	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);
+	if (worldPosition.y < 0) worldPosition.y = 590;
+	
 
 }
