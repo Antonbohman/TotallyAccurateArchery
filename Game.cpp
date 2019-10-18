@@ -6,8 +6,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 
 	camera = nullptr;
 	
-	print = nullptr;
-	print2 = nullptr;
+	prints = new Print*[MAX_PRINTS];
 
 	sky = nullptr;
 	ground = nullptr;
@@ -42,8 +41,10 @@ Game::Game(Graphic* _graphic, Input* _input) {
 Game::~Game() {
 	delete camera;
 
-	delete print;
-	delete print2;
+	for (int i = 0; i < MAX_PRINTS; i++) {
+		delete prints[i];
+	}
+	delete[] prints;
 
 	delete sky;
 	delete ground;
@@ -65,8 +66,10 @@ Game::~Game() {
 void Game::NewGame() {
 	delete camera;
 
-	delete print;
-	delete print2;
+	for (int i = 0; i < MAX_PRINTS; i++) {
+		delete prints[i];
+		prints[i] = nullptr;
+	}
 
 	delete ground;
 	delete human;
@@ -89,7 +92,7 @@ void Game::NewGame() {
 		{ 0, 0, 1.0f }
 	);
 
-	print = new Print(
+	prints[0] = new Print(
 		graphic,
 		{ W_WIDTH-390, W_HEIGHT, 0.05f },
 		{ 320, 40 },
@@ -99,7 +102,7 @@ void Game::NewGame() {
 		8
 	);
 
-	print2 = new Print(
+	prints[1] = new Print(
 		graphic,
 		{ W_WIDTH - 60, W_HEIGHT, 0.05f },
 		{ 60, 40 },
@@ -170,8 +173,8 @@ void Game::Run(double delta) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta);
 
-		print->setValue(activeArrow->getVelocity(), 4);
-		print2->setString("M/S", 3);
+		prints[0]->setValue(activeArrow->getVelocity(), 4);
+		prints[1]->setString("M/S", 3);
 
 		//see if arrow is colliding with ground
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
@@ -295,8 +298,8 @@ void Game::Run(double delta) {
 			camera->setFocus(activeArrow);
 		}
 
-		print->setValue(0.0f, 4);
-		print2->setString("M/S", 3);
+		prints[0]->setValue(0.0f, 4);
+		prints[1]->setString("M/S", 3);
 
 	}
 
@@ -341,8 +344,9 @@ void Game::Draw() {
 	human->renderElement();
 	bow->renderElement();
 
-	print->renderElement();
-	print2->renderElement();
+	for (int i = 0; i < MAX_PRINTS; i++) {
+		if (prints[i]) prints[i]->renderElement();
+	}
 }
 
 

@@ -93,6 +93,9 @@
     <ClCompile Include="Sky.cpp">
       <Filter>Source Files\Objects\PhysicalObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Wind.cpp">
+      <Filter>Source Files\Objects\AbstractObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="headers\elements\Sky.h">
       <Filter>Header Files\Objects\PhysicalObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\elements\Wind.h">
+      <Filter>Header Files\Objects\AbstractObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

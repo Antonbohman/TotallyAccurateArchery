@@ -13,6 +13,7 @@ Menu::Menu(Graphic* _graphic, Input* _input, Game* _game) {
 	textures.SetTexture(graphic->device, T3_QUIT, L"resources/quit.dds");
 	textures.SetTexture(graphic->device, T4_CRED, L"resources/cred.dds");
 	textures.SetTexture(graphic->device, T5_HELP, L"resources/help.dds");
+	textures.SetTexture(graphic->device, T6_FONT, L"resources/font.dds");
 
 	background = new AbstractElement(
 		graphic,
@@ -58,6 +59,18 @@ Menu::Menu(Graphic* _graphic, Input* _input, Game* _game) {
 		Middle,
 		textures.GetTexture(T2_BACK)->ShaderResourceView
 	);
+
+	for (int i = 0; i < TEXT_ROWS; i++) {
+		text[i] = new Print(
+			graphic,
+			{ 220, 230.0f + (60 * ((TEXT_ROWS-1)-i)), 0.6f },
+			{ 840, 40 },
+			nullptr,
+			textures.GetTexture(T6_FONT)->ShaderResourceView,
+			WRITE_RIGHT,
+			50
+		);
+	}
 }
 
 Menu::~Menu() {
@@ -75,8 +88,24 @@ bool Menu::Run(double delta) {
 
 	switch (stage) {
 	case CRED:
+		text[0]->setString(" This demo program is to showcase the projectile ", 50);
+		text[1]->setString("   paths for arrows in wind with real physics.   ", 50);
+		text[2]->setString("               It has been created by:           ", 50);
+		text[3]->setString("                   Filip Unger                   ", 50);
+		text[4]->setString("                   Anton Bohman                  ", 50);
+
+		if (back->isPressed(&mouse) || input->Key(Key::_Escape).Active) {
+			stage = MAIN;
+		}
+		break;
 	case HELP:
-		if (back->isPressed(&mouse)) {
+		text[0]->setString("Arrows - Move Camera       F1 - Set Camera Archer", 50);
+		text[1]->setString(" Space - Draw new arrow    F2 - Set Camera Arrow ", 50);
+		text[2]->setString(" Enter - Stop fired arrow  F5 - Delete all arrows", 50);
+		text[3]->setString("Escape - Quit to menu      F9 - Render wireframe ", 50);
+		text[4]->setString("                                                 ", 50);
+
+		if (back->isPressed(&mouse) || input->Key(Key::_Escape).Active) {
 			stage = MAIN;
 		}
 		break;
@@ -89,7 +118,7 @@ bool Menu::Run(double delta) {
 			stage = CRED;
 		} else if (help->isPressed(&mouse)) {
 			stage = HELP;
-		} else if (quit->isPressed(&mouse)) {
+		} else if (quit->isPressed(&mouse) || input->Key(Key::_Escape).Active) {
 			return false;
 		}
 		break;
@@ -102,9 +131,15 @@ void Menu::Draw() {
 	background->renderElement();
 	switch (stage) {
 	case CRED:
+		for (int i = 0; i < TEXT_ROWS; i++) {
+			text[i]->renderElement();
+		}
 		back->renderElement();
 		break;
 	case HELP:
+		for (int i = 0; i < TEXT_ROWS; i++) {
+			text[i]->renderElement();
+		}
 		back->renderElement();
 		break;
 	case MAIN:

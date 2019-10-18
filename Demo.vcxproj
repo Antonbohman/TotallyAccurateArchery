@@ -114,6 +114,7 @@
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
+    <ClCompile Include="Wind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\Fragment.hlsl">
@@ -149,6 +150,7 @@
     <ClInclude Include="headers\elements\PhysicalElement.h" />
     <ClInclude Include="headers\elements\Sky.h" />
     <ClInclude Include="headers\elements\Target.h" />
+    <ClInclude Include="headers\elements\Wind.h" />
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\Global.h" />
     <ClInclude Include="headers\Graphic.h" />
