@@ -6,6 +6,9 @@
 
 #include "elements/AbstractElement.h"
 #include "elements/Button.h"
+#include "elements/Print.h"
+
+#define TEXT_ROWS 5
 
 class Menu {
 private:
@@ -15,7 +18,8 @@ private:
 		T2_BACK,
 		T3_QUIT,
 		T4_CRED,
-		T5_HELP
+		T5_HELP,
+		T6_FONT
 	};
 
 	enum MenuStage {
@@ -30,6 +34,8 @@ private:
 
 	TextureHandler textures;
 	
+	Print* text[TEXT_ROWS];
+
 	AbstractElement* background;
 	Button* quit;
 	Button* play;

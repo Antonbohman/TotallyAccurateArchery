@@ -15,6 +15,8 @@
 #define MAX_TARGET 10
 #define MAX_ARROW 50
 
+#define MAX_PRINTS 2
+
 class Game {
 private:
 	enum Texture { 
@@ -34,8 +36,7 @@ private:
 
 	Camera* camera;
 
-	Print* print;
-	Print* print2;
+	Print** prints;
 
 	Sky* sky;
 	Ground* ground;
