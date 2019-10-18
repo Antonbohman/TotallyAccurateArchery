@@ -8,6 +8,10 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	
 	prints = new Print*[MAX_PRINTS];
 
+	for (int i = 0; i < MAX_PRINTS; i++) {
+		prints[i] = nullptr;
+	}
+
 	sky = nullptr;
 	ground = nullptr;
 	human = nullptr;
