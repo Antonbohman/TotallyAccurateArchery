@@ -24,7 +24,14 @@ void Arrow::doPhysics(float deltaTime)
 
 	Vector3 newVelocity = velocity;
 
-	//dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity / velocity.Length());
+	/*velocity = Vector3(0, -76.8, 0);
+
+	dragForce = Vector3(
+		-dragCoefficient * velocity.Length() * velocity.x,
+		-dragCoefficient * velocity.Length() * velocity.y,
+		0
+
+	);*/
 
 	//Beräkna acceleration
 
@@ -33,12 +40,12 @@ void Arrow::doPhysics(float deltaTime)
 	acceleration = Vector3
 	(
 		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		-(dragCoefficient / mass) * velocity.Length() * velocity.y - 9.82,
+		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - 9.82,
 		0
-	) * deltaTime;
+	);
 
 	//acceleration1 = dragForce / mass; //F = ma => F/m = a
-	acceleration.y -= 9.82;
+	//acceleration.y -= 9.82;
 	//acceleration.y -= 1.62; //Moon
 
 	//Beräkna velocity (Diffrential ekvation) FEL
@@ -48,7 +55,7 @@ void Arrow::doPhysics(float deltaTime)
 
 	//Beräkna position FEL
 
-	velocity =
+	Vector3 averageVelocity =
 		Vector3(
 		((velocity.x + newVelocity.x) / 2.0f),
 			((velocity.y + newVelocity.y) / 2.0f),
@@ -64,7 +71,9 @@ void Arrow::doPhysics(float deltaTime)
 		rotation = acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length()))));
 	}
 
-	worldPosition += (velocity * deltaTime * 100);
+	worldPosition += (averageVelocity * deltaTime * 100);
+
+	velocity = newVelocity;
 }
 
 void Arrow::updateElement(float deltaTime)
