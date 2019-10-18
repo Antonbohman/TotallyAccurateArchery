@@ -20,23 +20,10 @@ Arrow::~Arrow()
 
 void Arrow::doPhysics(float deltaTime)
 {
-	//Beräkna DragForce
-
 	Vector3 newVelocity = velocity;
-
-	/*velocity = Vector3(0, -76.8, 0);
-
-	dragForce = Vector3(
-		-dragCoefficient * velocity.Length() * velocity.x,
-		-dragCoefficient * velocity.Length() * velocity.y,
-		0
-
-	);*/
 
 	//Beräkna acceleration
 
-	//Vector3 acceleration1 = dragForce/dragForce.Length() * ((dragCoefficient / (3 * mass)) * pow(velocity.LengthSquared(), 1.5f));
-	
 	acceleration = Vector3
 	(
 		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
@@ -44,16 +31,12 @@ void Arrow::doPhysics(float deltaTime)
 		0
 	);
 
-	//acceleration1 = dragForce / mass; //F = ma => F/m = a
-	//acceleration.y -= 9.82;
-	//acceleration.y -= 1.62; //Moon
-
-	//Beräkna velocity (Diffrential ekvation) FEL
+	//Beräknar velocity a = v * dt
 
 	newVelocity.x += acceleration.x * deltaTime;
 	newVelocity.y += acceleration.y * deltaTime;
 
-	//Beräkna position FEL
+	//Beräkna position, genomsnittsvärde för hastighet
 
 	Vector3 averageVelocity =
 		Vector3(
