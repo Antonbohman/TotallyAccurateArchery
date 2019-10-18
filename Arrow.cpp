@@ -24,11 +24,20 @@ void Arrow::doPhysics(float deltaTime)
 
 	Vector3 newVelocity = velocity;
 
-	dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity / velocity.Length());
+	//dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity / velocity.Length());
 
 	//Beräkna acceleration
 
-	acceleration = dragForce / mass; //F = ma => F/m = a
+	//Vector3 acceleration1 = dragForce/dragForce.Length() * ((dragCoefficient / (3 * mass)) * pow(velocity.LengthSquared(), 1.5f));
+	
+	acceleration = Vector3
+	(
+		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
+		-(dragCoefficient / mass) * velocity.Length() * velocity.y - 9.82,
+		0
+	) * deltaTime;
+
+	//acceleration1 = dragForce / mass; //F = ma => F/m = a
 	acceleration.y -= 9.82;
 	//acceleration.y -= 1.62; //Moon
 
