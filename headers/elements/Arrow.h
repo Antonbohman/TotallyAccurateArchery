@@ -22,5 +22,7 @@ public:
 	void doPhysics(float deltaTime);
 	void updateElement(float deltaTime);
 
+	void arrowSnap(TextureObj* texture);
+
 	float getVelocity();
 };

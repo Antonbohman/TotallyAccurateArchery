@@ -40,6 +40,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T4_Target, L"resources/target.dds");
 	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
 	textures.SetTexture(graphic->device, T6_Font, L"resources/font.dds");
+	textures.SetTexture(graphic->device, T8_HalfArrow, L"resources/halvgiftpil.dds");
 }
 
 Game::~Game() {
@@ -188,7 +189,10 @@ void Game::Run(double delta) {
 		for (int i = 0; i < MAX_TARGET; i++) {
 			if (targets[i]) 
 				if (activeArrow->isColliding(targets[i])) 
+				{
 					collide = true;
+					activeArrow->arrowSnap(textures.GetTexture(T8_HalfArrow));
+				}
 		}
 
 		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
@@ -284,13 +288,9 @@ void Game::Run(double delta) {
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
-				//Vector3(0, 0, 0),
 				bow->fireArrow(bowForce,0.06f),
-				//Vector3(20, 14, 0),
-				//Vector3(0, 0, 0),
 				0.0001f,
-				0.06f/*,
-				1.225f*/
+				0.06f
 			);
 
 			//zero our force ahead for next arrow

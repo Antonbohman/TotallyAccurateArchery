@@ -26,7 +26,8 @@ private:
 		T3_Human,
 		T4_Target,
 		T5_Ground,
-		T6_Font
+		T6_Font,
+		T8_HalfArrow
 	};
 
 	Graphic* graphic;

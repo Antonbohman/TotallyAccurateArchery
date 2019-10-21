@@ -68,6 +68,12 @@ void Arrow::updateElement(float deltaTime)
 	if (worldPosition.y < 0) worldPosition.y = 590;
 }
 
+void Arrow::arrowSnap(TextureObj* texture)
+{
+	setTexture(texture);
+	setSize(XMFLOAT2(75, 15));
+}
+
 float Arrow::getVelocity() {
 	return velocity.Length();
 }
