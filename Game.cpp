@@ -38,7 +38,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T2_Bow, L"resources/bow.dds");
 	textures.SetTexture(graphic->device, T3_Human, L"resources/human.dds");
 	textures.SetTexture(graphic->device, T4_Target, L"resources/target.dds");
-	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
+	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground2.dds");
 	textures.SetTexture(graphic->device, T6_Font, L"resources/font.dds");
 	textures.SetTexture(graphic->device, T8_HalfArrow, L"resources/halvgiftpil.dds");
 }
