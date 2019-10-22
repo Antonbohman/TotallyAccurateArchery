@@ -41,7 +41,12 @@ void Wind::randomizeWind() {
 }
 
 XMFLOAT3 Wind::getWindDirectionAndSpeed() {
-	return XMFLOAT3(direction.x, direction.y, speed);
+	return XMFLOAT3
+	(
+		direction.x, 
+		direction.y, 
+		speed
+	);
 }
 
 XMFLOAT2 Wind::getWindRotation() {
