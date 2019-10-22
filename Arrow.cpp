@@ -21,13 +21,29 @@ Arrow::~Arrow()
 
 float Arrow::calcArea(Wind* wind) {
 	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	XMFLOAT2 windVelocity(windDirSpeed.x*windDirSpeed.z, );
 	
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+		
+	float value = pos_X1 - pos_X0;
 
-	float areaA = (pos_X1 - pos_X0)*(windDirSpeed.y*windDirSpeed.z);
-	float areaB = (windDirSpeed.x*windDirSpeed.z)*(pos_Y1 - pos_Y0);
+	double base = convertPixelToMeter(&value);
+
+	value = windDirSpeed.y*windDirSpeed.z;
+
+	double height = convertPixelToMeter(&value);
+
+	float areaA = base * height;
+
+	value = windDirSpeed.x*windDirSpeed.z;
+
+	base = convertPixelToMeter(&value);
+	
+	value = pos_Y1 - pos_Y0;
+
+	height = convertPixelToMeter(&value);
+
+	float areaB = base * height;
 
 	return areaA + areaB;
 }
@@ -36,17 +52,33 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 {
 	Vector3 newVelocity = velocity;
 
-	//Calculate dragCoefficient WIP
-	dragCoefficient = (0.5f) * fluidDensity * 0.0001f * 1.63265306123f;
+	//Calculate dragCoefficient
+	/*XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
+
+	Vector3 windVelocity = Vector3
+	(
+		windDirSpeed.x,
+		windDirSpeed.y,
+		0
+	) * windDirSpeed.z;
+
+	Vector3 relativeVelocity = velocity - windVelocity;*/
+
+	//dragCoefficient = (0.5f) * fluidDensity * calcArea(wind) * 1.63265306123f;
+	dragCoefficient = (0.5f) * fluidDensity * 0.0001 * 1.63265306123f;
+
+	//float dragForce = calcArea(wind) * fluidDensity * 1.63265306123f / 2;
 
 	//Beräkna acceleration
 
 	acceleration = Vector3
 	(
-		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
+		(dragCoefficient / mass) * velocity.Length() * velocity.x,
+		((dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
 		0
 	);
+
+	//acceleration = -relativeVelocity * dragForce / mass;
 
 	//Beräknar velocity a = v * dt
 
