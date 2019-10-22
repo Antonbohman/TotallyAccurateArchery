@@ -116,8 +116,8 @@ void Game::NewGame() {
 
 	prints[1] = new Print(
 		graphic,
-		{ W_WIDTH - 60, W_HEIGHT, 0.05f },
-		{ 60, 40 },
+		{ W_WIDTH - 70, W_HEIGHT-9, 0.05f },
+		{ 60, 30 },
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
 		WRITE_LEFT,
@@ -140,8 +140,8 @@ void Game::NewGame() {
 
 	prints[3] = new Print(
 		graphic,
-		{ 95, W_HEIGHT-120, 0.05f },
-		{ 40, 20 },
+		{ 95, W_HEIGHT-124, 0.05f },
+		{ 32, 16 },
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
 		WRITE_LEFT,
@@ -176,6 +176,52 @@ void Game::NewGame() {
 	);
 
 	prints[5]->setValue(0.0f, 3);
+
+	//camera position print
+	prints[6] = new Print(
+		graphic,
+		{ 140, W_HEIGHT-10, 0.05f },
+		{ 60, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		2
+	);
+
+	prints[7] = new Print(
+		graphic,
+		{ 200, W_HEIGHT-10, 0.05f },
+		{ 150, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_RIGHT,
+		5
+	);
+
+	prints[8] = new Print(
+		graphic,
+		{ 140, W_HEIGHT - 50, 0.05f },
+		{ 60, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		2
+	);
+
+	prints[9] = new Print(
+		graphic,
+		{ 200, W_HEIGHT - 50, 0.05f },
+		{ 150, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_RIGHT,
+		5
+	);
+
+	prints[6]->setString("X:", 2);
+	prints[7]->setValue(0);
+	prints[8]->setString("Y:", 2);
+	prints[9]->setValue(0);
 
 	sky = new Sky(
 		graphic,
@@ -419,6 +465,8 @@ void Game::Run(double delta) {
 
 	//update camera with focus or fixed position if needed
 	camera->updateFocus(delta);
+	prints[7]->setValue(camera->getOffset().x);
+	prints[9]->setValue(camera->getOffset().y);
 
 	//update sky position
 	sky->updateElement();

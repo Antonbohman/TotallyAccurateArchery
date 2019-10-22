@@ -54,13 +54,29 @@ void Print::setValue(int value) {
 	int index = 0;
 	int number = 0;
 
-	do {
-		number = value % 10;
-		spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
-		value -= number;
-		value /= 10;
+	if (value < 0) {
+		value *= -1;
+
+		do {
+			number = value % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			value -= number;
+			value /= 10;
+			index++;
+		} while (value && index < maxPrints-1);
+
+		spriteCord[index] = transformSymbolToSprite((char)45);
 		index++;
-	} while (value && index < maxPrints);
+	} else {
+		do {
+			number = value % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			value -= number;
+			value /= 10;
+			index++;
+		} while (value && index < maxPrints);
+	}
+
 
 	SetSymbols(spriteCord,index);
 
