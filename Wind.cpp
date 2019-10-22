@@ -38,6 +38,21 @@ XMFLOAT3 Wind::getWindDirectionAndSpeed() {
 	return XMFLOAT3(direction.x, direction.y, speed);
 }
 
+XMFLOAT2 Wind::getWindRotation() {
+	float quadrant = 0.0f;
+
+	if (rotation < (0.5f*XM_PI))
+		quadrant = FIRST_QUAD;
+	else if (rotation < (1.0f*XM_PI))
+		quadrant = SECOND_QUAD;
+	else if (rotation < (1.5f*XM_PI))
+		quadrant = THIRD_QUAD;
+	else
+		quadrant = FOURTH_QUAD;
+
+	return XMFLOAT2(rotation, quadrant);
+}
+
 void Wind::updateElement(double delta) {
 	double rotationDistance = rotationVelocity * delta;
 

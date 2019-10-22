@@ -19,7 +19,20 @@ Arrow::~Arrow()
 {
 }
 
-void Arrow::doPhysics(float deltaTime)
+float Arrow::calcArea(Wind* wind) {
+	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
+	XMFLOAT2 windVelocity(windDirSpeed.x*windDirSpeed.z, );
+	
+	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
+	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+
+	float areaA = (pos_X1 - pos_X0)*(windDirSpeed.y*windDirSpeed.z);
+	float areaB = (windDirSpeed.x*windDirSpeed.z)*(pos_Y1 - pos_Y0);
+
+	return areaA + areaB;
+}
+
+void Arrow::doPhysics(float deltaTime, Wind* wind)
 {
 	Vector3 newVelocity = velocity;
 
@@ -44,6 +57,7 @@ void Arrow::doPhysics(float deltaTime)
 		((velocity.x + newVelocity.x) / 2.0f),
 			((velocity.y + newVelocity.y) / 2.0f),
 			(0)
+
 		);
 
 	if (velocity.y > 0)
@@ -60,9 +74,9 @@ void Arrow::doPhysics(float deltaTime)
 	velocity = newVelocity;
 }
 
-void Arrow::updateElement(float deltaTime)
+void Arrow::updateElement(float deltaTime, Wind* wind)
 {
-	doPhysics(deltaTime);
+	doPhysics(deltaTime, wind);
 
 	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
 	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);

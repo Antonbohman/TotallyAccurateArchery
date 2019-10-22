@@ -4,6 +4,11 @@
 #include <random>
 #include <ctime>
 
+#define FIRST_QUAD 1
+#define SECOND_QUAD 2
+#define THIRD_QUAD 3
+#define FOURTH_QUAD 4
+
 class Wind : public AbstractElement {
 protected:
 	XMFLOAT2 direction;
@@ -18,6 +23,7 @@ public:
 
 	void randomizeWind();
 	XMFLOAT3 getWindDirectionAndSpeed();
+	XMFLOAT2 getWindRotation();
 
 	void updateElement(double delta);
 };

@@ -106,7 +106,7 @@ void Game::NewGame() {
 	//arrow speed print
 	prints[0] = new Print(
 		graphic,
-		{ W_WIDTH-390, W_HEIGHT, 0.05f },
+		{ W_WIDTH-390, W_HEIGHT-35, 0.05f },
 		{ 320, 40 },
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
@@ -116,7 +116,7 @@ void Game::NewGame() {
 
 	prints[1] = new Print(
 		graphic,
-		{ W_WIDTH - 70, W_HEIGHT-9, 0.05f },
+		{ W_WIDTH - 70, W_HEIGHT-44, 0.05f },
 		{ 60, 30 },
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
@@ -124,8 +124,19 @@ void Game::NewGame() {
 		3
 	);
 
+	prints[10] = new Print(
+		graphic,
+		{ W_WIDTH - 330, W_HEIGHT - 9, 0.05f },
+		{ 330, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		11
+	);
+
 	prints[0]->setValue(0.0f, 4);
 	prints[1]->setString("M/S", 3);
+	prints[10]->setString("Arrow speed", 11);
 
 	//wind speed print
 	prints[2] = new Print(
@@ -162,7 +173,7 @@ void Game::NewGame() {
 		20
 	);
 
-	prints[4]->setString("Gravity: Earth", 15);
+	prints[4]->setString("Gravity: Earth", 20);
 
 	//bow force print
 	prints[5] = new Print(
@@ -175,7 +186,18 @@ void Game::NewGame() {
 		10
 	);
 
+	prints[11] = new Print(
+		graphic,
+		{ W_WIDTH - 300, 85, 0.05f },
+		{ 300, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		9
+	);
+
 	prints[5]->setValue(0.0f, 3);
+	prints[11]->setString("Bow Force", 9);
 
 	//camera position print
 	prints[6] = new Print(
@@ -302,7 +324,7 @@ void Game::Run(double delta) {
 
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
-		activeArrow->updateElement(delta);
+		activeArrow->updateElement(delta, wind);
 
 		prints[0]->setValue(activeArrow->getVelocity(), 4);
 
@@ -338,7 +360,8 @@ void Game::Run(double delta) {
 			camera->setAnimation(1.0f, 10.0f);
 			camera->setFocus({ W_WIDTH / 2, W_HEIGHT / 2 });
 
-			wind->randomizeWind();
+			wind->randomizeWind();  
+
 		}
 
 	} else {
