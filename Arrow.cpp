@@ -21,7 +21,6 @@ Arrow::~Arrow()
 
 float Arrow::calcArea(Wind* wind) {
 	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	XMFLOAT2 windVelocity(windDirSpeed.x*windDirSpeed.z, );
 	
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
