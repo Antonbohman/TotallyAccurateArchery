@@ -6,6 +6,14 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+enum Anchor {
+	Middle = 0x02,
+	TopLeft = 0x04,
+	TopRight = 0x08,
+	BottomLeft = 0x16,
+	BottomRight = 0x32,
+};
+
 class BaseElement {
 private:
 	struct TriangleVertex {
@@ -24,14 +32,6 @@ private:
 	void createQuad();	//calculates new quad for element
 
 protected:
-	enum Anchor {
-		Middle = 0x02,
-		TopLeft = 0x04,
-		TopRight = 0x08,
-		BottomLeft = 0x16,
-		BottomRight = 0x32,
-	};
-
 	struct UV {
 		float X0 = 0;
 		float X1 = 1;

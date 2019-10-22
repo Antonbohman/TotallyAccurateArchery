@@ -4,7 +4,7 @@ Arrow::Arrow() : PhysicalElement()
 {
 }
 
-Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, /*Vector3 dragForce, */Vector3 velocity, /*Vector3 acceleration, */float dragCoefficient, float mass/*, float fluidDensity*/) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, texturePtr)
+Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, /*Vector3 dragForce, */Vector3 velocity, /*Vector3 acceleration, */float dragCoefficient, float mass/*, float fluidDensity*/, float gravity) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, texturePtr)
 {
 	//this->dragForce = dragForce;
 	this->velocity = velocity;
@@ -12,6 +12,7 @@ Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	this->dragCoefficient = dragCoefficient;
 	this->mass = mass;
 	//this->fluidDensity = fluidDensity;
+	this->gravity = gravity;
 }
 
 Arrow::~Arrow()
@@ -27,7 +28,7 @@ void Arrow::doPhysics(float deltaTime)
 	acceleration = Vector3
 	(
 		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - 9.82,
+		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
 		0
 	);
 

@@ -165,6 +165,8 @@ void Game::NewGame() {
 		TopLeft,
 		textures.GetTexture(T5_Ground)->ShaderResourceView
 	); 
+
+	ground->setGravity(GravityType::Earth);
 	
 	human = new Human(
 		graphic,
@@ -197,6 +199,15 @@ void Game::NewGame() {
 		textures.GetTexture(T4_Target)->ShaderResourceView
 	);
 
+	targets[1] = new Target(
+		graphic,
+		camera,
+		{ W_WIDTH * 0.75f, (W_HEIGHT / 2) - 100, 0.70f },
+		{ 58, 96 },
+		Middle,
+		textures.GetTexture(T4_Target)->ShaderResourceView
+	);
+
 	wind = new Wind(
 		graphic,
 		{ 60, W_HEIGHT-60, 0.09f },
@@ -213,7 +224,7 @@ void Game::NewGame() {
 void Game::Run(double delta) {
 	bool collide = false;
 
-	//delta = delta * 0.5;
+	//delta = delta * 0.25;
 
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
@@ -228,7 +239,7 @@ void Game::Run(double delta) {
 		//see if arrow is colliding with any of the targets
 		for (int i = 0; i < MAX_TARGET; i++) {
 			if (targets[i]) 
-				if (activeArrow->isColliding(targets[i])) 
+				if (activeArrow->isColliding(targets[i]->hitbox)) 
 				{
 					collide = true;
 					activeArrow->arrowSnap(textures.GetTexture(T8_HalfArrow));
@@ -325,13 +336,14 @@ void Game::Run(double delta) {
 				//set arrow values for new arrow to be throwned away
 				graphic,
 				camera,
-				{ W_WIDTH / 2, W_HEIGHT / 2, 0.70f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ W_WIDTH / 2, 225, 0.70f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
-				bow->fireArrow(bowForce,0.06f),
+				bow->fireArrow(bowForce, 0.06f),
 				0.0001f,
-				0.06f
+				0.06f,
+				ground->getGravity()
 			);
 
 			//zero our force ahead for next arrow

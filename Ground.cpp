@@ -80,3 +80,30 @@ void Ground::renderElement() {
 	front[1]->renderElement();
 	front[2]->renderElement();
 }
+
+void Ground::setGravity(UINT gravityType) {
+	switch (gravityType) {
+	case GravityType::Earth:
+		gravity = 9.82f;
+		break;
+	case GravityType::Lunar:
+		gravity = 1.62f;
+		break;
+	case GravityType::Mars:
+		gravity = 3.711f;
+		break;
+	case GravityType::Sun:
+		gravity = 274.0f;
+		break;
+	case GravityType::NoGravity:
+		gravity = 0.0f;
+		break;
+	default:
+		gravity = 9.82f;
+		break;
+	}
+}
+
+float Ground::getGravity() {
+	return gravity;
+}

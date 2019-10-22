@@ -19,7 +19,7 @@ public:
 
 	XMFLOAT2 getWorldPos();
 	virtual void moveWorldToView();
-	bool isColliding(PhysicalElement* otherObject);
+	virtual bool isColliding(PhysicalElement* otherObject);
 
 	virtual void updateElement();
 };

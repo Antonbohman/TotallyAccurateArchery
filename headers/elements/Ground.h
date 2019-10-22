@@ -1,6 +1,14 @@
 #pragma once
 #include "elements/PhysicalElement.h"
 
+enum GravityType {
+	Earth,
+	Lunar,
+	Mars,
+	Sun,
+	NoGravity
+};
+
 class Ground : public PhysicalElement {
 private:
 	class Layer : public AbstractElement {
@@ -23,6 +31,8 @@ private:
 	Layer* back[3];
 	Layer* front[3];
 
+	float gravity;
+
 public:
 	Ground();
 	Ground(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
@@ -30,4 +40,7 @@ public:
 
 	void moveWorldToView();
 	void renderElement();
+
+	void setGravity(UINT gravityType);
+	float getGravity();
 };
