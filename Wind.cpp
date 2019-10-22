@@ -11,7 +11,7 @@ Wind::Wind(Graphic* graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor,
 	direction = { 0,1 };
 	speed = 0;
 	targetRotation = 0;
-	rotationVelocity = 1.0f;
+	rotationVelocity = 2.0f;
 }
 
 Wind::~Wind() {

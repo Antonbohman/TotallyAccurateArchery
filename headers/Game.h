@@ -16,7 +16,7 @@
 #define MAX_TARGET 10
 #define MAX_ARROW 50
 
-#define MAX_PRINTS 5
+#define MAX_PRINTS 6
 
 class Game {
 private:
@@ -52,7 +52,6 @@ private:
 	Wind* wind;
 
 	int nrOfArrows;
-	float bowForce;
 
 public:
 	Game(Graphic* _graphic, Input* _input);

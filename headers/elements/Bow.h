@@ -1,6 +1,10 @@
 #pragma once
 #include "elements\PhysicalElement.h"
 
+enum BowType {
+	LongBow
+};
+
 class Bow : public PhysicalElement {
 private:
 	int rotationDirection = -1;
@@ -8,19 +12,27 @@ private:
 	Vector3 direction;
 	float efficiencyFactor; //"e"
 	float mass;
-	float drawDistance = 0.5; //"x"
-	float drawForce = 700; //"F"
+	float drawDistance; //"x"
+	float drawTime;
+	float maxDrawTime;
+	float drawForce; //"F"
 	float scalingFactor; //"k"
-	
+
+	float constA, constB;
 
 public:
 	Bow();
-	Bow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr,
-		Vector3 _direction, float _efficiencyFactor, float _mass, float _scalingFactor);
+	Bow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr, Vector3 _direction);
 	~Bow();
 
-	Vector3 fireArrow(float _drawDistance, float arrowMass);
+	void setBowType(UINT bowType);
 
-	void Bow::updateElement(MouseInfo mouse);
+	void drawArrow(double delta);
+	bool arrowReady();
+	Vector3 fireArrow(float arrowMass);
+
+	float currentDrawForce();
+
+	void updateElement(MouseInfo mouse);
 };
 

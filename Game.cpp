@@ -30,7 +30,6 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	}
 
 	nrOfArrows = 0;
-	bowForce = 0;
 
 	wind = nullptr;
 
@@ -103,7 +102,8 @@ void Game::NewGame() {
 		graphic,
 		{ 0, 0, 1.0f }
 	);
-
+	 
+	//arrow speed print
 	prints[0] = new Print(
 		graphic,
 		{ W_WIDTH-390, W_HEIGHT, 0.05f },
@@ -124,8 +124,10 @@ void Game::NewGame() {
 		3
 	);
 
+	prints[0]->setValue(0.0f, 4);
 	prints[1]->setString("M/S", 3);
 
+	//wind speed print
 	prints[2] = new Print(
 		graphic,
 		{ 10, W_HEIGHT-120, 0.05f },
@@ -146,8 +148,10 @@ void Game::NewGame() {
 		3
 	);
 
+	prints[2]->setValue(0.0f, 3);
 	prints[3]->setString("M/S", 3);
 
+	//gravity type print
 	prints[4] = new Print(
 		graphic,
 		{ 10, 40, 0.05f },
@@ -159,6 +163,19 @@ void Game::NewGame() {
 	);
 
 	prints[4]->setString("Gravity: Earth", 15);
+
+	//bow force print
+	prints[5] = new Print(
+		graphic,
+		{ W_WIDTH - 330, 50, 0.05f },
+		{ 320, 40 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		10
+	);
+
+	prints[5]->setValue(0.0f, 3);
 
 	sky = new Sky(
 		graphic,
@@ -196,11 +213,10 @@ void Game::NewGame() {
 		{ 100, 180 },
 		Middle,
 		textures.GetTexture(T2_Bow)->ShaderResourceView,
-		Vector3(1, 1, 0),
-		float(0.9),
-		float(1),
-		float(0.05)
+		Vector3(1, 1, 0)
 	); 
+
+	bow->setBowType(BowType::LongBow);
 
 	targets[0] = new Target(
 		graphic,
@@ -269,6 +285,8 @@ void Game::Run(double delta) {
 				delete activeArrow;
 				activeArrow = nullptr;
 			}
+
+			prints[0]->setValue(0.0f, 4);
 
 			camera->setDelay(3.0f);
 			camera->setAnimation(1.0f, 10.0f);
@@ -367,12 +385,12 @@ void Game::Run(double delta) {
 		human->updateElement();
 		bow->updateElement(input->Mouse());
 
-		//quick way to release a custom valued arrow on demand
+		//draw bowstring when space is pressed
 		if (input->Key(Key::_Space).Active) {
-			bowForce += delta;
+			bow->drawArrow(delta);
 		}
 		
-		if (bowForce && !input->Key(Key::_Space).Active) {
+		if (bow->arrowReady() && !input->Key(Key::_Space).Active) {
 			nrOfArrows++;
 			activeArrow = new Arrow(
 				//set arrow values for new arrow to be throwned away
@@ -382,14 +400,11 @@ void Game::Run(double delta) {
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
-				bow->fireArrow(bowForce, 0.06f),
+				bow->fireArrow(0.06f),
 				0.0001f,
 				0.06f,
 				ground->getGravity()
 			);
-
-			//zero our force ahead for next arrow
-			bowForce = 0;
 
 			//set camera focus to current arrow
 			camera->setDelay(0.0f);
@@ -397,8 +412,7 @@ void Game::Run(double delta) {
 			camera->setFocus(activeArrow);
 		}
 
-		prints[0]->setValue(0.0f, 4);
-
+		prints[5]->setValue(bow->currentDrawForce(), 3);
 	}
 
 	prints[2]->setValue(wind->getWindDirectionAndSpeed().z, 3);
