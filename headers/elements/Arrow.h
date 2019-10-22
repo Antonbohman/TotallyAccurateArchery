@@ -11,14 +11,13 @@ private:
 	Vector3 acceleration;
 	float dragCoefficient;
 	float mass;
-	//const float fluidDensity = 1.225f; Dis air
-	//float fluidDensity;
+	float fluidDensity;
 	float gravity;
 
 public:
 
 	Arrow();
-	Arrow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr, Vector3 velocity, float dragCoefficient, float mass/*, float fluidDensity*/, float gravity);
+	Arrow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr, Vector3 velocity, float dragCoefficient, float mass, float fluidDensity, float gravity);
 	~Arrow();
 
 	float calcArea(Wind* wind);

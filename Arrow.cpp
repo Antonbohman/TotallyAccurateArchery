@@ -4,14 +4,14 @@ Arrow::Arrow() : PhysicalElement()
 {
 }
 
-Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, /*Vector3 dragForce, */Vector3 velocity, /*Vector3 acceleration, */float dragCoefficient, float mass/*, float fluidDensity*/, float gravity) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, texturePtr)
+Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, /*Vector3 dragForce, */Vector3 velocity, /*Vector3 acceleration, */float dragCoefficient, float mass, float fluidDensity, float gravity) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, texturePtr)
 {
 	//this->dragForce = dragForce;
 	this->velocity = velocity;
 	//this->acceleration = acceleration;
 	this->dragCoefficient = dragCoefficient;
 	this->mass = mass;
-	//this->fluidDensity = fluidDensity;
+	this->fluidDensity = fluidDensity;
 	this->gravity = gravity;
 }
 
@@ -35,6 +35,9 @@ float Arrow::calcArea(Wind* wind) {
 void Arrow::doPhysics(float deltaTime, Wind* wind)
 {
 	Vector3 newVelocity = velocity;
+
+	//Calculate dragCoefficient WIP
+	dragCoefficient = (0.5f) * fluidDensity * 0.0001f * 1.63265306123f;
 
 	//Beräkna acceleration
 

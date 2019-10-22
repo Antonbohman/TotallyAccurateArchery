@@ -41,6 +41,11 @@ void BaseElement::setSize(XMFLOAT2 newSize) {
 	size = newSize;
 }
 
+void BaseElement::setColour(XMFLOAT4 newColour)
+{
+	colour = newColour;
+}
+
 double BaseElement::convertPixelToMeter(const float* pixels) {
 	return (double)*pixels / (double)100;
 }

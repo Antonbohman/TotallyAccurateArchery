@@ -69,6 +69,7 @@ void Bow::drawArrow(double delta) {
 	invTime = maxDrawTime - drawTime;
 
  	drawDistance = 1 - ((constA * pow(invTime, 6)) + (constB * invTime));
+	drawDistance = std::fmin(drawDistance, 0.762 );
 }
 
 bool Bow::arrowReady() {
