@@ -27,6 +27,16 @@ BaseElement::BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSe
 	createVertexBuffer();
 }
 
+void BaseElement::setTexture(TextureObj* texture)
+{
+	shaderResourceView = texture->ShaderResourceView;
+}
+
+void BaseElement::setSize(XMFLOAT2 newSize)
+{
+	size = newSize;
+}
+
 BaseElement::~BaseElement() {
 	if (quadBuffer) quadBuffer->Release();
 

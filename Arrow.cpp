@@ -20,26 +20,25 @@ Arrow::~Arrow()
 
 void Arrow::doPhysics(float deltaTime)
 {
-	//Beräkna DragForce
-
 	Vector3 newVelocity = velocity;
-
-	dragForce = dragCoefficient * velocity.LengthSquared() * -(velocity / velocity.Length());
 
 	//Beräkna acceleration
 
-	acceleration = dragForce / mass; //F = ma => F/m = a
-	acceleration.y -= 9.82;
-	//acceleration.y -= 1.62; //Moon
+	acceleration = Vector3
+	(
+		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
+		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - 9.82,
+		0
+	);
 
-	//Beräkna velocity (Diffrential ekvation) FEL
+	//Beräknar velocity a = v * dt
 
 	newVelocity.x += acceleration.x * deltaTime;
 	newVelocity.y += acceleration.y * deltaTime;
 
-	//Beräkna position FEL
+	//Beräkna position, genomsnittsvärde för hastighet
 
-	velocity =
+	Vector3 averageVelocity =
 		Vector3(
 		((velocity.x + newVelocity.x) / 2.0f),
 			((velocity.y + newVelocity.y) / 2.0f),
@@ -55,7 +54,9 @@ void Arrow::doPhysics(float deltaTime)
 		rotation = acos(((velocity.Dot(Vector3(1, 0, 0)) / (velocity.Length()))));
 	}
 
-	worldPosition += (velocity * deltaTime * 100);
+	worldPosition += (averageVelocity * deltaTime * 100);
+
+	velocity = newVelocity;
 }
 
 void Arrow::updateElement(float deltaTime)
@@ -65,6 +66,12 @@ void Arrow::updateElement(float deltaTime)
 	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
 	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);
 	if (worldPosition.y < 0) worldPosition.y = 590;
+}
+
+void Arrow::arrowSnap(TextureObj* texture)
+{
+	setTexture(texture);
+	setSize(XMFLOAT2(75, 15));
 }
 
 float Arrow::getVelocity() {

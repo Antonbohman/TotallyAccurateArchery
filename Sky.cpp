@@ -31,8 +31,8 @@ void Sky::updateElement() {
 	viewPosition.y = offsetY;
 
 	side[0]->updateElement(offsetX + W_WIDTH, offsetY);
-	side[1]->updateElement(offsetX, offsetY + W_HEIGHT - 1);
-	side[2]->updateElement(offsetX + W_WIDTH, offsetY + W_HEIGHT - 1);
+	side[1]->updateElement(offsetX, offsetY + W_HEIGHT);
+	side[2]->updateElement(offsetX + W_WIDTH, offsetY + W_HEIGHT);
 }
 
 void Sky::renderElement() {

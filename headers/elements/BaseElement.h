@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphic.h"
+#include "TextureHandler.h"
 #include "Input.h"
 
 using namespace DirectX;
@@ -64,6 +65,8 @@ protected:
 public:
 	BaseElement();
 	BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
+	void setTexture(TextureObj* texture);
+	void setSize(XMFLOAT2 newSize);
 	virtual ~BaseElement();
 
 	virtual void renderElement();

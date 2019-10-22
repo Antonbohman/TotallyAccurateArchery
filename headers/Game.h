@@ -28,7 +28,8 @@ private:
 		T4_Target,
 		T5_Ground,
 		T6_Font,
-		T7_Wind
+		T7_Wind,
+		T8_HalfArrow
 	};
 
 	Graphic* graphic;
