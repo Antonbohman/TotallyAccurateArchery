@@ -148,6 +148,18 @@ void Game::NewGame() {
 
 	prints[3]->setString("M/S", 3);
 
+	prints[4] = new Print(
+		graphic,
+		{ 10, 40, 0.05f },
+		{ 600, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_RIGHT,
+		20
+	);
+
+	prints[4]->setString("Gravity: Earth", 15);
+
 	sky = new Sky(
 		graphic,
 		camera,
@@ -280,6 +292,36 @@ void Game::Run(double delta) {
 				camera->setAnimation(1.0f, 10.0f);
 				camera->setFocus(arrows[nrOfArrows - 1]);
 			}
+		}
+
+		if (input->Key(Key::D1).Active) {
+			ground->setGravity(GravityType::Earth);
+			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			prints[4]->setString("Gravity: Earth     ", 20);
+		}
+
+		if (input->Key(Key::D2).Active) {
+			ground->setGravity(GravityType::Lunar);
+			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			prints[4]->setString("Gravity: Lunar     ", 20);
+		}
+
+		if (input->Key(Key::D3).Active) {
+			ground->setGravity(GravityType::Mars);
+			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			prints[4]->setString("Gravity: Mars      ", 20);
+		}
+
+		if (input->Key(Key::D4).Active) {
+			ground->setGravity(GravityType::Sun);
+			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			prints[4]->setString("Gravity: Sun       ", 20);
+		}
+
+		if (input->Key(Key::D5).Active) {
+			ground->setGravity(GravityType::NoGravity);
+			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			prints[4]->setString("Gravity: No Gravity", 20);
 		}
 
 		//clear game field of old arrows

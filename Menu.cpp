@@ -103,7 +103,7 @@ bool Menu::Run(double delta) {
 		text[1]->setString(" Space - Draw new arrow    F2 - Set Camera Arrow ", 50);
 		text[2]->setString(" Enter - Stop fired arrow  F5 - Delete all arrows", 50);
 		text[3]->setString("Escape - Quit to menu      F9 - Render wireframe ", 50);
-		text[4]->setString("                                                 ", 50);
+		text[4]->setString(" [1-5] - Change gravity                          ", 50);
 
 		if (back->isPressed(&mouse) || input->Key(Key::_Escape).Active) {
 			stage = MAIN;

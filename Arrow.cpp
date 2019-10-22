@@ -71,7 +71,7 @@ void Arrow::updateElement(float deltaTime)
 
 void Arrow::arrowSnap(TextureObj* texture)
 {
-	setTexture(texture);
+	setTexture(texture->ShaderResourceView);
 	setSize(XMFLOAT2(75, 15));
 }
 

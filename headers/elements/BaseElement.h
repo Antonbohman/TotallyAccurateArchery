@@ -65,9 +65,10 @@ protected:
 public:
 	BaseElement();
 	BaseElement(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
-	void setTexture(TextureObj* texture);
-	void setSize(XMFLOAT2 newSize);
 	virtual ~BaseElement();
+
+	void setTexture(ID3D11ShaderResourceView* texture);
+	void setSize(XMFLOAT2 newSize);
 
 	virtual void renderElement();
 	virtual void updateElement() = 0;
