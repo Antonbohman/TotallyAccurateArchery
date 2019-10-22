@@ -81,6 +81,17 @@ void Ground::renderElement() {
 	front[2]->renderElement();
 }
 
+void Ground::setColour(XMFLOAT4 newColour)
+{
+	colour = newColour;
+	front[0]->setColour(newColour);
+	front[1]->setColour(newColour);
+	front[2]->setColour(newColour);
+	back[0]->setColour(newColour);
+	back[1]->setColour(newColour);
+	back[2]->setColour(newColour);
+}
+
 void Ground::setGravity(UINT gravityType) {
 	switch (gravityType) {
 	case GravityType::Earth:
@@ -104,6 +115,16 @@ void Ground::setGravity(UINT gravityType) {
 	}
 }
 
+void Ground::setDensity(float newDensity)
+{
+	fluidDensity = newDensity;
+}
+
 float Ground::getGravity() {
 	return gravity;
+}
+
+float Ground::getDensity()
+{
+	return fluidDensity;
 }

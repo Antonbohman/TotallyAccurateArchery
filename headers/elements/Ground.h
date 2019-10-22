@@ -32,6 +32,7 @@ private:
 	Layer* front[3];
 
 	float gravity;
+	float fluidDensity;
 
 public:
 	Ground();
@@ -41,6 +42,10 @@ public:
 	void moveWorldToView();
 	void renderElement();
 
+	void setColour(XMFLOAT4 newColour);
+
 	void setGravity(UINT gravityType);
+	void setDensity(float newDensity);
 	float getGravity();
+	float getDensity();
 };

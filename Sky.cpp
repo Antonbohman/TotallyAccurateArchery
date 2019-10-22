@@ -21,6 +21,14 @@ Sky::~Sky() {
 	delete side[2];
 }
 
+void Sky::setColour(XMFLOAT4 newColour)
+{
+	colour = newColour;
+	side[0]->setColour(newColour);
+	side[1]->setColour(newColour);
+	side[2]->setColour(newColour);
+}
+
 void Sky::updateElement() {
 	XMFLOAT2 camPos = camera->getOffset();
 

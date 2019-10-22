@@ -241,7 +241,10 @@ void Game::NewGame() {
 		textures.GetTexture(T5_Ground)->ShaderResourceView
 	); 
 
+	ground->setColour(XMFLOAT4(0.4f, 1.0f, 0.4f, 1.0f));
 	ground->setGravity(GravityType::Earth);
+	ground->setDensity(1.225f);
+	sky->setColour(XMFLOAT4(0.4f, 0.6f, 1.0f, 1.0f));
 	
 	human = new Human(
 		graphic,
@@ -361,31 +364,46 @@ void Game::Run(double delta) {
 		if (input->Key(Key::D1).Active) {
 			ground->setGravity(GravityType::Earth);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			ground->setColour(XMFLOAT4(0.4f, 1.0f, 0.4f, 1.0f));
+			sky->setColour(XMFLOAT4(0.4f, 0.6f, 1.0f, 1.0f));
 			prints[4]->setString("Gravity: Earth     ", 20);
+			ground->setDensity(1.225f);
 		}
 
 		if (input->Key(Key::D2).Active) {
 			ground->setGravity(GravityType::Lunar);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			ground->setColour(XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f));
+			sky->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			prints[4]->setString("Gravity: Lunar     ", 20);
+			ground->setDensity(0.0f);
 		}
 
 		if (input->Key(Key::D3).Active) {
 			ground->setGravity(GravityType::Mars);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			ground->setColour(XMFLOAT4(1.0f, 0.7f, 0.0f, 1.0f));
+			sky->setColour(XMFLOAT4(1.0f, 0.9f, 0.0f, 1.0f));
 			prints[4]->setString("Gravity: Mars      ", 20);
+			ground->setDensity(0.02f);
 		}
 
 		if (input->Key(Key::D4).Active) {
 			ground->setGravity(GravityType::Sun);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			ground->setColour(XMFLOAT4(1.0f, 0.9f, 0.0f, 1.0f));
+			sky->setColour(XMFLOAT4(1.0f, 1.0f, 0.6f, 1.0f));
 			prints[4]->setString("Gravity: Sun       ", 20);
+			ground->setDensity(0.0002f); //sun convective zone
 		}
 
 		if (input->Key(Key::D5).Active) {
 			ground->setGravity(GravityType::NoGravity);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
+			ground->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
+			sky->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			prints[4]->setString("Gravity: No Gravity", 20);
+			ground->setDensity(0.0f);
 		}
 
 		//clear game field of old arrows
@@ -449,6 +467,7 @@ void Game::Run(double delta) {
 				bow->fireArrow(0.06f),
 				0.0001f,
 				0.06f,
+				ground->getDensity(),
 				ground->getGravity()
 			);
 
@@ -519,4 +538,5 @@ void Game::Draw() {
 /*
 	Anton's Jazzlists
 	*option object for stuff like kind of bows, planets and wind forces (moving obstacles?)
+	*Nat King Cole
 */
