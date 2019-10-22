@@ -11,11 +11,12 @@
 #include "elements/Target.h"
 #include "elements/Ground.h"
 #include "elements/Sky.h"
+#include "elements/Wind.h"
 
 #define MAX_TARGET 10
 #define MAX_ARROW 50
 
-#define MAX_PRINTS 2
+#define MAX_PRINTS 4
 
 class Game {
 private:
@@ -26,7 +27,8 @@ private:
 		T3_Human,
 		T4_Target,
 		T5_Ground,
-		T6_Font
+		T6_Font,
+		T7_Wind
 	};
 
 	Graphic* graphic;
@@ -45,6 +47,8 @@ private:
 	Arrow* activeArrow;
 	Arrow** arrows;
 	Target** targets;
+	
+	Wind* wind;
 
 	int nrOfArrows;
 	float bowForce;

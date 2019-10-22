@@ -33,6 +33,14 @@ BaseElement::~BaseElement() {
 	delete[] vertices;
 }
 
+double BaseElement::convertPixelToMeter(const float* pixels) {
+	return (double)*pixels / (double)100;
+}
+
+float BaseElement::convertMeterToPixel(const double* meters) {
+	return (float)round(*meters * 100);
+}
+
 void BaseElement::getQuadBoundriesView(float* pos_X0, float* pos_X1, float* pos_Y0, float* pos_Y1) {
 	switch (anchor) {
 	case Middle:

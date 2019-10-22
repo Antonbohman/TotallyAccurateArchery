@@ -32,6 +32,8 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	nrOfArrows = 0;
 	bowForce = 0;
 
+	wind = nullptr;
+
 	//make sure to preload all necesary textures here in right order as described in Texture enum
 	textures.SetTexture(graphic->device, T0_Background, L"resources/sky.dds");
 	textures.SetTexture(graphic->device, T1_Arrow, L"resources/giftpil.dds");
@@ -40,6 +42,7 @@ Game::Game(Graphic* _graphic, Input* _input) {
 	textures.SetTexture(graphic->device, T4_Target, L"resources/target.dds");
 	textures.SetTexture(graphic->device, T5_Ground, L"resources/ground.dds");
 	textures.SetTexture(graphic->device, T6_Font, L"resources/font.dds");
+	textures.SetTexture(graphic->device, T7_Wind, L"resources/wind.dds");
 }
 
 Game::~Game() {
@@ -65,6 +68,8 @@ Game::~Game() {
 		delete arrows[i];
 	}
 	delete[] arrows;
+
+	delete wind;
 }
 
 void Game::NewGame() {
@@ -79,6 +84,8 @@ void Game::NewGame() {
 	delete human;
 	delete bow;
 	delete activeArrow;
+
+	delete wind;
 
 	for (int i = 0; i < MAX_TARGET; i++) {
 		delete targets[i];
@@ -115,6 +122,30 @@ void Game::NewGame() {
 		WRITE_LEFT,
 		3
 	);
+
+	prints[1]->setString("M/S", 3);
+
+	prints[2] = new Print(
+		graphic,
+		{ 10, W_HEIGHT-120, 0.05f },
+		{ 80, 20 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		6
+	);
+
+	prints[3] = new Print(
+		graphic,
+		{ 95, W_HEIGHT-120, 0.05f },
+		{ 40, 20 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_LEFT,
+		3
+	);
+
+	prints[3]->setString("M/S", 3);
 
 	sky = new Sky(
 		graphic,
@@ -165,6 +196,16 @@ void Game::NewGame() {
 		textures.GetTexture(T4_Target)->ShaderResourceView
 	);
 
+	wind = new Wind(
+		graphic,
+		{ 60, W_HEIGHT-60, 0.09f },
+		{ 100, 100 },
+		Middle,
+		textures.GetTexture(T7_Wind)->ShaderResourceView
+	);
+
+	wind->randomizeWind();
+
 	activeArrow = nullptr;
 }
 
@@ -178,7 +219,6 @@ void Game::Run(double delta) {
 		activeArrow->updateElement(delta);
 
 		prints[0]->setValue(activeArrow->getVelocity(), 4);
-		prints[1]->setString("M/S", 3);
 
 		//see if arrow is colliding with ground
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
@@ -206,6 +246,8 @@ void Game::Run(double delta) {
 			camera->setDelay(3.0f);
 			camera->setAnimation(1.0f, 10.0f);
 			camera->setFocus({ W_WIDTH / 2, W_HEIGHT / 2 });
+
+			wind->randomizeWind();
 		}
 
 	} else {
@@ -267,7 +309,6 @@ void Game::Run(double delta) {
 		//when no arrow is currently flying we do calculation for firing a new arrow
 		human->updateElement();
 		bow->updateElement(input->Mouse());
-		
 
 		//quick way to release a custom valued arrow on demand
 		if (input->Key(Key::_Space).Active) {
@@ -303,9 +344,10 @@ void Game::Run(double delta) {
 		}
 
 		prints[0]->setValue(0.0f, 4);
-		prints[1]->setString("M/S", 3);
 
 	}
+
+	prints[2]->setValue(wind->getWindDirectionAndSpeed().z, 3);
 
 	//update camera with focus or fixed position if needed
 	camera->updateFocus(delta);
@@ -327,6 +369,8 @@ void Game::Run(double delta) {
 	for (int i = 0; i < MAX_ARROW; i++) {
 		if (arrows[i]) arrows[i]->moveWorldToView();
 	}
+
+	wind->updateElement(delta);
 }
 
 void Game::Draw() {
@@ -351,6 +395,8 @@ void Game::Draw() {
 	for (int i = 0; i < MAX_PRINTS; i++) {
 		if (prints[i]) prints[i]->renderElement();
 	}
+
+	wind->renderElement();
 }
 
 
