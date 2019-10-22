@@ -20,7 +20,7 @@ Arrow::~Arrow()
 }
 
 float Arrow::calcArea(Wind* wind) {
-	/*float value;
+	float value;
 	double base, height;
 	float areaA, areaB;
 
@@ -43,17 +43,7 @@ float Arrow::calcArea(Wind* wind) {
 
 	areaB = base * height;
 
-	return areaA + areaB;*/
-
-	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	Vector3 windDir(windDirSpeed.x, windDirSpeed.y, 0);
-
-	if (windDir.Dot({ 0,1,0 }) == 0)
-		return size.y * 1.0f;
-	else if (windDir.Dot({ 1,0,0 }) == 0)
-		return size.x * 1.0;
-	else
-		return (size.x * 1.0) + (size.y * 1.0f);
+	return areaA + areaB;
 }
 
 void Arrow::doPhysics(float deltaTime, Wind* wind)
