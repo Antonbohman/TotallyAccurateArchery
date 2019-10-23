@@ -41,8 +41,8 @@ void Wind::randomizeWind() {
 
 	speed = 10.0f;
 
-	targetRotation = 0;
-	direction = { 0, 1 };
+	//targetRotation = 0;
+	//direction = { 0, 1 };
 
 	//targetRotation = 0.5f*XM_PI;
 	//direction = { 1, 0 };

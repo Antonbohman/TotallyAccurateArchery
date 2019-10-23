@@ -30,6 +30,11 @@ Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 
 Arrow::~Arrow()
 {
+	delete hitbox;
+}
+
+bool Arrow::isColliding(PhysicalElement* otherObject) {
+	return hitbox->isColliding(otherObject);
 }
 
 float Arrow::calcArea(Vector3 windDirection) {
@@ -44,7 +49,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 		angle = acos(windDirection.Dot(arrowDirection));
 	}
 
-	angle = rotation - angle;
+	angle = rotation - angle + (XM_PI*0.5f);
 	
 	XMFLOAT3 rotateX;
 	XMStoreFloat3(
@@ -83,7 +88,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 	);
 
 	Vector3 diagonal(rotateX.x - rotateY.x, 0.0f, 0.0f);
-	float length = diagonal.Length() * 1;
+	float length = diagonal.Length();
 
 	return convertPixelToMeter(&length);
 }
@@ -150,7 +155,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
-	rotation = 0.5 * 3.1415926535;
+	//rotation = 0.5 * 3.1415926535;
 	velocity = newVelocity;
 }
 
@@ -161,6 +166,24 @@ void Arrow::updateElement(float deltaTime, Wind* wind)
 	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
 	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);
 	if (worldPosition.y < 0) worldPosition.y = 590;
+
+	XMFLOAT2 dir;
+
+	XMStoreFloat2(
+		&dir,
+		XMVector3Rotate(
+			XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),
+			XMQuaternionRotationAxis(
+				XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
+				rotation
+			)
+		)
+	);
+
+	dir.x = worldPosition.x + (dir.x*42.0f);
+	dir.y = worldPosition.y + (dir.y*42.0f);
+
+	hitbox->setWorldPos(dir.x, dir.y);
 }
 
 void Arrow::arrowSnap(TextureObj* texture)
@@ -176,25 +199,9 @@ float Arrow::getVelocity() {
 void Arrow::renderElement() {
 	PhysicalElement::renderElement();
 
-	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
-	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
-
-	XMFLOAT2 rotateCord(pos_X1, pos_Y1);
-
-	/*XMStoreFloat2(
-		&rotateCord,
-		XMVector3Rotate(
-			XMVectorSet(pos_X1 - ((size.x * 0.05f) / 2), pos_Y0 + ((pos_Y1 - pos_Y0) / 2), 0.0f, 0.0f),
-			XMQuaternionRotationAxis(
-				XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
-				rotation
-			)
-		)
-	);*/
-
 	hitbox->setRotation(rotation);
-	hitbox->setWorldPos(rotateCord.x, rotateCord.y);
 
 	hitbox->moveWorldToView();
 	hitbox->renderElement();
 }
+
