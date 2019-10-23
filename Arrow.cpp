@@ -32,41 +32,56 @@ Arrow::~Arrow()
 {
 }
 
-float Arrow::calcArea(Wind* wind) {
-	/*float value;
-	double base, height;
-	float areaA, areaB;
+float Arrow::calcArea(Vector3 windDirection) {
+	Vector3 arrowDirection(1.0f, 0.0f, 0.0f);
 
-	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	
+	windDirection.Normalize();
+	float angle = windDirection.Dot(arrowDirection);
+
+
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
-		
-	value = pos_X1 - pos_X0;
-	base = convertPixelToMeter(&value);
-	height = windDirSpeed.y*windDirSpeed.z;
-	if (height < 0) height *= -1;
 
-	areaA = base * height;
+	XMFLOAT3 rotateX;
+	XMStoreFloat3(
+		&rotateX,
+		XMVector3Rotate(
+			XMVector3Rotate(
+				XMVectorSet(pos_X1 - pos_X0, 0.0f, 0.0f, 0.0f),
+				XMQuaternionRotationAxis(
+					XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
+					angle
+				)
+			),
+			XMQuaternionRotationAxis(
+				XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),
+				0.5*XM_PI
+			)
+		)	
+	);
 
-	value = pos_Y1 - pos_Y0;
-	base = windDirSpeed.x*windDirSpeed.z;
-	height = convertPixelToMeter(&value);
-	if (base < 0) base *= -1;
+	XMFLOAT3 rotateY;
+	XMStoreFloat3(
+		&rotateY,
+		XMVector3Rotate(
+			XMVector3Rotate(
+				XMVectorSet(0.0f, pos_Y1 - pos_Y0, 0.0f, 0.0f),
+				XMQuaternionRotationAxis(
+					XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
+					angle
+				)
+			),
+			XMQuaternionRotationAxis(
+				XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f),
+				0.5*XM_PI
+			)
+		)
+	);
 
-	areaB = base * height;
+	Vector3 diagonal(rotateX.x - rotateY.x, rotateX.y - rotateY.y, rotateX.z - rotateY.z);
+	float length = diagonal.Length();
 
-	return areaA + areaB;*/
-
-	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	Vector3 windDir(windDirSpeed.x, windDirSpeed.y, 0);
-
-	if (windDir.Dot({ 0,1,0 }) == 0)
-		return size.y * 1.0f;
-	else if (windDir.Dot({ 1,0,0 }) == 0)
-		return size.x * 1.0;
-	else
-		return (size.x * 1.0) + (size.y * 1.0f);
+	return length;
 }
 
 float Arrow::getDragCoefficient()
@@ -93,6 +108,9 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 	//Create vector with an 90 angle to the wind relative to the object. (A)
 
 	Vector3 angledVector = -relativeVelocity;
+
+	float a = calcArea(angledVector);
+
 	angledVector = Vector3
 	(
 		-angledVector.y,
