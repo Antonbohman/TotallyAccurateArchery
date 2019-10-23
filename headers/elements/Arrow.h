@@ -14,6 +14,8 @@ private:
 	float fluidDensity;
 	float gravity;
 
+	PhysicalElement* hitbox;
+
 public:
 
 	Arrow();
@@ -28,4 +30,6 @@ public:
 	void arrowSnap(TextureObj* texture);
 
 	float getVelocity();
+
+	void renderElement();
 };

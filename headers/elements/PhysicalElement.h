@@ -17,6 +17,7 @@ public:
 	PhysicalElement(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr);
 	virtual ~PhysicalElement();
 
+	void setWorldPos(float x, float y);
 	XMFLOAT2 getWorldPos();
 	virtual void moveWorldToView();
 	virtual bool isColliding(PhysicalElement* otherObject);

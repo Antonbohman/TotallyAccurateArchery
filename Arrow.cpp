@@ -2,6 +2,7 @@
 
 Arrow::Arrow() : PhysicalElement()
 {
+	hitbox = nullptr;
 }
 
 Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView * texturePtr, /*Vector3 dragForce, */Vector3 velocity, /*Vector3 acceleration, */float dragCoefficient, float mass, float fluidDensity, float gravity) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, texturePtr)
@@ -13,6 +14,18 @@ Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	this->mass = mass;
 	this->fluidDensity = fluidDensity;
 	this->gravity = gravity;
+
+	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
+	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+
+	hitbox = new PhysicalElement(
+		_graphic,
+		_camera,
+		{ pos_X1 - ((sizeToSet.x * 0.05f)/2), pos_Y0 + ((pos_Y1 - pos_Y0) / 2), posToSet.z + 0.000001f },
+		{ sizeToSet.x * 0.05f, sizeToSet.y },
+		Middle,
+		nullptr
+	);
 }
 
 Arrow::~Arrow()
@@ -134,4 +147,30 @@ void Arrow::arrowSnap(TextureObj* texture)
 
 float Arrow::getVelocity() {
 	return velocity.Length();
+}
+
+void Arrow::renderElement() {
+	PhysicalElement::renderElement();
+
+	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
+	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+
+	XMFLOAT2 rotateCord(pos_X1, pos_Y1);
+
+	/*XMStoreFloat2(
+		&rotateCord,
+		XMVector3Rotate(
+			XMVectorSet(pos_X1 - ((size.x * 0.05f) / 2), pos_Y0 + ((pos_Y1 - pos_Y0) / 2), 0.0f, 0.0f),
+			XMQuaternionRotationAxis(
+				XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f),
+				rotation
+			)
+		)
+	);*/
+
+	hitbox->setRotation(rotation);
+	hitbox->setWorldPos(rotateCord.x, rotateCord.y);
+
+	hitbox->moveWorldToView();
+	hitbox->renderElement();
 }

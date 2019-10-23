@@ -54,6 +54,11 @@ void PhysicalElement::setAsCameraFocus() {
 	camera->setFocus(this);
 }
 
+void PhysicalElement::setWorldPos(float x, float y) {
+	worldPosition.x = x;
+	worldPosition.y = y;
+}
+
 XMFLOAT2 PhysicalElement::getWorldPos() {
 	return XMFLOAT2(worldPosition.x, worldPosition.y);
 }

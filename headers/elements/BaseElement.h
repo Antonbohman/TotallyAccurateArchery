@@ -69,6 +69,7 @@ public:
 
 	void setTexture(ID3D11ShaderResourceView* texture);
 	void setSize(XMFLOAT2 newSize);
+	void setRotation(float newRotation);
 	virtual void setColour(XMFLOAT4 newColour);
 
 	virtual void renderElement();

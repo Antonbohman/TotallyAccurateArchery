@@ -41,6 +41,10 @@ void BaseElement::setSize(XMFLOAT2 newSize) {
 	size = newSize;
 }
 
+void BaseElement::setRotation(float newRotation) {
+	rotation = newRotation;
+}
+
 void BaseElement::setColour(XMFLOAT4 newColour)
 {
 	colour = newColour;
