@@ -483,7 +483,7 @@ void Game::Run(double delta) {
 				//set arrow values for new arrow to be throwned away
 				graphic,
 				camera,
-				{ W_WIDTH / 2, 225, 0.70f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
+				{ W_WIDTH / 2, 999225, 0.70f - (nrOfArrows*0.001f) }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
