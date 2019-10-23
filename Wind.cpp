@@ -25,7 +25,7 @@ void Wind::randomizeWind() {
 
 	targetRotation = gen_rotation(rng)*0.0000001;
 	targetRotation *= XM_PI;
-
+	
 	XMStoreFloat2(
 		&direction,
 		XMVector3Rotate(
@@ -41,11 +41,11 @@ void Wind::randomizeWind() {
 
 	speed = 10.0f;
 
-	targetRotation = 0;
-	direction = { 0, 1 };
+	/*targetRotation = 0;
+	direction = { 0, 1 };*/
 
-	/*targetRotation = 0.5f*XM_PI;
-	direction = { 1, 0 }*/
+	//targetRotation = 0.5f*XM_PI;
+	//direction = { 1, 0 };
 }
 
 XMFLOAT3 Wind::getWindDirectionAndSpeed() {
