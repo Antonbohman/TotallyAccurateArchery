@@ -128,8 +128,8 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
-	Vector3 vectorV = Vector3(0.7f, 0.01f, 0);
-	Vector3 vectorU = Vector3(0.7f, -0.01f, 0);
+	Vector3 vectorV = Vector3(0.9f, 0.01f, 0);
+	Vector3 vectorU = Vector3(0.9f, -0.01f, 0);
 
 	vectorV = Vector3
 	(
@@ -144,6 +144,10 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 		vectorU.x * sin(rotation) - vectorU.y * cos(rotation),
 		0
 	);
+
+	/*
+	Vector3 vectorT1 = vectorV + relativeVelocity;
+	Vector3 vectorT2 = vectorV + relativeVelocity;*/
 
 	/*vectorV = Vector3
 	(
@@ -163,10 +167,14 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	float area = fmax(angledVector.Dot(vectorV), angledVector.Dot(vectorU));
 	if (area < 0) area *= -1;
-	area = area * 0.01f;
 	
+	/*area = calcArea(-relativeVelocity);
+	area = convertPixelToMeter(&area);*/
+	area = area * 0.01f;
 
 	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f; //Aim for 0.0001
+
+	//Highest velocity 76.8 / 8.06
 
 	//float dragForce = calcArea(wind) * fluidDensity * 1.63265306123f / 2;
 
@@ -207,6 +215,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
+	rotation = 0;
 	velocity = newVelocity;
 }
 
