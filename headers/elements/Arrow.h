@@ -21,6 +21,7 @@ public:
 	~Arrow();
 
 	float calcArea(Wind* wind);
+	float getDragCoefficient();
 
 	void doPhysics(float deltaTime, Wind* wind);
 	void updateElement(float deltaTime, Wind* wind);
