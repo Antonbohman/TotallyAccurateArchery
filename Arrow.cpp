@@ -69,12 +69,17 @@ float Arrow::calcArea(Wind* wind) {
 		return (size.x * 1.0) + (size.y * 1.0f);
 }
 
+float Arrow::getDragCoefficient()
+{
+	return dragCoefficient;
+}
+
 void Arrow::doPhysics(float deltaTime, Wind* wind)
 {
 	Vector3 newVelocity = velocity;
 
 	//Calculate dragCoefficient
-	/*XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
+	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
 
 	Vector3 windVelocity = Vector3
 	(
@@ -83,19 +88,73 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 		0
 	) * windDirSpeed.z;
 
-	Vector3 relativeVelocity = velocity - windVelocity;*/
+	Vector3 relativeVelocity = velocity - windVelocity;
 
-	//dragCoefficient = (0.5f) * fluidDensity * calcArea(wind) * 1.63265306123f;
-	dragCoefficient = (0.5f) * fluidDensity * 0.0001 * 1.63265306123f;
+	//Create vector with an 90 angle to the wind relative to the object. (A)
 
-	float dragForce = calcArea(wind) * fluidDensity * 1.63265306123f / 2;
+	Vector3 angledVector = -relativeVelocity;
+	angledVector = Vector3
+	(
+		-angledVector.y,
+		angledVector.x,
+		0
+	);
+
+	angledVector.Normalize();
+	angledVector *= 0.7f;
+
+	//Create two vectors: V:X0->Y1, U:X1->Y0
+	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
+	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
+
+	Vector3 vectorV = Vector3(0.7f, 0.01f, 0);
+	Vector3 vectorU = Vector3(0.7f, -0.01f, 0);
+
+	vectorV = Vector3
+	(
+		vectorV.x * cos(rotation) - vectorV.y * sin(rotation),
+		vectorV.x * sin(rotation) - vectorV.y * cos(rotation),
+		0
+	);
+
+	vectorU = Vector3
+	(
+		vectorU.x * cos(rotation) - vectorU.y * sin(rotation),
+		vectorU.x * sin(rotation) - vectorU.y * cos(rotation),
+		0
+	);
+
+	/*vectorV = Vector3
+	(
+		convertPixelToMeter(&vectorV.x),
+		convertPixelToMeter(&vectorV.y),
+		0
+	);
+	vectorU = Vector3
+	(
+		convertPixelToMeter(&vectorU.x),
+		convertPixelToMeter(&vectorU.y),
+		0
+	);*/
+
+
+	////Do the dot-products between V and A, and U and A. The larger value times 1cm is the area.
+
+	float area = fmax(angledVector.Dot(vectorV), angledVector.Dot(vectorU));
+	if (area < 0) area *= -1;
+	area = area * 0.01f;
+	
+
+	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f; //Aim for 0.0001
+
+	//float dragForce = calcArea(wind) * fluidDensity * 1.63265306123f / 2;
 
 	//Beräkna acceleration
 
 	acceleration = Vector3
 	(
-		(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		((dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
+		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
+		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
 		0
 	);
 

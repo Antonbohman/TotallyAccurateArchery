@@ -329,7 +329,7 @@ void Game::Run(double delta) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta, wind);
 
-		prints[0]->setValue(activeArrow->getVelocity(), 4);
+		prints[0]->setValue(activeArrow->getDragCoefficient(), 4);
 
 		//see if arrow is colliding with ground
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
