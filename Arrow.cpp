@@ -109,9 +109,9 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	Vector3 relativeVelocity = velocity - windVelocity;
 
-	float area = calcArea(relativeVelocity);
+	float area = calcArea(relativeVelocity) * 0.01;
 
-	dragCoefficient = (0.5f) * fluidDensity * calcArea(relativeVelocity) * 0.01 * 1.63265306123f; //Aim for 0.0001
+	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f; //Aim for 0.0001
 
 	//Highest velocity 76.8 / 8.06
 
@@ -150,7 +150,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
-	rotation = 0.5 * 3.1415926535;
+	rotation = /*0.5 * 3.1415926535*/0;
 	velocity = newVelocity;
 }
 
