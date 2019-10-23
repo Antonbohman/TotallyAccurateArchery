@@ -20,7 +20,7 @@ Arrow::~Arrow()
 }
 
 float Arrow::calcArea(Wind* wind) {
-	/*float value;
+	float value;
 	double base, height;
 	float areaA, areaB;
 
@@ -43,17 +43,7 @@ float Arrow::calcArea(Wind* wind) {
 
 	areaB = base * height;
 
-	return areaA + areaB;*/
-
-	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
-	Vector3 windDir(windDirSpeed.x, windDirSpeed.y, 0);
-
-	if (windDir.Dot({ 0,1,0 }) == 0)
-		return size.y * 1.0f;
-	else if (windDir.Dot({ 1,0,0 }) == 0)
-		return size.x * 1.0;
-	else
-		return (size.x * 1.0) + (size.y * 1.0f);
+	return areaA + areaB;
 }
 
 void Arrow::doPhysics(float deltaTime, Wind* wind)
@@ -61,7 +51,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 	Vector3 newVelocity = velocity;
 
 	//Calculate dragCoefficient
-	XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
+	/*XMFLOAT3 windDirSpeed = wind->getWindDirectionAndSpeed();
 
 	Vector3 windVelocity = Vector3
 	(
@@ -70,31 +60,10 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 		0
 	) * windDirSpeed.z;
 
-	Vector3 relativeVelocity = velocity - windVelocity;
-
-	//Create vector with an 90 angle to the wind relative to the object. (A)
-
-	Vector3 angledVector = -relativeVelocity;
-	angledVector = Vector3
-	(
-		-angledVector.y,
-		angledVector.x,
-		0
-	);
-
-	//Create two vectors: V:X0->Y1, U:X1->Y0
-	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
-	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
-
-	Vector3 vectorV = Vector3(pos_X1, pos_Y1, 0) - Vector3(pos_X0, pos_Y0, 0);
-	Vector3 vectorU = Vector3(pos_X1, pos_Y0, 0) - Vector3(pos_X0, pos_Y1, 0);
-
-	//Do the dot-products between V and A, and U and A. The larger value times 1cm is the area.
-
-	float area = fmax(angledVector.Dot(vectorV), angledVector.Dot(vectorU));
+	Vector3 relativeVelocity = velocity - windVelocity;*/
 
 	//dragCoefficient = (0.5f) * fluidDensity * calcArea(wind) * 1.63265306123f;
-	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f;
+	dragCoefficient = (0.5f) * fluidDensity * 0.0001 * 1.63265306123f;
 
 	float dragForce = calcArea(wind) * fluidDensity * 1.63265306123f / 2;
 
