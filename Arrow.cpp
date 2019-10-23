@@ -82,7 +82,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 		)
 	);
 
-	Vector3 diagonal(0.0f, rotateX.y - rotateY.y, 0.0f);
+	Vector3 diagonal(rotateX.x - rotateY.x, 0.0f, 0.0f);
 	float length = diagonal.Length() * 1;
 
 	return convertPixelToMeter(&length);
