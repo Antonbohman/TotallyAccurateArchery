@@ -87,29 +87,60 @@ void Print::setValue(float value, UINT precision) {
 	XMFLOAT2* spriteCord = new XMFLOAT2[maxPrints];
 	int index = 0;
 	int number = 0;
+	int integer = 0;
+	int decimals = 0;
 
 	precision < 1 ? precision = 1 : precision > (maxPrints - 2) ? precision = (maxPrints - 2) : NULL;
 
-	int integer = floor(value);
-	int decimals = floor((value - integer)*pow(10,precision));
+	if (value < 0) {
+		value *= -1;
 
-	for (index; index < precision && index < maxPrints-2; index++) {
-		number = decimals % 10;
-		spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
-		decimals -= number;
-		decimals /= 10;
-	}
+		integer = floor(value);
+		decimals = floor((value - integer)*pow(10, precision));
 
-	spriteCord[index] = transformSymbolToSprite((char)44);
-	index++;
+		for (index; index < precision && index < maxPrints - 2; index++) {
+			number = decimals % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			decimals -= number;
+			decimals /= 10;
+		}
 
-	do {
-		number = integer % 10;
-		spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
-		integer -= number;
-		integer /= 10;
+		spriteCord[index] = transformSymbolToSprite((char)44);
 		index++;
-	} while (integer && index < maxPrints);
+
+		do {
+			number = integer % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			integer -= number;
+			integer /= 10;
+			index++;
+		} while (integer && index < maxPrints-1);
+
+		spriteCord[index] = transformSymbolToSprite((char)45);
+		index++;
+
+	} else {
+		integer = floor(value);
+		decimals = floor((value - integer)*pow(10, precision));
+
+		for (index; index < precision && index < maxPrints - 2; index++) {
+			number = decimals % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			decimals -= number;
+			decimals /= 10;
+		}
+
+		spriteCord[index] = transformSymbolToSprite((char)44);
+		index++;
+
+		do {
+			number = integer % 10;
+			spriteCord[index] = transformSymbolToSprite(transformIntToChar(number));
+			integer -= number;
+			integer /= 10;
+			index++;
+		} while (integer && index < maxPrints);
+	}
 
 	SetSymbols(spriteCord, index);
 

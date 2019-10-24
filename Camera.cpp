@@ -89,6 +89,10 @@ XMFLOAT2 Camera::getOffset() {
 	return XMFLOAT2(viewPosition.x, viewPosition.y);
 }
 
+XMFLOAT2 Camera::getOffsetMeter() {
+	return XMFLOAT2(convertPixelToMeter(&viewPosition.x), convertPixelToMeter(&viewPosition.y));
+}
+
 XMFLOAT2 Camera::getPos() {
 	return XMFLOAT2(viewPosition.x + (W_WIDTH / 2), viewPosition.y + (W_HEIGHT / 2));
 }
