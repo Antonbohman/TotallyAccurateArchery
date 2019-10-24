@@ -33,6 +33,10 @@ Arrow::~Arrow()
 }
 
 float Arrow::calcArea(Vector3 windDirection) {
+
+	/*IM IN YOUR BASE, KILLING YOUR DUDES*/
+	float fakerotation = rotation - (3.1415926535 / 2);
+
 	Vector3 arrowDirection(1.0f, 0.0f, 0.0f);
 
 	windDirection.Normalize();
@@ -44,7 +48,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 		angle = acos(windDirection.Dot(arrowDirection));
 	}
 
-	angle = rotation - angle;
+	angle = fakerotation - angle;
 	
 	XMFLOAT3 rotateX;
 	XMStoreFloat3(
@@ -119,8 +123,8 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	acceleration = Vector3
 	(
-		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
+		-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.x,
+		(-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.y) - gravity,
 		0
 	);
 
@@ -150,7 +154,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
-	rotation = /*0.5 * 3.1415926535*/0;
+	//rotation = 0;
 	velocity = newVelocity;
 }
 
