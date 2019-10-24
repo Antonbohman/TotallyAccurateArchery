@@ -38,6 +38,10 @@ bool Arrow::isColliding(PhysicalElement* otherObject) {
 }
 
 float Arrow::calcArea(Vector3 windDirection) {
+
+	/*IM IN YOUR BASE, KILLING YOUR DUDES*/
+	float fakerotation = rotation - (3.1415926535 / 2);
+
 	Vector3 arrowDirection(1.0f, 0.0f, 0.0f);
 
 	windDirection.Normalize();
@@ -49,7 +53,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 		angle = acos(windDirection.Dot(arrowDirection));
 	}
 
-	angle = rotation - angle + (XM_PI*0.5f);
+	angle = fakerotation - angle;
 	
 	XMFLOAT3 rotateX;
 	XMStoreFloat3(
@@ -116,7 +120,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	float area = calcArea(relativeVelocity);
 
-	dragCoefficient = (0.5f) * fluidDensity * calcArea(relativeVelocity) * 1.63265306123f; //Aim for 0.0001
+	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f; //Aim for 0.0001
 
 	//Highest velocity 76.8 / 8.06
 
@@ -124,8 +128,8 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	acceleration = Vector3
 	(
-		-(dragCoefficient / mass) * velocity.Length() * velocity.x,
-		(-(dragCoefficient / mass) * velocity.Length() * velocity.y) - gravity,
+		-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.x,
+		(-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.y) - gravity,
 		0
 	);
 
@@ -155,7 +159,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
-	//rotation = 0.5 * 3.1415926535;
+	//rotation = 0;
 	velocity = newVelocity;
 }
 
