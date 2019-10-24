@@ -116,7 +116,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	float area = calcArea(relativeVelocity);
 
-	dragCoefficient = (0.5f) * fluidDensity * area * 1.63265306123f; //Aim for 0.0001
+	dragConstant = (0.5f) * fluidDensity * area * dragCoefficient; //Aim for 0.0001
 
 	//Highest velocity 76.8 / 8.06
 
@@ -124,8 +124,8 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	acceleration = Vector3
 	(
-		-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.x,
-		(-(dragCoefficient / mass) * relativeVelocity.Length() * relativeVelocity.y) - gravity,
+		-(dragConstant / mass) * relativeVelocity.Length() * relativeVelocity.x,
+		(-(dragConstant / mass) * relativeVelocity.Length() * relativeVelocity.y) - gravity,
 		0
 	);
 
@@ -155,7 +155,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	worldPosition += (averageVelocity * deltaTime * 100);
 
-	//rotation = 0;
+	
 	velocity = newVelocity;
 }
 
@@ -204,4 +204,3 @@ void Arrow::renderElement() {
 	hitbox->moveWorldToView();
 	hitbox->renderElement();
 }
-

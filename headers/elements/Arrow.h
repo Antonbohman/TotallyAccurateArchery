@@ -6,10 +6,10 @@
 class Arrow : public PhysicalElement
 {
 private:
-	//Vector3 dragForce;
 	Vector3 velocity;
 	Vector3 acceleration;
 	float dragCoefficient;
+	float dragConstant;
 	float mass;
 	float fluidDensity;
 	float gravity;

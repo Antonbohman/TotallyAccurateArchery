@@ -156,7 +156,7 @@ void Game::NewGame() {
 	);
 	
 	prints[4]->setString("Gravity: Earth      ", 20);
-	prints[12]->setString("Bow: Longbow        ", 20);
+	prints[12]->setString("Bow: Flightbow        ", 20);
 
 	//bow force print
 	prints[5] = new Print(
@@ -176,11 +176,11 @@ void Game::NewGame() {
 		nullptr,
 		textures.GetTexture(T6_Font)->ShaderResourceView,
 		WRITE_LEFT,
-		9
+		11
 	);
 
 	prints[5]->setValue(0.0f, 3);
-	prints[11]->setString("Bow Force", 9);
+	prints[11]->setString("Arrow Force", 11);
 
 	//camera position print
 	prints[6] = new Print(
@@ -270,7 +270,7 @@ void Game::NewGame() {
 		Vector3(1, 1, 0)
 	); 
 
-	bow->setBowType(BowType::LongBow);
+	bow->setBowType(BowType::Flight);
 
 	targets[0] = new Target(
 		graphic,
@@ -320,7 +320,9 @@ void Game::Run(double delta) {
 
 		//see if arrow is colliding with ground
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
+		{
 			collide = true;
+		}
 
 		//see if arrow is colliding with any of the targets
 		for (int i = 0; i < MAX_TARGET; i++) {
@@ -329,6 +331,8 @@ void Game::Run(double delta) {
 				{
 					collide = true;
 					activeArrow->arrowSnap(textures.GetTexture(T8_HalfArrow));
+					arrowsHit += 1;
+					playerAccuracy = arrowsHit / nrOfArrows;
 				}
 		}
 
@@ -417,27 +421,27 @@ void Game::Run(double delta) {
 		}
 
 		if (input->Key(Key::Q).Active) {
-			bow->setBowType(BowType::LongBow);
+			bow->setBowType(BowType::Flight);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
-			prints[12]->setString("Bow: Longbow        ", 20);
+			prints[12]->setString("Bow: Flightbow       ", 20);
 		}
 
 		if (input->Key(Key::W).Active) {
-			bow->setBowType(BowType::LongBow);
+			bow->setBowType(BowType::Hybrid);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
-			prints[12]->setString("Bow: N/A            ", 20);
+			prints[12]->setString("Bow: Hybridbow            ", 20);
 		}
 
 		if (input->Key(Key::E).Active) {
-			bow->setBowType(BowType::LongBow);
+			bow->setBowType(BowType::War);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
-			prints[12]->setString("Bow: N/A            ", 20);
+			prints[12]->setString("Bow: Warbow            ", 20);
 		}
 
 		if (input->Key(Key::R).Active) {
-			bow->setBowType(BowType::LongBow);
+			bow->setBowType(BowType::Targetbow);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
-			prints[12]->setString("Bow: N/A            ", 20);
+			prints[12]->setString("Bow: Targetbow            ", 20);
 		}
 
 		//clear game field of old arrows
@@ -498,9 +502,9 @@ void Game::Run(double delta) {
 				{ 90, 14 },
 				Middle,
 				textures.GetTexture(T1_Arrow)->ShaderResourceView,
-				bow->fireArrow(0.06f),
-				0.0001f,
-				0.06f,
+				bow->fireArrow(0.1003f),
+				1.94f,
+				0.1003f,
 				ground->getDensity(),
 				ground->getGravity()
 			);

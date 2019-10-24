@@ -2,7 +2,11 @@
 #include "elements\PhysicalElement.h"
 
 enum BowType {
-	LongBow
+	Flight,
+	Hybrid,
+	War,
+	Targetbow
+
 };
 
 class Bow : public PhysicalElement {

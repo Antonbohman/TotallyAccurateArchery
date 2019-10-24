@@ -47,15 +47,15 @@ void Wind::randomizeWind() {
 	);
 
 	speed = gen_speed(rng)*0.0000001;
-	//speed = 10;
+	////speed = 10;
 
-	/*speed = 8.06f;
+	//speed = 0.0f;
 
-	targetRotation = 0;
-	direction = { 0, 1 };*/
+	//targetRotation = 0;
+	//direction = { 0, 1 };
 
-	/*targetRotation = 0.5f*XM_PI;
-	direction = { 1, 0 };*/
+	///*targetRotation = 0.5f*XM_PI;
+	//direction = { 1, 0 };*/
 }
 
 XMFLOAT3 Wind::getWindDirectionAndSpeed() {

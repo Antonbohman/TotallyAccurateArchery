@@ -22,29 +22,47 @@ Bow::~Bow() {
 
 void Bow::setBowType(UINT bowType) {
 	switch (bowType) {
-	case BowType::LongBow:
+	case BowType::Flight:
 		drawDistance = 0;
 		drawTime = 0;
 		maxDrawTime = 20;
 
-		drawForce = 700;
-		efficiencyFactor = 0.9f;
-		mass = 1.0f;
+		drawForce = 556;
+		efficiencyFactor = 0.843f;
+		mass = 0.420f;
 		scalingFactor = 0.05f;
 		break;
-	/*case BowType::Type2:
+	case BowType::Hybrid:
 		drawDistance = 0;
-		maxDrawTime = 0;
+		drawTime = 0;
+		maxDrawTime = 20;
+
+		drawForce = 605;
+		efficiencyFactor = 0.815f;
+		mass = 0.480f;
+		scalingFactor = 0.05f;
 		break;
-	case BowType::Type3:
+	case BowType::War:
 		drawDistance = 0;
-		maxDrawTime = 0;
+		drawTime = 0;
+		maxDrawTime = 20;
+
+		drawForce = 336;
+		efficiencyFactor = 0.861f;
+		mass = 0.420;
+		scalingFactor = 0.05f;
 		break;
-	case BowType::Type4:
+	case BowType::Targetbow:
 		drawDistance = 0;
-		maxDrawTime = 0;
+		drawTime = 0;
+		maxDrawTime = 20;
+
+		drawForce = 300;
+		efficiencyFactor = 0.94f;
+		mass = 0.455f;
+		scalingFactor = 0.05f;
 		break;
-	case BowType::Type5:
+	/*case BowType::Type5:
 		drawDistance = 0;
 		maxDrawTime = 0;
 		break;*/

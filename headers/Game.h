@@ -52,6 +52,8 @@ private:
 	Wind* wind;
 
 	int nrOfArrows;
+	int arrowsHit;
+	float playerAccuracy;
 
 public:
 	Game(Graphic* _graphic, Input* _input);
