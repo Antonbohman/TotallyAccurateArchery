@@ -97,6 +97,10 @@ void Game::NewGame() {
 		arrows[i] = nullptr;
 	}
 
+	arrowsHit = 0;
+	playerAccuracy = 0;
+	nrOfArrows = 0;
+
 	//create camera element to be used to move view
 	camera = new Camera(graphic, { 0, 0, 1.0f });
 	 
@@ -123,11 +127,24 @@ void Game::NewGame() {
 	prints[12] = new Print(graphic, { 10, 75, 0.05f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
 
 	prints[4]->setString("Gravity: Earth      ", 20);
-	prints[12]->setString("Bow: Flightbow        ", 20);
+	prints[12]->setString("Bow: Flightbow      ", 20);
+
+	//Arrows hit print
+	prints[17] = new Print(graphic, { 10, 110, 0.051f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
+
+	//Accuracy type print
+	prints[18] = new Print(graphic, { 10, 145, 0.051f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
+
+	prints[17]->setString("Arrows hit:         ", 20);
+	prints[18]->setString("Accuracy:      %    ", 20);
+	prints[19] = new Print(graphic, { 370, 115, 0.05f }, { 90, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 3);
+	prints[20] = new Print(graphic, { 310, 145, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 5);
+	prints[19]->setValue(0);
+	prints[20]->setValue(0.0f, 1);
 
 	//bow force print
 	prints[5] = new Print(graphic, { W_WIDTH - 330, 50, 0.05f }, { 320, 40 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 10);
-	prints[11] = new Print(graphic, { W_WIDTH - 300, 85, 0.05f }, { 300, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 9);
+	prints[11] = new Print(graphic, { W_WIDTH - 300, 85, 0.05f }, { 300, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 11);
 
 	prints[5]->setValue(0.0f, 3);
 	prints[11]->setString("Arrow Force", 11);
@@ -165,7 +182,7 @@ void Game::NewGame() {
 	
 	//create bow object
 	bow = new Bow(graphic, camera, { W_WIDTH / 2, 225, 0.42f }, { 100, 180 }, Middle, textures.GetTexture(T2_Bow)->ShaderResourceView, Vector3(1, 1, 0));
-	bow->setBowType(BowType::LongBow);
+	bow->setBowType(BowType::Flight);
 
 	//create target objects
 	targets[0] = new Target(graphic, camera, { W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.70f }, { 58, 96 }, Middle, textures.GetTexture(T4_Target)->ShaderResourceView);
@@ -195,6 +212,8 @@ void Game::Run(double delta) {
 		if(activeArrow->isColliding(static_cast<PhysicalElement*>(ground)))
 		{
 			collide = true;
+			playerAccuracy = (float(arrowsHit) / float(nrOfArrows)) * 100.0f;
+			prints[20]->setValue(playerAccuracy, 1);
 		}
 
 		//see if arrow is colliding with any of the targets
@@ -205,7 +224,9 @@ void Game::Run(double delta) {
 					collide = true;
 					activeArrow->arrowSnap(textures.GetTexture(T8_HalfArrow));
 					arrowsHit += 1;
-					playerAccuracy = arrowsHit / nrOfArrows;
+					playerAccuracy = (float(arrowsHit) / float(nrOfArrows)) * 100.0f;
+					prints[19]->setValue(arrowsHit);
+					prints[20]->setValue(playerAccuracy, 1);
 				}
 		}
 
@@ -325,6 +346,8 @@ void Game::Run(double delta) {
 			}
 
 			nrOfArrows = 0;
+			arrowsHit = 0;
+			playerAccuracy = 0.0f;
 		}
 
 		//move camera with arrow keys
