@@ -101,203 +101,72 @@ void Game::NewGame() {
 	camera = new Camera(graphic, { 0, 0, 1.0f });
 	 
 	//arrow speed print
-	prints[0] = new Print(graphic, { W_WIDTH-390, W_HEIGHT-35, 0.05f }, { 320, 40 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 8 );
-	prints[1] = new Print(graphic, { W_WIDTH - 70, W_HEIGHT-44, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 3 );
-	prints[10] = new Print(graphic, { W_WIDTH - 330, W_HEIGHT - 9, 0.05f }, { 330, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT,11);
+	prints[0] = new Print(graphic, { W_WIDTH - 390, W_HEIGHT - 35, 0.05f }, { 320, 40 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 8);
+	prints[1] = new Print(graphic, { W_WIDTH - 70, W_HEIGHT - 44, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 3);
+	prints[10] = new Print(graphic, { W_WIDTH - 330, W_HEIGHT - 9, 0.05f }, { 330, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 11);
 
 	prints[0]->setValue(0.0f, 4);
 	prints[1]->setString("M/S", 3);
 	prints[10]->setString("Arrow speed", 11);
 
 	//wind speed print
-	prints[2] = new Print(
-		graphic,
-		{ 10, W_HEIGHT-120, 0.05f },
-		{ 80, 20 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		6
-	);
-
-	prints[3] = new Print(
-		graphic,
-		{ 95, W_HEIGHT-124, 0.05f },
-		{ 32, 16 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		3
-	);
+	prints[2] = new Print(graphic, { 10, W_HEIGHT - 120, 0.05f }, { 80, 20 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 6);
+	prints[3] = new Print(graphic, { 95, W_HEIGHT - 124, 0.05f }, { 32, 16 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 3);
 
 	prints[2]->setValue(0.0f, 3);
 	prints[3]->setString("M/S", 3);
 
 	//gravity type print
-	prints[4] = new Print(
-		graphic,
-		{ 10, 40, 0.05f },
-		{ 600, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_RIGHT,
-		20
-	);
+	prints[4] = new Print(graphic, { 10, 40, 0.05f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
 
 	//bow type print
-	prints[12] = new Print(
-		graphic,
-		{ 10, 75, 0.05f },
-		{ 600, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_RIGHT,
-		20
-	);
-	
+	prints[12] = new Print(graphic, { 10, 75, 0.05f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
+
 	prints[4]->setString("Gravity: Earth      ", 20);
 	prints[12]->setString("Bow: Longbow        ", 20);
 
 	//bow force print
-	prints[5] = new Print(
-		graphic,
-		{ W_WIDTH - 330, 50, 0.05f },
-		{ 320, 40 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		10
-	);
-
-	prints[11] = new Print(
-		graphic,
-		{ W_WIDTH - 300, 85, 0.05f },
-		{ 300, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		9
-	);
+	prints[5] = new Print(graphic, { W_WIDTH - 330, 50, 0.05f }, { 320, 40 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 10);
+	prints[11] = new Print(graphic, { W_WIDTH - 300, 85, 0.05f }, { 300, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 9);
 
 	prints[5]->setValue(0.0f, 3);
 	prints[11]->setString("Bow Force", 9);
 
 	//camera position print
-	prints[6] = new Print(
-		graphic,
-		{ 140, W_HEIGHT-10, 0.05f },
-		{ 60, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		2
-	);
-
-	prints[7] = new Print(
-		graphic,
-		{ 200, W_HEIGHT-10, 0.05f },
-		{ 150, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_RIGHT,
-		5
-	);
-
-	prints[8] = new Print(
-		graphic,
-		{ 140, W_HEIGHT - 50, 0.05f },
-		{ 60, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		2
-	);
-
-	prints[9] = new Print(
-		graphic,
-		{ 200, W_HEIGHT - 50, 0.05f },
-		{ 150, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_RIGHT,
-		5
-	);
+	prints[6] = new Print(graphic, { 140, W_HEIGHT - 10, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 2);
+	prints[7] = new Print(graphic, { 200, W_HEIGHT - 10, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 5);
+	prints[8] = new Print(graphic, { 140, W_HEIGHT - 50, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 2);
+	prints[9] = new Print(graphic, { 200, W_HEIGHT - 50, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 5);
 
 	prints[6]->setString("X:", 2);
 	prints[7]->setValue(0);
 	prints[8]->setString("Y:", 2);
 	prints[9]->setValue(0);
 
-	sky = new Sky(
-		graphic,
-		camera,
-		{ 0, 0, 0.89f },
-		{ W_WIDTH, W_HEIGHT },
-		BottomLeft,
-		textures.GetTexture(T0_Background)->ShaderResourceView
-	);
+	//create sky object
+	sky = new Sky(graphic, camera, { 0, 0, 0.89f }, { W_WIDTH, W_HEIGHT }, BottomLeft, textures.GetTexture(T0_Background)->ShaderResourceView);
+	sky->setColour(XMFLOAT4(0.4f, 0.6f, 1.0f, 1.0f));
 
-	ground = new Ground(
-		graphic,
-		camera,
-		{ 0, 150, 0.0f }, // z value for back "ground" is 0.8 and fore "ground" is 0.5
-		{ 8000000, 900 },
-		TopLeft,
-		textures.GetTexture(T5_Ground)->ShaderResourceView
-	); 
+	//create ground object
+	ground = new Ground(graphic, camera, { 0, 150, 0.0f }, { 8000000, 900 }, TopLeft, textures.GetTexture(T5_Ground)->ShaderResourceView);
 
 	ground->setColour(XMFLOAT4(0.4f, 1.0f, 0.4f, 1.0f));
 	ground->setGravity(GravityType::Earth);
 	ground->setDensity(1.225f);
-	sky->setColour(XMFLOAT4(0.4f, 0.6f, 1.0f, 1.0f));
+
+	//create human archer object
+	human = new Human(graphic, camera, { W_WIDTH / 2, 225, 0.45f }, { 100, 180 }, Middle, textures.GetTexture(T3_Human)->ShaderResourceView);
 	
-	human = new Human(
-		graphic,
-		camera,
-		{ W_WIDTH / 2, 225, 0.45f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
-		{ 100, 180 },
-		Middle,
-		textures.GetTexture(T3_Human)->ShaderResourceView
-	); 
-
-	bow = new Bow(
-		graphic,
-		camera,
-		{ W_WIDTH / 2, 225, 0.42f }, // z value [0.0-0.1, 0.9-1.0] reserved for foreground/background elements  
-		{ 100, 180 },
-		Middle,
-		textures.GetTexture(T2_Bow)->ShaderResourceView,
-		Vector3(1, 1, 0)
-	); 
-
+	//create bow object
+	bow = new Bow(graphic, camera, { W_WIDTH / 2, 225, 0.42f }, { 100, 180 }, Middle, textures.GetTexture(T2_Bow)->ShaderResourceView, Vector3(1, 1, 0));
 	bow->setBowType(BowType::LongBow);
 
-	targets[0] = new Target(
-		graphic,
-		camera,
-		{ W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.70f }, 
-		{ 58, 96 },
-		Middle,
-		textures.GetTexture(T4_Target)->ShaderResourceView
-	);
+	//create target objects
+	targets[0] = new Target(graphic, camera, { W_WIDTH * 2, (W_HEIGHT / 2) + 100, 0.70f }, { 58, 96 }, Middle, textures.GetTexture(T4_Target)->ShaderResourceView);
+	targets[1] = new Target(graphic, camera, { W_WIDTH * 4, (W_HEIGHT / 2) - 100, 0.70f }, { 58, 96 }, Middle, textures.GetTexture(T4_Target)->ShaderResourceView);
 
-	targets[1] = new Target(
-		graphic,
-		camera,
-		{ W_WIDTH * 4, (W_HEIGHT / 2) - 100, 0.70f },
-		{ 58, 96 },
-		Middle,
-		textures.GetTexture(T4_Target)->ShaderResourceView
-	);
-
-	wind = new Wind(
-		graphic,
-		{ 60, W_HEIGHT-60, 0.09f },
-		{ 100, 100 },
-		Middle,
-		textures.GetTexture(T7_Wind)->ShaderResourceView
-	);
-
+	//create wind object
+	wind = new Wind(graphic, { 60, W_HEIGHT - 60, 0.09f }, { 100, 100 }, Middle, textures.GetTexture(T7_Wind)->ShaderResourceView);
 	wind->randomizeWind();
 
 	activeArrow = nullptr;
@@ -305,8 +174,6 @@ void Game::NewGame() {
 
 void Game::Run(double delta) {
 	bool collide = false;
-
-	//delta = delta * 0.25;
 
 	if (input->Key(Key::_Tab).Active) {
 		renderOpt & RENDER_HUD ? renderOpt &= ~RENDER_HUD : renderOpt |= RENDER_HUD;
