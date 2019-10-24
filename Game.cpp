@@ -149,7 +149,6 @@ void Game::NewGame() {
 
 	//create ground object
 	ground = new Ground(graphic, camera, { 0, 150, 0.0f }, { 8000000, 900 }, TopLeft, textures.GetTexture(T5_Ground)->ShaderResourceView);
-
 	ground->setColour(XMFLOAT4(0.4f, 1.0f, 0.4f, 1.0f));
 	ground->setGravity(GravityType::Earth);
 	ground->setDensity(1.225f);
