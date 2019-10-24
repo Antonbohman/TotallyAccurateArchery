@@ -135,13 +135,20 @@ void Game::NewGame() {
 	//camera position print
 	prints[6] = new Print(graphic, { 140, W_HEIGHT - 10, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 2);
 	prints[7] = new Print(graphic, { 200, W_HEIGHT - 10, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 5);
+	prints[13] = new Print(graphic, { 360, W_HEIGHT - 10, 0.051f }, { 270, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 9);
+	prints[14] = new Print(graphic, { 390, W_HEIGHT - 10, 0.05f }, { 180, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 6);
+	
 	prints[8] = new Print(graphic, { 140, W_HEIGHT - 50, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 2);
 	prints[9] = new Print(graphic, { 200, W_HEIGHT - 50, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 5);
+	prints[15] = new Print(graphic, { 360, W_HEIGHT - 50, 0.051f }, { 270, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 9);
+	prints[16] = new Print(graphic, { 390, W_HEIGHT - 50, 0.05f }, { 180, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 6);
 
 	prints[6]->setString("X:", 2);
 	prints[7]->setValue(0);
+	prints[13]->setString("(      m)", 9);
 	prints[8]->setString("Y:", 2);
 	prints[9]->setValue(0);
+	prints[15]->setString("(      m)", 9);
 
 	//create sky object
 	sky = new Sky(graphic, camera, { 0, 0, 0.89f }, { W_WIDTH, W_HEIGHT }, BottomLeft, textures.GetTexture(T0_Background)->ShaderResourceView);
@@ -385,7 +392,9 @@ void Game::Run(double delta) {
 	//update camera with focus or fixed position if needed
 	camera->updateFocus(delta);
 	prints[7]->setValue(camera->getOffset().x);
+	prints[14]->setValue(camera->getOffsetMeter().x, 2);
 	prints[9]->setValue(camera->getOffset().y);
+	prints[16]->setValue(camera->getOffsetMeter().y, 2);
 
 	//update sky position
 	sky->updateElement();

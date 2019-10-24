@@ -24,6 +24,7 @@ public:
 	void updateFocus(double delta);
 
 	XMFLOAT2 getOffset();
+	XMFLOAT2 getOffsetMeter();
 	XMFLOAT2 getPos();
 
 	void setAnimation(float _acceleration, float _maxVelocity);
