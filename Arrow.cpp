@@ -38,22 +38,18 @@ bool Arrow::isColliding(PhysicalElement* otherObject) {
 }
 
 float Arrow::calcArea(Vector3 windDirection) {
-
-	/*IM IN YOUR BASE, KILLING YOUR DUDES*/
-	float fakerotation = rotation - (3.1415926535 / 2);
-
-	Vector3 arrowDirection(1.0f, 0.0f, 0.0f);
+	Vector3 arrowDirection(0.0f, -1.0f, 0.0f);
 
 	windDirection.Normalize();
 	
 	float angle = 0;
-	if (windDirection.y > 0 || (windDirection.y == 0 && windDirection.x > 0)) {
+	if (windDirection.x > 0 || (windDirection.x == 0 && windDirection.y > 0)) {
 		angle = XM_PI+acos(windDirection.Dot(-arrowDirection));
 	} else {
 		angle = acos(windDirection.Dot(arrowDirection));
 	}
 
-	angle = fakerotation - angle;
+	angle = rotation - angle;
 	
 	XMFLOAT3 rotateX;
 	XMStoreFloat3(

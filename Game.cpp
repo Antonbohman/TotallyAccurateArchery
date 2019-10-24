@@ -98,41 +98,12 @@ void Game::NewGame() {
 	}
 
 	//create camera element to be used to move view
-	camera = new Camera(
-		graphic,
-		{ 0, 0, 1.0f }
-	);
+	camera = new Camera(graphic, { 0, 0, 1.0f });
 	 
 	//arrow speed print
-	prints[0] = new Print(
-		graphic,
-		{ W_WIDTH-390, W_HEIGHT-35, 0.05f },
-		{ 320, 40 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		8
-	);
-
-	prints[1] = new Print(
-		graphic,
-		{ W_WIDTH - 70, W_HEIGHT-44, 0.05f },
-		{ 60, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		3
-	);
-
-	prints[10] = new Print(
-		graphic,
-		{ W_WIDTH - 330, W_HEIGHT - 9, 0.05f },
-		{ 330, 30 },
-		nullptr,
-		textures.GetTexture(T6_Font)->ShaderResourceView,
-		WRITE_LEFT,
-		11
-	);
+	prints[0] = new Print(graphic, { W_WIDTH-390, W_HEIGHT-35, 0.05f }, { 320, 40 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 8 );
+	prints[1] = new Print(graphic, { W_WIDTH - 70, W_HEIGHT-44, 0.05f }, { 60, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 3 );
+	prints[10] = new Print(graphic, { W_WIDTH - 330, W_HEIGHT - 9, 0.05f }, { 330, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT,11);
 
 	prints[0]->setValue(0.0f, 4);
 	prints[1]->setString("M/S", 3);
