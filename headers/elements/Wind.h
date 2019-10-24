@@ -23,7 +23,6 @@ public:
 
 	void randomizeWind();
 	XMFLOAT3 getWindDirectionAndSpeed();
-	XMFLOAT2 getWindRotation();
 
 	void updateElement(double delta);
 };

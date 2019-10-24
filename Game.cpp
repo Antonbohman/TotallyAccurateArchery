@@ -173,7 +173,19 @@ void Game::NewGame() {
 		20
 	);
 
-	prints[4]->setString("Gravity: Earth", 20);
+	//bow type print
+	prints[12] = new Print(
+		graphic,
+		{ 10, 75, 0.05f },
+		{ 600, 30 },
+		nullptr,
+		textures.GetTexture(T6_Font)->ShaderResourceView,
+		WRITE_RIGHT,
+		20
+	);
+	
+	prints[4]->setString("Gravity: Earth      ", 20);
+	prints[12]->setString("Bow: Longbow        ", 20);
 
 	//bow force print
 	prints[5] = new Print(
@@ -325,6 +337,10 @@ void Game::Run(double delta) {
 
 	//delta = delta * 0.25;
 
+	if (input->Key(Key::_Tab).Active) {
+		renderOpt & RENDER_HUD ? renderOpt &= ~RENDER_HUD : renderOpt |= RENDER_HUD;
+	}
+
 	if (activeArrow) {
 		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta, wind);
@@ -427,6 +443,30 @@ void Game::Run(double delta) {
 			sky->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			prints[4]->setString("Gravity: No Gravity", 20);
 			ground->setDensity(0.0f);
+		}
+
+		if (input->Key(Key::Q).Active) {
+			bow->setBowType(BowType::LongBow);
+			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
+			prints[12]->setString("Bow: Longbow        ", 20);
+		}
+
+		if (input->Key(Key::W).Active) {
+			bow->setBowType(BowType::LongBow);
+			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
+			prints[12]->setString("Bow: N/A            ", 20);
+		}
+
+		if (input->Key(Key::E).Active) {
+			bow->setBowType(BowType::LongBow);
+			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
+			prints[12]->setString("Bow: N/A            ", 20);
+		}
+
+		if (input->Key(Key::R).Active) {
+			bow->setBowType(BowType::LongBow);
+			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
+			prints[12]->setString("Bow: N/A            ", 20);
 		}
 
 		//clear game field of old arrows
@@ -550,9 +590,11 @@ void Game::Draw() {
 	human->renderElement();
 	bow->renderElement();
 
-	for (int i = 0; i < MAX_PRINTS; i++) {
-		if (prints[i]) prints[i]->renderElement();
-	}
+	if (renderOpt & RENDER_HUD) {
+		for (int i = 0; i < MAX_PRINTS; i++) {
+			if (prints[i]) prints[i]->renderElement();
+		}
 
-	wind->renderElement();
+		wind->renderElement();
+	}
 }
