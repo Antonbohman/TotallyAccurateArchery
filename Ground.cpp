@@ -9,7 +9,7 @@ Ground::Ground() : PhysicalElement() {
 	front[2] = nullptr;
 }
 
-Ground::Ground(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr) : PhysicalElement(_graphic, _camera, posToSet, sizeToSet, harbor, nullptr) {
+Ground::Ground(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr) : PhysicalElement(_graphic, _camera, { posToSet.x, posToSet.y-14.0f, posToSet.z }, sizeToSet, harbor, nullptr) {
 	float xLeft = 0;
 	float yTop = 0;
 
