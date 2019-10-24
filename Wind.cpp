@@ -20,10 +20,19 @@ Wind::~Wind() {
 
 void Wind::randomizeWind() {
 	std::mt19937 rng(std::time(NULL));
-	std::uniform_int_distribution<int> gen_rotation(0, 20000000); // uniform, unbiased
+	std::uniform_int_distribution<int> gen_rotation(0, 10000000); // uniform, unbiased
 	std::uniform_int_distribution<int> gen_speed(0, 150000000); // uniform, unbiased
 
 	targetRotation = gen_rotation(rng)*0.0000001;
+	targetRotation -= 0.5f;
+
+	if (targetRotation > 0) {
+		targetRotation += 0.25f;
+	} else {
+		targetRotation *= -1;
+		targetRotation += 1.25f;
+	}
+
 	targetRotation *= XM_PI;
 	
 	XMStoreFloat2(
