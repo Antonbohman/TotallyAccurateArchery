@@ -90,7 +90,7 @@ float Arrow::calcArea(Vector3 windDirection) {
 	Vector3 diagonal(rotateX.x - rotateY.x, 0.0f, 0.0f);
 	float length = diagonal.Length();
 
-	return convertPixelToMeter(&length);
+	return (convertPixelToMeter(&length) * 0.01);
 }
 
 float Arrow::getDragCoefficient()
@@ -116,7 +116,7 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 	float area = calcArea(relativeVelocity);
 
-	dragCoefficient = (0.5f) * fluidDensity * calcArea(relativeVelocity) * 0.01 * 1.63265306123f; //Aim for 0.0001
+	dragCoefficient = (0.5f) * fluidDensity * calcArea(relativeVelocity) * 1.63265306123f; //Aim for 0.0001
 
 	//Highest velocity 76.8 / 8.06
 

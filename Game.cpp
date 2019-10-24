@@ -313,7 +313,7 @@ void Game::NewGame() {
 	targets[1] = new Target(
 		graphic,
 		camera,
-		{ W_WIDTH * 0.75f, (W_HEIGHT / 2) - 100, 0.70f },
+		{ W_WIDTH * 4, (W_HEIGHT / 2) - 100, 0.70f },
 		{ 58, 96 },
 		Middle,
 		textures.GetTexture(T4_Target)->ShaderResourceView

@@ -17,7 +17,6 @@ private:
 	PhysicalElement* hitbox;
 
 public:
-
 	Arrow();
 	Arrow(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, UINT harbor, ID3D11ShaderResourceView* texturePtr, Vector3 velocity, float dragCoefficient, float mass, float fluidDensity, float gravity);
 	~Arrow();
@@ -35,4 +34,5 @@ public:
 	float getVelocity();
 
 	void renderElement();
+
 };
