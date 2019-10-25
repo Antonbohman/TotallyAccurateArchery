@@ -123,23 +123,25 @@ void Game::NewGame() {
 	//gravity type print
 	prints[4] = new Print(graphic, { 10, 40, 0.05f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
 
+	prints[4]->setString("Gravity: Earth      ", 20);
+
 	//bow type print
 	prints[12] = new Print(graphic, { 10, 75, 0.05f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
 
-	prints[4]->setString("Gravity: Earth      ", 20);
 	prints[12]->setString("Bow: Flightbow      ", 20);
 
 	//Arrows hit print
 	prints[17] = new Print(graphic, { 10, 110, 0.051f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
+	prints[19] = new Print(graphic, { 370, 115, 0.05f }, { 90, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 3);
+
+	prints[17]->setString("Arrows hit:         ", 20);
+	prints[19]->setValue(0);
 
 	//Accuracy type print
 	prints[18] = new Print(graphic, { 10, 145, 0.051f }, { 600, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 20);
-
-	prints[17]->setString("Arrows hit:         ", 20);
-	prints[18]->setString("Accuracy:      %    ", 20);
-	prints[19] = new Print(graphic, { 370, 115, 0.05f }, { 90, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_RIGHT, 3);
 	prints[20] = new Print(graphic, { 310, 145, 0.05f }, { 150, 30 }, nullptr, textures.GetTexture(T6_Font)->ShaderResourceView, WRITE_LEFT, 5);
-	prints[19]->setValue(0);
+	
+	prints[18]->setString("Accuracy:      %    ", 20);
 	prints[20]->setValue(0.0f, 1);
 
 	//bow force print
@@ -343,6 +345,9 @@ void Game::Run(double delta) {
 			nrOfArrows = 0;
 			arrowsHit = 0;
 			playerAccuracy = 0.0f;
+
+			prints[19]->setValue(0);
+			prints[20]->setValue(0.0f, 1);
 		}
 
 		//move camera with arrow keys
