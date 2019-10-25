@@ -16,7 +16,7 @@
 #define MAX_TARGET 10
 #define MAX_ARROW 50
 
-#define MAX_PRINTS 21
+#define MAX_PRINTS 23
 
 class Game {
 private:

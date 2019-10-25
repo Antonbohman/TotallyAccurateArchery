@@ -115,7 +115,7 @@ HWND InitWindow(HINSTANCE hInstance) {
 	RECT rc = { 0, 0, W_WIDTH, W_HEIGHT };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-	std::wstring version = L"Totally Accurate Archery - " + std::to_wstring(VERSION_MAJOR) + L"." + std::to_wstring(VERSION_MINOR) + L"." + std::to_wstring(VERSION_PATCH);
+	std::wstring version = L"Blåsigt pilbågsskytte - " + std::to_wstring(VERSION_MAJOR) + L"." + std::to_wstring(VERSION_MINOR) + L"." + std::to_wstring(VERSION_PATCH);
 
 	HWND handle = CreateWindow(
 		L"BTH_D3D_DEMO",
