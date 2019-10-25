@@ -96,21 +96,27 @@ void Ground::setGravity(UINT gravityType) {
 	switch (gravityType) {
 	case GravityType::Earth:
 		gravity = 9.82f;
+		fluidDensity = 1.225f;
 		break;
 	case GravityType::Lunar:
 		gravity = 1.62f;
+		fluidDensity = 0.0f;
 		break;
 	case GravityType::Mars:
 		gravity = 3.711f;
+		fluidDensity = 0.02f;
 		break;
 	case GravityType::Sun:
 		gravity = 274.0f;
+		fluidDensity = 0.0002f;
 		break;
 	case GravityType::NoGravity:
 		gravity = 0.0f;
+		fluidDensity = 0.0f;
 		break;
 	default:
 		gravity = 9.82f;
+		fluidDensity = 1.225f;
 		break;
 	}
 }

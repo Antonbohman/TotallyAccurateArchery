@@ -275,7 +275,6 @@ void Game::Run(double delta) {
 			ground->setColour(XMFLOAT4(0.4f, 1.0f, 0.4f, 1.0f));
 			sky->setColour(XMFLOAT4(0.4f, 0.6f, 1.0f, 1.0f));
 			prints[4]->setString("Gravity: Earth     ", 20);
-			ground->setDensity(1.225f);
 		}
 
 		if (input->Key(Key::D2).Active) {
@@ -284,7 +283,6 @@ void Game::Run(double delta) {
 			ground->setColour(XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f));
 			sky->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			prints[4]->setString("Gravity: Lunar     ", 20);
-			ground->setDensity(0.0f);
 		}
 
 		if (input->Key(Key::D3).Active) {
@@ -293,7 +291,6 @@ void Game::Run(double delta) {
 			ground->setColour(XMFLOAT4(1.0f, 0.7f, 0.0f, 1.0f));
 			sky->setColour(XMFLOAT4(1.0f, 0.9f, 0.0f, 1.0f));
 			prints[4]->setString("Gravity: Mars      ", 20);
-			ground->setDensity(0.02f);
 		}
 
 		if (input->Key(Key::D4).Active) {
@@ -302,7 +299,6 @@ void Game::Run(double delta) {
 			ground->setColour(XMFLOAT4(1.0f, 0.9f, 0.0f, 1.0f));
 			sky->setColour(XMFLOAT4(1.0f, 1.0f, 0.6f, 1.0f));
 			prints[4]->setString("Gravity: Sun       ", 20);
-			ground->setDensity(0.0002f); //sun convective zone
 		}
 
 		if (input->Key(Key::D5).Active) {
@@ -311,7 +307,6 @@ void Game::Run(double delta) {
 			ground->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			sky->setColour(XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f));
 			prints[4]->setString("Gravity: No Gravity", 20);
-			ground->setDensity(0.0f);
 		}
 
 		if (input->Key(Key::Q).Active) {
