@@ -81,15 +81,9 @@ bool PhysicalElement::isColliding(PhysicalElement* otherObject)
 		if ((X0 > otherX0 && X0 < otherX1) ||
 			(X1 > otherX0 && X1 < otherX1))
 		{
-			if (Y0 < 10) { 
-				int x = x; }
-			if (Y0 < 0) { 
-				int x = x; }
-
 			if ((Y0 > otherY0 && Y0 < otherY1) ||
 				(Y1 > otherY0 && Y1 < otherY1))
 			{
-				//this->moving = false;
 				return true;
 			}
 		}

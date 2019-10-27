@@ -108,7 +108,7 @@ HWND InitWindow(HINSTANCE hInstance) {
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc = WndProc;
 	wcex.hInstance = hInstance;
-	wcex.lpszClassName = L"BTH_D3D_DEMO";
+	wcex.lpszClassName = L"MainWindow";
 	if (!RegisterClassEx(&wcex))
 		return false;
 
@@ -118,7 +118,7 @@ HWND InitWindow(HINSTANCE hInstance) {
 	std::wstring version = L"Blåsigt pilbågsskytte - " + std::to_wstring(VERSION_MAJOR) + L"." + std::to_wstring(VERSION_MINOR) + L"." + std::to_wstring(VERSION_PATCH);
 
 	HWND handle = CreateWindow(
-		L"BTH_D3D_DEMO",
+		L"MainWindow",
 		(LPCWSTR)version.c_str(),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
@@ -166,7 +166,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 		Keyboard::ProcessMessage(message, wParam, lParam);
 		break;
 	}
-
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
