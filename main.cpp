@@ -1,4 +1,14 @@
+/*
+* main.cpp
+* Main entry point for the game TotallyAccurateArchery(Blåsigt pilbågsskytte):
+* Creates baseline loops for calculating and drawing in certain frequencies
+* Establish a main window to work in and handles system messages
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
+
 #include <windows.h>
 #include <chrono>
 #include <string>
@@ -31,6 +41,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		Graphic graphic(wndHandle);
 		Input input(wndHandle);
 
+		//makes sure our graphics has been initialized properly
 		if (graphic.Ready()) {
 			graphic.Update();
 
@@ -38,11 +49,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			Game game(&graphic, &input);
 			Menu menu(&graphic, &input, &game);
 
+			//if skipping main menu on startup make sure we get a new game
 			if (renderOpt & RENDER_GAME)
 				game.NewGame();
 
 			ShowWindow(wndHandle, nCmdShow);
 
+			//main loop
 			while (WM_QUIT != msg.message) {
 				if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 					TranslateMessage(&msg);
@@ -65,6 +78,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 					delta_draw = end - startDraw;
 
 					if (renderOpt & RENDER_GAME) {
+						//update and render main game objects untill escape is pushed
 						if (!input.Key(Key::_Escape).Active) {
 							startRun = high_resolution_clock::now();
 							game.Run(delta_run.count());
@@ -78,6 +92,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 							renderOpt &= ~RENDER_GAME;
 						}
 					} else {
+						//update and render main menu
 						startRun = high_resolution_clock::now();
 						if (menu.Run(delta_run.count())) {
 							if (delta_draw.count() > 1.0f) {
