@@ -1,0 +1,19 @@
+Drag coefficient hämtad från:
+Applications of Physics to Archery,
+H. O. Meyer,
+Physics Department, Indiana University,
+(6 November 2015)
+https://arxiv.org/ftp/arxiv/papers/1511/1511.02250.pdf
+
+Pilbågar hämtade från:
+Performance of Turkish bows
+by Adam Karpowicz
+http://www.atarn.org/islamic/Performance/Performance_of_Turkish_bows.htm
+
+Information om Mars:
+NASA
+https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html
+
+Information om Solen:
+Wikipedia
+https://sv.wikipedia.org/wiki/Solen
