@@ -1,3 +1,12 @@
+/*
+* graphic.h/graphic.cpp
+* Creates a graphical layer to work on and handles all request to output elements on screen
+* Makes sure the render pipeline is configured and handles the input of data and textures into the
+* gpu process correctly.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "Graphic.h"
 
 Graphic::Graphic(HWND _wndHandle) {

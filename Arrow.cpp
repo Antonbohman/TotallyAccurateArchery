@@ -1,3 +1,12 @@
+/*
+* arrow.h/arrow.cpp
+* A physical element class for drawing an arrow element
+* that can be collided with targets and ground. The arrow is also
+* interacted with our current wind, ground gravity and air density.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements/Arrow.h"
 
 Arrow::Arrow() : PhysicalElement()
@@ -18,6 +27,7 @@ Arrow::Arrow(Graphic * _graphic, Camera * _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesWorld(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
+	//creates a child hitbox for only the tip of arrow
 	hitbox = new PhysicalElement(
 		_graphic,
 		_camera,
@@ -38,6 +48,7 @@ bool Arrow::isColliding(PhysicalElement* otherObject) {
 }
 
 float Arrow::calcArea(Vector3 windDirection) {
+	//rotates arrow and relative wind so that the relative wind is perpendicular towards one axis, this case X-axis
 	Vector3 arrowDirection(0.0f, -1.0f, 0.0f);
 
 	windDirection.Normalize();
@@ -51,6 +62,9 @@ float Arrow::calcArea(Vector3 windDirection) {
 
 	angle = rotation - angle;
 	
+	//the second rotation here is not really needed here since we have already aligned it along one axis(X-axis) and the x-cordinates
+	//for the vectors will still be the same even if rotate it around its own axis, but since this was as showned on the presentation it will remain here
+	//rotateX(arrow width as vector); rotateY(arrow height as vector)
 	XMFLOAT3 rotateX;
 	XMStoreFloat3(
 		&rotateX,
@@ -87,9 +101,13 @@ float Arrow::calcArea(Vector3 windDirection) {
 		)
 	);
 
+	//take out only the maximum distance in x-axis since that will be our new length
 	Vector3 diagonal(rotateX.x - rotateY.x, 0.0f, 0.0f);
+	//make sure the length is always positive
 	float length = diagonal.Length();
 
+	//return the length as of the arrow where the wind is hitting multiplied with the depth of the arrow (in meters)
+	//the depth will always be constant on our arrow
 	return (convertPixelToMeter(&length) * 0.01);
 }
 
@@ -161,14 +179,17 @@ void Arrow::doPhysics(float deltaTime, Wind* wind)
 
 void Arrow::updateElement(float deltaTime, Wind* wind)
 {
+	//does main physics on arrow and it's flightpath
 	doPhysics(deltaTime, wind);
 
+	//make sure it stays inside considerable boundries where it can not move outside ground hitboxes and fall for eternity beneth ground
+	//also stops it to go behind archer where there is no hitboxes as well
 	if (worldPosition.x > 8000000) worldPosition.x = 8000000;
 	if (worldPosition.x < (W_WIDTH/2)) worldPosition.x = (W_WIDTH / 2);
 	if (worldPosition.y < 0) worldPosition.y = 590;
 
+	//updates positions for arrow's child hitbox
 	XMFLOAT2 dir;
-
 	XMStoreFloat2(
 		&dir,
 		XMVector3Rotate(
@@ -188,6 +209,7 @@ void Arrow::updateElement(float deltaTime, Wind* wind)
 
 void Arrow::arrowSnap(TextureObj* texture)
 {
+	//changes texture and size of arrow to a shorter version for when hitting targets
 	setTexture(texture->ShaderResourceView);
 	setSize(XMFLOAT2(75, 15));
 }
@@ -197,6 +219,7 @@ float Arrow::getVelocity() {
 }
 
 void Arrow::renderElement() {
+	//alternative rendering function to also update arrow's child hitbox
 	PhysicalElement::renderElement();
 
 	hitbox->setRotation(rotation);

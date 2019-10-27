@@ -1,3 +1,11 @@
+/*
+* physicalelement.h/physicalelement.cpp
+* Child class of base element, add some functionality towards elements that are physical towards the game world.
+* Adds functionality for objects that need a world position and might need to collide with other objects in the world.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements/BaseElement.h"
 #include "elements/Camera.h"

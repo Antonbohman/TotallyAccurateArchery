@@ -1,3 +1,14 @@
+/*
+* ground.h/ground.cpp
+* A physical element class for drawing our ground element
+* the ground consist of several layers that move in unison to
+* create the feeling of continously movement, it also has a seperate hitbox
+* and two layer arrows can fall between to simulate arrows getting stuck in ground
+* it also stores different key values for different kinds of planets and ground types
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements/PhysicalElement.h"
 

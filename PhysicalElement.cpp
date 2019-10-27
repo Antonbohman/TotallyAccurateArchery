@@ -1,3 +1,11 @@
+/*
+* physicalelement.h/physicalelement.cpp
+* Child class of base element, add some functionality towards elements that are physical towards the game world.
+* Adds functionality for objects that need a world position and might need to collide with other objects in the world.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements/PhysicalElement.h"
 
 PhysicalElement::PhysicalElement() : BaseElement() {
@@ -51,6 +59,7 @@ void PhysicalElement::getQuadBoundriesWorld(float* pos_X0, float* pos_X1, float*
 
 
 void PhysicalElement::setAsCameraFocus() {
+	//makes the camera to follow this element each time it updates it's camera position
 	camera->setFocus(this);
 }
 
@@ -64,6 +73,7 @@ XMFLOAT2 PhysicalElement::getWorldPos() {
 }
 
 void PhysicalElement::moveWorldToView() {
+	//moves element's world cordinates to view cordingates according to our camera view
 	XMFLOAT2 offset = camera->getOffset();
 
 	viewPosition.x = worldPosition.x - offset.x;
@@ -72,6 +82,9 @@ void PhysicalElement::moveWorldToView() {
 
 bool PhysicalElement::isColliding(PhysicalElement* otherObject)
 {
+		//A extremly lightweighted collision detection that only checks if two objects are inside the other at a certain point
+		//in x and y position.
+		//Can't handle objects with rotation or objects that have already passed trough and out on the other side
 		float X0, X1, Y0, Y1;
 		getQuadBoundriesWorld(&X0, &X1, &Y0, &Y1);
 

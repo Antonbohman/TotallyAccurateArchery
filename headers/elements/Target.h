@@ -1,3 +1,11 @@
+/*
+* target.h/target.cpp
+* A physical element class for drawing our target element
+* that can be collided by our arrows.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements\PhysicalElement.h"
 

@@ -1,3 +1,14 @@
+/*
+* ground.h/ground.cpp
+* A physical element class for drawing our ground element
+* the ground consist of several layers that move in unison to
+* create the feeling of continously movement, it also has a seperate hitbox
+* and two layer arrows can fall between to simulate arrows getting stuck in ground
+* it also stores different key values for different kinds of planets and ground types
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements/Ground.h"
 
 Ground::Ground() : PhysicalElement() {
@@ -39,6 +50,7 @@ Ground::Ground(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 	float newSizeY = (sizeToSet.y / 0.9f);
 	float newTopY = yTop + (newSizeY - sizeToSet.y);
 
+	//create our shifted ground texture to create a gap and be able to move it continously
 	back[0] = new Layer(_graphic, { xLeft, newTopY, 0.80f }, { W_WIDTH, newSizeY }, texturePtr, 0.0f);
 	back[1] = new Layer(_graphic, { xLeft - W_WIDTH, newTopY, 0.80f }, { W_WIDTH, newSizeY }, texturePtr, 0.0f);
 	back[2] = new Layer(_graphic, { xLeft + W_WIDTH, newTopY, 0.80f }, { W_WIDTH, newSizeY }, texturePtr, 0.0f);
@@ -93,6 +105,7 @@ void Ground::setColour(XMFLOAT4 newColour)
 }
 
 void Ground::setGravity(UINT gravityType) {
+	//return the correct values depending on what planet we are shooting from
 	switch (gravityType) {
 	case GravityType::Earth:
 		gravity = 9.82f;
@@ -121,6 +134,7 @@ void Ground::setGravity(UINT gravityType) {
 	}
 }
 
+//deprecated function....
 void Ground::setDensity(float newDensity)
 {
 	fluidDensity = newDensity;

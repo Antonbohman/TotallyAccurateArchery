@@ -1,5 +1,13 @@
-#include "elements/Print.h"
+/*
+* print.h/print.cpp
+* An abstract element class for creating several smaller abstract elements that can hold different text or numbers
+* to be displayed as hud element. It can translate text and numbers into font sprite and updates the hud accordingly
+* to set configuration.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
 
+#include "elements/Print.h"
 
 Print::Print() : AbstractElement() {
 	symbols = nullptr;
@@ -13,6 +21,7 @@ Print::Print(Graphic* _graphic, XMFLOAT3 posToSet, XMFLOAT2 sizeToSet, ID3D11Sha
 
 	symbols = new Symbol*[maxPrints];
 
+	//Makes sure each sub letter is placed correctly depending on read layout
 	if (writeMode == WRITE_RIGHT || writeMode == WRITE_LEFT) {
 		float sizeX = (sizeToSet.x / (float)maxPrints);
 		for (int i = 0; i < maxPrints; i++) {
@@ -34,21 +43,21 @@ Print::~Print() {
 	delete[] symbols;
 }
 
+//set string
 void Print::setString(const char* text, UINT length) {
 	XMFLOAT2* spriteCord = new XMFLOAT2[maxPrints];
 	int index = 0;
 
 	for (index; index < length && index < maxPrints; index++) {
-
 		spriteCord[index] = transformSymbolToSprite(text[(length - 1) - index]);
 	}
-
 
 	SetSymbols(spriteCord, index);
 
 	delete[] spriteCord;
 }
 
+//set integer value
 void Print::setValue(int value) {
 	XMFLOAT2* spriteCord = new XMFLOAT2[maxPrints];
 	int index = 0;
@@ -83,6 +92,7 @@ void Print::setValue(int value) {
 	delete[] spriteCord;
 }
 
+//set float value with a fixed amoubt of decimals
 void Print::setValue(float value, UINT precision) {
 	XMFLOAT2* spriteCord = new XMFLOAT2[maxPrints];
 	int index = 0;
@@ -158,6 +168,7 @@ void Print::renderElement() {
 void Print::SetSymbols(XMFLOAT2* spriteCord, UINT index) {
 	clearSymbols();
 
+	//updates each element with right uv cords for sprite font
 	if (writeMode == WRITE_RIGHT || writeMode == WRITE_DOWN) {
 		for (int i = 0; i < index; i++) {
 			symbols[i]->setSprite(spriteCord[(index - 1) - i].x, spriteCord[(index - 1) - i].y);
@@ -170,6 +181,7 @@ void Print::SetSymbols(XMFLOAT2* spriteCord, UINT index) {
 }
 
 void Print::clearSymbols() {
+	//clears all elements to empty font sprite
 	for (int i = 0; i < maxPrints; i++) {
 		symbols[i]->setSprite(0,0);
 	}
@@ -182,6 +194,7 @@ char Print::transformIntToChar(int key) {
 XMFLOAT2 Print::transformSymbolToSprite(char c) {
 	XMFLOAT2 spriteCord(0, 0);
 
+	//translates symbols to sprite cords
 	if ((int)c < 47) {
 		spriteCord = { ((int)c - 32.0f), 0 };
 	} else if ((int)c < 62) {

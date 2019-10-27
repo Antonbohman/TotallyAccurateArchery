@@ -1,3 +1,12 @@
+/*
+* arrow.h/arrow.cpp
+* A physical element class for drawing an arrow element
+* that can be collided with targets and ground. The arrow is also
+* interacted with our current wind, ground gravity and air density.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements/PhysicalElement.h"
 #include "elements/Bow.h"

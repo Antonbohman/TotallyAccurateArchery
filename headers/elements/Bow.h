@@ -1,3 +1,13 @@
+/*
+* bow.h/bow.cpp
+* A physical element class for drawing our bow and calculate rotation between
+* bow and mouse position so that arrows are fired at same angle, also stores the 
+* amount bow string as been drawned and calculates the force that is put into arrow when fired,
+* depending on current selected bow type
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements\PhysicalElement.h"
 

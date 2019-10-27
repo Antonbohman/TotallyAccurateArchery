@@ -1,3 +1,15 @@
+/*
+* game.h/game.cpp
+* Main point for handeling all the elements involved when a new game is started.
+* Updates all necesary elements and make sure abstract objects as camera and hud elements is updated along with the
+* game movements and calculations. Make sure right elements are updated depending on what stage of the game is in at
+* the moment and that only right buttons are active at right moments.
+*
+* Make sure all game related elements are rendered into the graphical object for each iteration of draw.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "Graphic.h"
 #include "Input.h"

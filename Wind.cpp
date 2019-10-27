@@ -1,3 +1,10 @@
+/*
+* wind.h/wind.cpp
+* An abstract element class for storing and creating new winds
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements\Wind.h"
 
 Wind::Wind() {
@@ -68,6 +75,7 @@ XMFLOAT3 Wind::getWindDirectionAndSpeed() {
 }
 
 void Wind::updateElement(double delta) {
+	//updates the rotation smoothly over delta time
 	double rotationDistance = rotationVelocity * delta;
 
 	if (rotation > targetRotation) {

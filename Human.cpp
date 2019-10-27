@@ -1,3 +1,10 @@
+/*
+* human.h/human.cpp
+* A physical element class for drawing our archer element
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements\Human.h"
 
 Human::Human() : PhysicalElement() {

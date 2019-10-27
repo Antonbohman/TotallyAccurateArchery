@@ -1,3 +1,12 @@
+/*
+* menu.h/menu.cpp
+* Handles elements and configurations that are avaible when user is menu stage of game.
+* Validates mouseclicks and if certain buttons are triggered and changes menus accordingly
+* or starts the process of starting a new game. Or puts program in QUIT mode.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "Global.h"
 #include "Graphic.h"

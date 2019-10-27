@@ -1,3 +1,11 @@
+/*
+* texturehandler.h/texturehandler.cpp
+* Creates texture objects and holds references to each one
+* to be accessible and reusable for elements in program.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include <string>
 #include <DDSTextureLoader.h>

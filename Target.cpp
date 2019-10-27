@@ -1,3 +1,11 @@
+/*
+* target.h/target.cpp
+* A physical element class for drawing our target element
+* that can be collided by our arrows.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements\Target.h"
 
 Target::Target() : PhysicalElement() {
@@ -33,6 +41,7 @@ Target::Target(Graphic* _graphic, Camera* _camera, XMFLOAT3 posToSet, XMFLOAT2 s
 
 	xLeft += (sizeToSet.x*0.20f);
 
+	//creates an alternative hitbox in middle of target to make our shoot get stuck a bit into our targets
 	hitbox = new PhysicalElement(_graphic, _camera, { xLeft, yTop, (posToSet.z+0.00001f) }, { (sizeToSet.x*0.2f), sizeToSet.y }, TopLeft, nullptr);
 }
 
@@ -41,6 +50,7 @@ Target::~Target() {
 }
 
 void Target::renderElement() {
+	//alternative rendering to be able to move our child hitbox correctly as well
 	PhysicalElement::renderElement();
 
 	hitbox->moveWorldToView();

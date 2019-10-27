@@ -1,3 +1,13 @@
+/*
+* baseelement.h/baseelement.cpp
+* Base class for all elements in program, handles the main rendering functionality for each element
+* calculates current cube location for building a quad input for graphical pipeline
+* have some base functionality as to set certain rendering options as colour,rotation,uv cords, anchor points and even
+* sprite animation(location).
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements/BaseElement.h"
 
 BaseElement::BaseElement() {
@@ -134,9 +144,11 @@ void BaseElement::createVertexBuffer() {
 }
 
 void BaseElement::createQuad() {
+	//get cords for each side of cube boundries
 	float pos_X0 = 0, pos_X1 = 0, pos_Y0 = 0, pos_Y1 = 0;
 	getQuadBoundriesView(&pos_X0, &pos_X1, &pos_Y0, &pos_Y1);
 
+	//rotate our cube with our current rotation and merge them into corner position instead
 	XMFLOAT2 NW = rotatePoint(pos_X0, pos_Y1);
 	XMFLOAT2 NE = rotatePoint(pos_X1, pos_Y1);
 	XMFLOAT2 SW = rotatePoint(pos_X0, pos_Y0);
@@ -154,6 +166,7 @@ void BaseElement::createQuad() {
 	NE.x = (NE.x / (W_WIDTH / 2)) - 1;
 	NE.y = (NE.y / (W_HEIGHT / 2)) - 1;
 
+	//updates uv cords depending on sprite info
 	if (spriteInfo.spritesheet) {
 		float uSize = 1 / (float)spriteInfo.maxColumns;
 		float vSize = 1 / (float)spriteInfo.maxRows;
@@ -176,6 +189,8 @@ void BaseElement::createQuad() {
 			uv.Y1 = vSize * (spriteInfo.row + 1);
 		}
 	}
+
+	//create our final vertice data for gpu
 
 	//v0
 	vertices[0] = {

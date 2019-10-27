@@ -1,3 +1,13 @@
+/*
+* baseelement.h/baseelement.cpp
+* Base class for all elements in program, handles the main rendering functionality for each element
+* calculates current cube location for building a quad input for graphical pipeline
+* have some base functionality as to set certain rendering options as colour,rotation,uv cords, anchor points and even
+* sprite animation(location). 
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "Graphic.h"
 #include "TextureHandler.h"
@@ -56,6 +66,7 @@ protected:
 	UV uv;
 	Sprite spriteInfo;
 
+	//theses conversion are set to a ratio of 100 pixels per 1 meter
 	double convertPixelToMeter(const float* pixels);
 	float convertMeterToPixel(const double* meters);
 

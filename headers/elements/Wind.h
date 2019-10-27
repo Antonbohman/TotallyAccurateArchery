@@ -1,3 +1,10 @@
+/*
+* wind.h/wind.cpp
+* An abstract element class for storing and creating new winds
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements\AbstractElement.h"
 

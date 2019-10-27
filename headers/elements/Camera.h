@@ -1,3 +1,14 @@
+/*
+* camera.h/camera.cpp
+* An abstract element class for creating an element working as a camera view
+* It moves around and returns offsets for other elements so they can align 
+* themself according to our currnet view. Camera movement can be set to be
+* animated and delayed to smoothen the movement of the camera instead of
+* instant adjustment.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements/AbstractElement.h"
 #include "elements/PhysicalElement.h"

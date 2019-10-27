@@ -1,3 +1,12 @@
+/*
+* sky.h/sky.cpp
+* A physical element class for drawing our sky background
+* the sky consist of several layers that move in unison to
+* create the feeling of continously movement
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements\Sky.h"
 
 Sky::Sky() : PhysicalElement() {

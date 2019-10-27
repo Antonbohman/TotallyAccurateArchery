@@ -1,3 +1,13 @@
+/*
+* input.h/input.cpp
+* Handles key and mouse inputs, activates only certain keys and adds a layer
+* to handle the case if keys should be tapped once untill lifted or continuesly.
+* Updates mouse with current position for each iteration and calculates delta 
+* movement since last iteration.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "Input.h"
 
 Input::Input(HWND _wndHandle) {

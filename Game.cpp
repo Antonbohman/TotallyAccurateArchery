@@ -1,3 +1,15 @@
+/*
+* game.h/game.cpp
+* Main point for handeling all the elements involved when a new game is started.
+* Updates all necesary elements and make sure abstract objects as camera and hud elements is updated along with the
+* game movements and calculations. Make sure right elements are updated depending on what stage of the game is in at
+* the moment and that only right buttons are active at right moments.
+*
+* Make sure all game related elements are rendered into the graphical object for each iteration of draw.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "Game.h"
 
 Game::Game(Graphic* _graphic, Input* _input) {
@@ -194,20 +206,23 @@ void Game::NewGame() {
 	wind = new Wind(graphic, { 60, W_HEIGHT - 60, 0.09f }, { 100, 100 }, Middle, textures.GetTexture(T7_Wind)->ShaderResourceView);
 	wind->randomizeWind();
 
+	//set current flying arrow as none
 	activeArrow = nullptr;
 }
 
 void Game::Run(double delta) {
 	bool collide = false;
 
+	//hide or shows hud elements at each draw iteration
 	if (input->Key(Key::_Tab).Active) {
 		renderOpt & RENDER_HUD ? renderOpt &= ~RENDER_HUD : renderOpt |= RENDER_HUD;
 	}
 
 	if (activeArrow) {
-		//if active is set we update it flightpath unitll colision is made and we unset active arrow	
+		//if activeArrow (arrow has been fired) is set we update it's flightpath unitll colision is made and we unset active arrow	
 		activeArrow->updateElement(delta, wind);
 
+		//updates arrow speed on hud
 		prints[0]->setValue(activeArrow->getVelocity(), 4);
 
 		//see if arrow is colliding with ground
@@ -232,10 +247,11 @@ void Game::Run(double delta) {
 				}
 		}
 
-		//when collision is done, move pointer to arrows array and set activeArrow to nullptr
+		//when collision is done, move pointer to last open spot in arrows array and set activeArrow to nullptr
 		if(collide || input->Key(Key::_Enter).Active ) {
 			int i = 0;
 			while (arrows[i]) { i++; }
+
 			if (i < MAX_ARROW) {
 				arrows[i] = activeArrow;
 				activeArrow = nullptr;
@@ -271,6 +287,7 @@ void Game::Run(double delta) {
 			}
 		}
 
+		//sets earth gravity
 		if (input->Key(Key::D1).Active) {
 			ground->setGravity(GravityType::Earth);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
@@ -279,6 +296,7 @@ void Game::Run(double delta) {
 			prints[4]->setString("Gravity: Earth     ", 20);
 		}
 
+		//sets lunar gravity
 		if (input->Key(Key::D2).Active) {
 			ground->setGravity(GravityType::Lunar);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
@@ -287,6 +305,7 @@ void Game::Run(double delta) {
 			prints[4]->setString("Gravity: Lunar     ", 20);
 		}
 
+		//sets mars gravity
 		if (input->Key(Key::D3).Active) {
 			ground->setGravity(GravityType::Mars);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
@@ -295,6 +314,7 @@ void Game::Run(double delta) {
 			prints[4]->setString("Gravity: Mars      ", 20);
 		}
 
+		//sets sun gravity
 		if (input->Key(Key::D4).Active) {
 			ground->setGravity(GravityType::Sun);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
@@ -303,6 +323,7 @@ void Game::Run(double delta) {
 			prints[4]->setString("Gravity: Sun       ", 20);
 		}
 
+		//sets no gravity
 		if (input->Key(Key::D5).Active) {
 			ground->setGravity(GravityType::NoGravity);
 			ground->setTexture(textures.GetTexture(T5_Ground)->ShaderResourceView);
@@ -311,31 +332,35 @@ void Game::Run(double delta) {
 			prints[4]->setString("Gravity: No Gravity", 20);
 		}
 
+		//sets flightbow
 		if (input->Key(Key::Q).Active) {
 			bow->setBowType(BowType::Flight);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
 			prints[12]->setString("Bow: Flightbow       ", 20);
 		}
 
+		//sets hybridbow
 		if (input->Key(Key::W).Active) {
 			bow->setBowType(BowType::Hybrid);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
 			prints[12]->setString("Bow: Hybridbow            ", 20);
 		}
 
+		//sets warbow
 		if (input->Key(Key::E).Active) {
 			bow->setBowType(BowType::War);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
 			prints[12]->setString("Bow: Warbow            ", 20);
 		}
 
+		//sets targetbow
 		if (input->Key(Key::R).Active) {
 			bow->setBowType(BowType::Targetbow);
 			bow->setTexture(textures.GetTexture(T2_Bow)->ShaderResourceView);
 			prints[12]->setString("Bow: Targetbow            ", 20);
 		}
 
-		//clear game field of old arrows
+		//clear game field of old arrows and resets scoreboard
 		if (input->Key(Key::F5).Active) {
 			for (int i = 0; i < MAX_ARROW; i++) {
 				delete arrows[i];
@@ -388,6 +413,7 @@ void Game::Run(double delta) {
 			bow->drawArrow(delta);
 		}
 		
+		//release arrow if bowstring have been drawned and space is released
 		if (bow->arrowReady() && !input->Key(Key::_Space).Active) {
 			nrOfArrows++;
 			activeArrow = new Arrow(
@@ -411,9 +437,11 @@ void Game::Run(double delta) {
 			camera->setFocus(activeArrow);
 		}
 
+		//sets current drawforce for hud element
 		prints[5]->setValue(bow->currentDrawForce(), 3);
 	}
 
+	//sets current wind speed for hud element
 	prints[2]->setValue(wind->getWindDirectionAndSpeed().z, 3);
 
 	//update camera with focus or fixed position if needed
@@ -441,6 +469,7 @@ void Game::Run(double delta) {
 		if (arrows[i]) arrows[i]->moveWorldToView();
 	}
 
+	//update the wind elements so it rotates towards the current wind direction
 	wind->updateElement(delta);
 }
 
@@ -463,6 +492,7 @@ void Game::Draw() {
 	human->renderElement();
 	bow->renderElement();
 
+	//only render these if hud rendering is turned on
 	if (renderOpt & RENDER_HUD) {
 		for (int i = 0; i < MAX_PRINTS; i++) {
 			if (prints[i]) prints[i]->renderElement();

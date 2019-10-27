@@ -1,3 +1,12 @@
+/*
+* print.h/print.cpp
+* An abstract element class for creating several smaller abstract elements that can hold different text or numbers
+* to be displayed as hud element. It can translate text and numbers into font sprite and updates the hud accordingly
+* to set configuration.
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #pragma once
 #include "elements/AbstractElement.h"
 

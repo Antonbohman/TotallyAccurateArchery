@@ -1,3 +1,13 @@
+/*
+* bow.h/bow.cpp
+* A physical element class for drawing our bow and calculate rotation between
+* bow and mouse position so that arrows are fired at same angle, also stores the
+* amount bow string as been drawned and calculates the force that is put into arrow when fired,
+* depending on current selected bow type
+*
+* Written and all rights reserved by: Filip Unger & Anton Bohman
+*/
+
 #include "elements\Bow.h"
 
 Bow::Bow() : PhysicalElement() {
@@ -21,6 +31,7 @@ Bow::~Bow() {
 }
 
 void Bow::setBowType(UINT bowType) {
+	//sets values corresponding to bowtype selected
 	switch (bowType) {
 	case BowType::Flight:
 		drawDistance = 0;
@@ -78,6 +89,7 @@ void Bow::setBowType(UINT bowType) {
 }
 
 void Bow::drawArrow(double delta) {
+	//sets new draw amount depending on delta time
 	float invTime = 0;
 
 	drawTime += delta;
@@ -95,6 +107,7 @@ bool Bow::arrowReady() {
 }
 
 Vector3 Bow::fireArrow(float arrowMass) {
+	//calculates the force our arrow is fired with
 	float velocitySize = pow(
 		(efficiencyFactor * drawForce * drawDistance) /
 		(arrowMass + scalingFactor * mass),
@@ -115,6 +128,7 @@ float Bow::currentDrawForce() {
 }
 
 void Bow::updateElement(MouseInfo mouse) {
+	//updates the rotation of our bow depending on where the mouse is on screen
 	Vector3 bowPos(viewPosition.x, viewPosition.y, 0);
 	Vector3 mousePos(mouse.X, W_HEIGHT - mouse.Y, 0);
 
@@ -139,6 +153,7 @@ void Bow::updateElement(MouseInfo mouse) {
 
 	rotation *= XM_PI;
 
+	//sets out direction aimed at along with the new rotation of bow
 	direction = Vector3
 	(
 		cos(-rotation),
